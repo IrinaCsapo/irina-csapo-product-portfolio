@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/checkmark-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/checkmark-icon" fill="#4B6BF5" fill-rule="nonzero">
+            <path d="M10,0 C4.5,0 0,4.5 0,10 C0,15.5 4.5,20 10,20 C15.199219,20 19.40625,16.101563 19.90625,11 L17.90625,11 C17.40625,14.898438 14,18 10,18 C5.601563,18 2,14.398438 2,10 C2,5.601563 5.601563,2 10,2 C11.398438,2 12.707031,2.398438 13.90625,3 L15.40625,1.5 C13.804688,0.601563 12,0 10,0 Z M18.5,2.875 L9.1875,11.78125 L5.5,8.09375 L4.09375,9.5 L9.1875,14.59375 L9.90625,13.90625 L19.90625,4.3125 L18.5,2.875 Z" id="icon"></path>
+        </g>
+    </g>
+</svg>

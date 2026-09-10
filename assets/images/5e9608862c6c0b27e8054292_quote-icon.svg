@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/quote-icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icons/quote-icon" fill="#F4F5F9">
+            <path d="M9.59017866,11.5990783 L9.59017866,21 L0,21 L0,14.3640553 C0,11.7833972 0.438761956,9.41782949 1.31629903,7.26728111 C2.19383611,5.11673272 3.66682267,3.02765991 5.73530292,1 L9.30811458,3.76497696 C6.86354701,6.40707926 5.48458087,9.01842028 5.17117477,11.5990783 L9.59017866,11.5990783 Z M24,11.5990783 L24,21 L14.4098213,21 L14.4098213,14.3640553 C14.4098213,11.7833972 14.8485833,9.41782949 15.7261204,7.26728111 C16.6036574,5.11673272 18.076644,3.02765991 20.1451243,1 L23.7179359,3.76497696 C21.2733684,6.40707926 19.8944022,9.01842028 19.5809961,11.5990783 L24,11.5990783 Z" id="“"></path>
+        </g>
+    </g>
+</svg>
