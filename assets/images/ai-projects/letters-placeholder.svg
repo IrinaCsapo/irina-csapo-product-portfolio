@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1174" height="1020" viewBox="0 0 1174 1020">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b2a5c"/><stop offset="0.6" stop-color="#b48be0"/><stop offset="1" stop-color="#f6c7c0"/></linearGradient>
+<radialGradient id="glow" cx="0.75" cy="0.2" r="0.6"><stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1174" height="1020" fill="url(#g)"/>
+<rect width="1174" height="1020" fill="url(#glow)"/>
+<text x="587" y="470" text-anchor="middle" font-family="Albert Sans, Helvetica, Arial, sans-serif" font-size="68" font-weight="700" fill="#ffffff">Letters from</text><text x="587" y="550" text-anchor="middle" font-family="Albert Sans, Helvetica, Arial, sans-serif" font-size="68" font-weight="700" fill="#ffffff">Your Future Self</text>
+<text x="587" y="630" text-anchor="middle" font-family="Albert Sans, Helvetica, Arial, sans-serif" font-size="26" letter-spacing="6" fill="#ffffff" fill-opacity="0.7">IMAGE COMING SOON</text>
+</svg>
