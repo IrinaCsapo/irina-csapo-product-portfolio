@@ -1,0 +1,60 @@
+/* Project cards: shared by the Product Design landing page (index.html) and
+   AI Projects. Each card sets --pc to its project colour, which outlines its
+   tags. Title, industry line, description, then outlined keyword tags. */
+
+.pc-body {
+  width: 100%;
+  padding-top: 28px;
+  padding-bottom: 20px;
+  font-family: var(--font-family);
+  color: var(--midnight-blue);
+}
+
+.pc-title {
+  margin: 0 0 12px;
+  font-family: var(--font-family);
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--midnight-blue);
+}
+
+/* Explicit colour: Webflow's global `p` rule uses var(--dark), which is
+   transparent in this stylesheet. */
+.pc-industry,
+.pc-desc {
+  color: var(--midnight-blue);
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+.pc-industry { margin-bottom: 12px; }
+.pc-desc { margin-bottom: 18px; }
+.pc-industry strong,
+.pc-desc strong { font-weight: 700; }
+
+.pc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 10px;
+}
+
+.pc-tag {
+  border: 1.5px solid var(--pc, var(--midnight-blue));
+  border-radius: 999px;
+  padding: 3px 15px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 300;
+  color: #3a3a4a;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+  .pc-body { padding-top: 20px; padding-bottom: 10px; }
+  .pc-title { font-size: 30px; }
+  .pc-industry, .pc-desc { font-size: 17px; }
+  .pc-tag { font-size: 13px; padding: 2px 12px; }
+}
