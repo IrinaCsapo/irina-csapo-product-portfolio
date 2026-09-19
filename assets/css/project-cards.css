@@ -41,12 +41,19 @@
   gap: 9px 10px;
 }
 
+/* Flex-centred with a fixed height so the label sits in the middle of the
+   pill in every browser (Safari and Chrome place Albert Sans differently
+   when centring relies on line-height alone). */
 .pc-tag {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 30px;
   border: 1.5px solid var(--pc, var(--midnight-blue));
   border-radius: 999px;
-  padding: 3px 15px;
+  padding: 0 15px;
   font-size: 15px;
-  line-height: 22px;
+  line-height: 1;
   font-weight: 300;
   color: #3a3a4a;
   white-space: nowrap;
@@ -56,5 +63,9 @@
   .pc-body { padding-top: 20px; padding-bottom: 10px; }
   .pc-title { font-size: 30px; }
   .pc-industry, .pc-desc { font-size: 17px; }
-  .pc-tag { font-size: 13px; padding: 2px 12px; }
+  .pc-tags { gap: 7px 6px; }
+  /* Whole-pixel border: 1.5px rounds unevenly on 3x phone screens, so some
+     sides of a pill looked thicker than others. Slightly heavier weight so
+     small text doesn't look spindly. */
+  .pc-tag { height: 26px; padding: 0 11px; border-width: 1px; font-size: 13px; font-weight: 400; }
 }
