@@ -1,0 +1,7 @@
+/* The "Product Design" dropdown is parked, not deleted. Its menu markup is
+   still in every page, so it can be brought back (see the HTML comment above
+   the dropdown). These rules keep it out of sight and drop the chevron, so
+   "Product Design" reads as a plain link to the landing page. */
+.nav-dropdown-off .w-dropdown-list { display: none !important; }
+.nav-dropdown-off .chevron { display: none; }
+.nav-dropdown-off .dropdown-toggle { padding-right: 16px; }
