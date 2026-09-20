@@ -185,3 +185,16 @@
 @media screen and (max-width: 767px) {
   .pc-media { border-radius: 10px; }
 }
+
+/* Card call to action. The whole card is the link; this is the visible cue. */
+.pc-cta {
+  margin-top: 14px;
+  font-family: Albert Sans, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--deep-pink);
+}
+
+@media screen and (max-width: 767px) {
+  .pc-cta { font-size: 15px; }
+}
