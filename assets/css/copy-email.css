@@ -23,3 +23,37 @@
 @media screen and (max-width: 479px) {
   .copy-email-status { font-size: 12px; }
 }
+
+/* Contact page: direct ways to get in touch, in place of the old form. */
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+}
+
+.contact-actions-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 26px;
+}
+
+.contact-secondary-link {
+  font-family: Albert Sans, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--midnight-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-secondary-link:hover { color: var(--deep-pink); }
+
+/* The copy button on this page sits on white, so it keeps the site's
+   standard button colour rather than the white pill used on gradients. */
+.contact-actions .copy-email-wrap { align-items: flex-start; }
+.contact-actions .copy-email-status { align-self: flex-start; }
+
+/* Card columns sit level now the tall form has gone. */
+.contact-card-v1 { align-items: center; }
