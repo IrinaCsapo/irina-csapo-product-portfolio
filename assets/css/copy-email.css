@@ -57,3 +57,11 @@
 
 /* Card columns sit level now the tall form has gone. */
 .contact-card-v1 { align-items: center; }
+
+/* Contact hero: the CTAs sit centred under the intro line. */
+.play-section-intro .contact-actions {
+  align-items: center;
+  margin-top: 26px;
+}
+.play-section-intro .contact-actions-secondary { justify-content: center; }
+.play-section-intro .copy-email-wrap { align-items: center; }
