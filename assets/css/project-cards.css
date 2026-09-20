@@ -69,3 +69,79 @@
      small text doesn't look spindly. */
   .pc-tag { height: 26px; padding: 0 11px; border-width: 1px; font-size: 13px; font-weight: 400; }
 }
+
+/* Full-width banner linking the landing page to AI Projects. Sits where the
+   large featured case study card used to be. */
+.ai-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 30px;
+  padding: 40px 48px;
+  border-radius: 20px;
+  background-image: linear-gradient(110deg, #f6f3ff 0%, #fdeaf6 45%, #fff6e8 100%);
+  text-decoration: none;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.ai-banner:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(20, 20, 60, .14);
+}
+
+.ai-banner-eyebrow {
+  margin-bottom: 8px;
+  font-family: Albert Sans, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--deep-pink);
+}
+
+.ai-banner-title {
+  margin: 0 0 8px;
+  font-family: var(--font-family);
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--midnight-blue);
+}
+
+.ai-banner-sub {
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-family);
+  font-size: 20px;
+  line-height: 1.35;
+  font-weight: 400;
+  color: var(--midnight-blue);
+}
+
+.ai-banner-cta {
+  flex: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background-color: var(--deep-pink);
+  font-family: Albert Sans, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+  .ai-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 28px 24px;
+    border-radius: 14px;
+  }
+  .ai-banner-title { font-size: 30px; }
+  .ai-banner-sub { font-size: 17px; }
+  .ai-banner-cta { padding: 12px 22px; font-size: 15px; }
+}
