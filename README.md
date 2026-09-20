@@ -78,18 +78,16 @@ rather than silently changed:
 
 | Issue | Where | Notes |
 |---|---|---|
-| `/quote` links 404 | footer/CTA on most pages | The "Request a Quote" page is an unpublished draft in Webflow. Repoint these to `/contact` or remove them. |
-| `/old-home`, `/old-home-2` links 404 | 404 page, photography pages | Unpublished drafts. |
+| `/old-home`, `/old-home-2` links 404 | photography and legacy `portfolio/` pages | Unpublished drafts. |
 | `/portfolio/creative-duo` links 404 | `ai-applications` | Unpublished draft. |
 | 2 missing icons | `portfolio/spree-app` | `shield-check-1.svg`, `thunder-move-1.svg` are hosted under a *different* Webflow account and now return 403. Replace or delete them. |
 
 ## Things that changed in the migration
 
-- **Contact form is inert.** It kept its exact markup and styling, but submission
-  is disabled (`onsubmit="return false;"`) and the Cloudflare Turnstile widget was
-  removed — both only worked on Webflow's servers. There is a `TODO` comment above
-  the form in `contact/index.html` with wiring instructions. A form backend such as
-  Formspree needs only an `action` URL and `method="POST"`.
+- **No contact form.** Webflow handled form submissions on its own servers, so the
+  form could not survive the move. The Contact page now offers a copy-email button,
+  LinkedIn and the CV instead. To add a form back, a backend such as Formspree needs
+  only an `action` URL and `method="POST"`.
 - **Webflow's Google Analytics proxy was removed.** Webflow served GA through an
   obfuscated first-party path that exists only on its own infrastructure, so it
   404'd everywhere else. It carried a Universal Analytics ID (`UA-172745255-1`),
