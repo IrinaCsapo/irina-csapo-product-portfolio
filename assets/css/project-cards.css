@@ -169,3 +169,19 @@
 @media screen and (max-width: 767px) {
   .pc-more { padding: 11px 24px; font-size: 15px; border-width: 1px; }
 }
+
+/* Card media: 16:9 for the AI cards, so the hero videos are shown uncropped
+   and every row keeps the same height. The box is reserved before the video
+   or poster loads, so nothing jumps. */
+.pc-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1174 / 660;
+  object-fit: cover;
+  border-radius: 20px;
+  background-color: #eceaf5;
+}
+
+@media screen and (max-width: 767px) {
+  .pc-media { border-radius: 10px; }
+}
