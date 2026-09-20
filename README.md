@@ -4,6 +4,33 @@ Static site, migrated off Webflow. No build step, no dependencies, no subscripti
 Every page is plain HTML with its assets committed alongside it, so it can be served
 by any static host.
 
+## Environments
+
+| | URL | Served from |
+|---|---|---|
+| Live | https://irinacsapo.co.uk | GitHub Pages, `main` branch |
+| Preview | `<project>.pages.dev` | Cloudflare Pages, `staging` branch |
+
+Work on `staging`, check the preview URL, then merge `staging` into `main`
+to publish. The `CNAME` file at the repo root is what points GitHub Pages at
+the domain; leave it in place.
+
+### DNS for irinacsapo.co.uk
+
+At the registrar, replace the Webflow records with:
+
+| Type | Host | Value |
+|---|---|---|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `irinacsapo.github.io` |
+
+Then **Settings → Pages → Custom domain**, enter `irinacsapo.co.uk`, and tick
+**Enforce HTTPS** once the certificate is issued. GitHub redirects
+`www` to the apex automatically.
+
 ## Deploying to GitHub Pages
 
 1. Create a repo on GitHub (e.g. `irina-csapo-product-portfolio`) — **public**, and
@@ -21,23 +48,6 @@ by any static host.
 4. Wait a minute or two, then open
    `https://<your-username>.github.io/irina-csapo-product-portfolio/`.
 
-### Moving irinacsapo.co.uk across later
-
-All internal links are **relative**, so the site works unchanged at a sub-path
-(`user.github.io/repo/`), at a domain root, or opened from disk. Switching the
-domain over needs no edits to the HTML:
-
-1. Add a file called `CNAME` at the repo root containing one line:
-   `www.irinacsapo.co.uk`
-2. At your domain registrar, set:
-   - `CNAME` record, host `www` → `<your-username>.github.io`
-   - Four `A` records for the apex `@` → `185.199.108.153`, `185.199.109.153`,
-     `185.199.110.153`, `185.199.111.153`
-3. **Settings → Pages → Custom domain**, enter `www.irinacsapo.co.uk`, then tick
-   **Enforce HTTPS** once the certificate is issued (can take up to 24h).
-
-Keep the Webflow site published until DNS has propagated and the new site is
-confirmed working — the two can coexist, and only DNS decides which one answers.
 
 ## Layout
 
