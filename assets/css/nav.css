@@ -5,3 +5,18 @@
 .nav-dropdown-off .w-dropdown-list { display: none !important; }
 .nav-dropdown-off .chevron { display: none; }
 .nav-dropdown-off .dropdown-toggle { padding-right: 16px; }
+
+/* Current page stays in the navbar, in pink. The site stylesheet hid it
+   (.navigation-link-primary.w--current { display: none }), so clicking a nav
+   item made it vanish. */
+.navigation-link-primary.w--current {
+  display: inline-block;
+  color: var(--deep-pink);
+}
+
+/* "Product Design" is the dropdown toggle's link, highlighted the same way
+   on the landing page. */
+.text-block-23.w--current,
+.nav-dropdown-off .dropdown-toggle .text-block-23.w--current {
+  color: var(--deep-pink);
+}
