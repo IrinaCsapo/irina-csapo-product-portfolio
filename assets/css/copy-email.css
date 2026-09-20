@@ -1,0 +1,25 @@
+/* "Copy my email" button, with a small status line above it. */
+.copy-email-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Always present so revealing the status never shifts the button. */
+.copy-email-status {
+  height: 20px;
+  font-family: Albert Sans, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--deep-pink);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+.copy-email-wrap.is-copied .copy-email-status { opacity: 1; }
+
+@media screen and (max-width: 479px) {
+  .copy-email-status { font-size: 12px; }
+}
