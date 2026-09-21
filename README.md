@@ -100,10 +100,10 @@ rather than silently changed:
 
 ## Still loaded from third parties
 
-These are unchanged and keep working, but they are external dependencies:
-Google Fonts, jQuery/GSAP were localised, but the cookie banner
-(`flowbase.s3-ap-southeast-2.amazonaws.com`), Umami, Heap and Pendo analytics, and
-some images on `dl.dropboxusercontent.com` still load remotely.
+jQuery, GSAP and Albert Sans are served from this repo. Still loaded remotely:
+Google Fonts (via `webfont.js`), the Flowbase cookie banner
+(`flowbase.s3-ap-southeast-2.amazonaws.com`), self-hosted Umami analytics, and some
+images on `dl.dropboxusercontent.com`. Heap and Pendo were removed in September 2026.
 
 ## Regenerating
 
