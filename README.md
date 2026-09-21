@@ -101,9 +101,9 @@ rather than silently changed:
 ## Still loaded from third parties
 
 jQuery, GSAP and Albert Sans are served from this repo. Still loaded remotely:
-Google Fonts (via `webfont.js`), self-hosted Umami analytics, and 14 case study
-videos on `dl.dropboxusercontent.com`. Heap, Pendo and the unused Flowbase cookie
-script were removed in September 2026.
+Google Fonts (via `webfont.js`) and self-hosted Umami analytics. Heap, Pendo and the
+unused Flowbase cookie script were removed in September 2026, and the 14 case study
+videos that were on Dropbox now live in `assets/media/case-studies/`.
 
 The site sets no cookies. `assets/js/cookie-note.js` shows a small note saying so;
 dismissing it stores one `cookie-note-dismissed` flag in localStorage, with no
