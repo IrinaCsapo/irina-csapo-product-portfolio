@@ -1,0 +1,47 @@
+/* Highlighted hero words: a wide multi-colour gradient clipped to the
+   letters, sliding back and forth. Each palette is built around the word's
+   original colour so it keeps its identity. */
+.grad-word {
+  background-image: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c1));
+  background-size: 300% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  padding-bottom: .06em;            /* keep descenders (g, p) inside the paint */
+  animation: gradShift 7s ease-in-out infinite alternate;
+}
+
+@keyframes gradShift { to { background-position: 100% 0; } }
+
+.grad-blue   { --c1: #4b6bf5; --c2: #8a5cff; --c3: #27b3f2; }
+.grad-pink   { --c1: #ff0091; --c2: #ff6aa9; --c3: #b04dff; }
+.grad-orange { --c1: #f5a100; --c2: #ff5c3d; --c3: #ff0091; }
+.grad-ai     { --c1: #4b6bf5; --c2: #9b4dff; --c3: #ff0091; }
+
+/* The same AI sparkle as the banner above the case studies, pinned to the
+   word's top-right corner so it takes no space in the line, and gently
+   twinkling. */
+.has-sparkle { position: relative; }
+
+.ai-sparkle {
+  position: absolute;
+  top: -.18em;
+  right: -.5em;
+  width: .5em;
+  height: .5em;
+  pointer-events: none;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.ai-sparkle svg { display: block; width: 100%; height: 100%; }
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  50%      { transform: scale(.8) rotate(14deg); opacity: .75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grad-word, .ai-sparkle { animation: none; }
+}
