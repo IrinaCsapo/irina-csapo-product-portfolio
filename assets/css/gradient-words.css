@@ -1,5 +1,5 @@
 /* Highlighted hero words: a wide multi-colour gradient clipped to the
-   letters, sliding back and forth. Each palette is built around the word's
+   letters, sliding back and forth every 4.5s. Each palette is built around the word's
    original colour so it keeps its identity. */
 .grad-word {
   background-image: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c1));
@@ -10,7 +10,7 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
   padding-bottom: .06em;            /* keep descenders (g, p) inside the paint */
-  animation: gradShift 7s ease-in-out infinite alternate;
+  animation: gradShift 4.5s ease-in-out infinite alternate;
 }
 
 @keyframes gradShift { to { background-position: 100% 0; } }
