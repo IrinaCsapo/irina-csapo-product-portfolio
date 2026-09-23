@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Irina Csapo for Ping Identity | Senior UX Design Developer</title>
+<meta name="description" content="Six lines from the Ping Identity job description, each answered with a decision. Built in code for this application by Irina Csapo."/>
+<meta name="robots" content="noindex, nofollow"/>
+<link rel="shortcut icon" href="../../assets/images/5eb585a77fc0256e26aa1c03_favicon_32x32px_v3.png" type="image/x-icon"/>
+<link rel="preload" href="../../assets/fonts/albert-sans-latin.woff2" as="font" type="font/woff2" crossorigin/>
+<style>
+  /* Albert Sans, self-hosted with the rest of the site. No external requests. */
+  @font-face {
+    font-family: "Albert Sans";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url(../../assets/fonts/albert-sans-latin.woff2) format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+      U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+  @font-face {
+    font-family: "Albert Sans";
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url(../../assets/fonts/albert-sans-latin-ext.woff2) format("woff2");
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+      U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+      U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+
+  /* Every colour below is checked at the size it is used.
+     Body text needs 4.5:1, large display text needs 3:1.
+       --ink        18.6:1    --body     8.3:1    --muted     5.8:1
+       --pink-text   5.8:1    --violet   6.6:1    --pink-display 3.7:1 (display only)
+       --orange      3.4:1 (display only, darkened from the portfolio's #f5a100 at 2.1:1) */
+  :root {
+    --font: "Albert Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --paper: #fdfdff;
+    --card: #ffffff;
+    --line: #e4e6f2;
+    --ink: #000645;
+    --body: #454b72;
+    --muted: #5c628a;
+    --pink-text: #c2185b;
+    --pink-display: #ff0091;
+    --violet: #5b3fd6;
+    --violet-ring: #7b5cfa;
+    --orange: #e06a10;
+    --blue: #4b6bf5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--body);
+    font-family: var(--font);
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Soft gradient blooms, matching the portfolio hero. */
+  .blooms {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(42rem 30rem at 8% -6%, rgba(255, 233, 150, .5), transparent 70%),
+      radial-gradient(40rem 28rem at 96% 2%, rgba(255, 138, 205, .42), transparent 70%),
+      radial-gradient(38rem 30rem at -6% 42%, rgba(150, 168, 255, .38), transparent 70%),
+      radial-gradient(44rem 32rem at 100% 78%, rgba(255, 160, 205, .34), transparent 72%);
+  }
+
+  .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--pink-text); }
+
+  :focus-visible {
+    outline: 3px solid var(--violet-ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--card);
+    color: var(--ink);
+    padding: 12px 18px;
+    border-radius: 0 0 12px 0;
+    font-weight: 700;
+  }
+  .skip:focus { left: 0; z-index: 10; }
+
+  /* ---------- hero ---------- */
+  header.hero { padding: 96px 0 72px; text-align: center; }
+
+  .eyebrow {
+    margin: 0 0 22px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--pink-text);
+  }
+
+  h1 {
+    margin: 0 auto 26px;
+    max-width: 18ch;
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -.015em;
+    color: var(--ink);
+  }
+
+  .grad {
+    background-image: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c1));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: .06em;
+    animation: gradShift 4.5s ease-in-out infinite alternate;
+  }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .grad { color: var(--c1); -webkit-text-fill-color: var(--c1); }
+  }
+  .g-design { --c1: #4b6bf5; --c2: #8a5cff; --c3: #27b3f2; }
+  .g-build  { --c1: #b04dff; --c2: #ff0091; --c3: #7b5cfa; }
+  .g-ship   { --c1: #e06a10; --c2: #e8543f; --c3: #ff0091; }
+  @keyframes gradShift { to { background-position: 100% 0; } }
+
+  .lede {
+    margin: 0 auto;
+    max-width: 62ch;
+    font-size: clamp(18px, 2.1vw, 22px);
+    line-height: 1.55;
+    color: var(--body);
+  }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  .meta {
+    margin: 34px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    justify-content: center;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .meta span, .meta a {
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, .72);
+    border-radius: 999px;
+    padding: 7px 16px;
+    text-decoration: none;
+    color: var(--muted);
+  }
+  .meta a { color: var(--violet); font-weight: 700; }
+
+  /* ---------- sections ---------- */
+  section { padding: 56px 0; }
+
+  .num {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .num b { color: var(--pink-text); }
+  .num i { flex: 1; height: 1px; background: var(--line); font-style: normal; }
+
+  blockquote.jd {
+    margin: 0 0 30px;
+    padding: 0 0 0 22px;
+    border-left: 3px solid var(--pink-display);
+    font-size: clamp(23px, 3.1vw, 34px);
+    line-height: 1.28;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    color: var(--ink);
+  }
+  blockquote.jd cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: .04em;
+    color: var(--muted);
+  }
+
+  h2 {
+    margin: 0 0 14px;
+    font-size: clamp(26px, 3.4vw, 36px);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -.012em;
+    color: var(--ink);
+  }
+
+  h3 {
+    margin: 30px 0 10px;
+    font-size: 21px;
+    line-height: 1.3;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  p { margin: 0 0 18px; max-width: 68ch; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--ink); font-weight: 700; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 30px 32px;
+    box-shadow: 0 14px 34px rgba(0, 6, 69, .05);
+  }
+
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 26px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stats li {
+    flex: 1 1 150px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, .8);
+  }
+  .stats b {
+    display: block;
+    font-size: clamp(26px, 3.6vw, 34px);
+    line-height: 1.1;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .stats span { display: block; margin-top: 6px; font-size: 15px; color: var(--muted); }
+
+  .pull {
+    margin: 30px 0;
+    padding: 26px 30px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--violet-ring);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .8);
+    font-size: clamp(20px, 2.5vw, 26px);
+    line-height: 1.35;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .takeaway {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    font-size: 19px;
+    color: var(--body);
+  }
+  .takeaway strong { color: var(--ink); }
+
+  ul.plain { margin: 0 0 18px; padding-left: 22px; }
+  ul.plain li { margin-bottom: 10px; max-width: 66ch; }
+
+  /* ---------- contrast tool ---------- */
+  .tool { margin-top: 28px; }
+  .tool-row { display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .field .inputs { display: flex; gap: 8px; align-items: center; }
+  .field input[type="color"] {
+    width: 48px; height: 44px; padding: 0;
+    border: 1px solid var(--line); border-radius: 10px; background: none; cursor: pointer;
+  }
+  .field input[type="text"] {
+    width: 116px; padding: 11px 12px;
+    border: 1px solid var(--line); border-radius: 10px;
+    font-family: var(--font); font-size: 16px; color: var(--ink); background: var(--card);
+  }
+  .swatch {
+    flex: 1 1 260px;
+    min-height: 116px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .swatch .big { font-size: 26px; font-weight: 700; line-height: 1.2; }
+  .swatch .small { font-size: 16px; }
+  .result { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+  .ratio { font-size: 34px; font-weight: 700; color: var(--ink); line-height: 1; }
+  .verdict {
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    background: rgba(255, 255, 255, .8);
+  }
+  .verdict.pass { border-color: #1b7f4b; color: #12603a; }
+  .verdict.fail { border-color: #b3261e; color: #8c1d18; }
+  .tool-note { margin-top: 16px; font-size: 15px; color: var(--muted); max-width: 66ch; }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 40px;
+    padding: 54px 0 70px;
+    border-top: 1px solid var(--line);
+    background: rgba(255, 255, 255, .6);
+  }
+  footer p { color: var(--muted); font-size: 16px; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 12px 18px; margin: 0 0 18px; }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .grad { animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 18px; }
+    header.hero { padding: 64px 0 48px; }
+    section { padding: 44px 0; }
+    .card { padding: 24px 22px; border-radius: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="blooms" aria-hidden="true"></div>
+<a class="skip" href="#start">Skip to content</a>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">For Ping Identity &middot; Senior UX Design Developer</p>
+    <h1>I <span class="grad g-design">design</span> it, then I <span class="grad g-build">build</span> it, then I <span class="grad g-ship">ship</span> it.</h1>
+    <p class="lede">This page is only about your role. <strong>Six lines from your job description, each answered with a decision I made and why.</strong> Then a section on what I don't have, because you will find that out anyway and I would rather you heard it from me.</p>
+    <p class="meta">
+      <span>Irina Csapo</span>
+      <span>UK, remote</span>
+      <span>Built in code for this application</span>
+      <a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a>
+      <a href="https://irina.love">irina.love</a>
+    </p>
+  </div>
+</header>
+
+<main id="start">
+
+  <!-- 1 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>01</b> <i></i> Code as a design tool</p>
+      <blockquote class="jd">"You'll use code as a design tool, not simply as an implementation medium."
+        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <div class="card">
+        <h2>Vera, built in two days because the question needed answering</h2>
+        <p>Vera checks supplement and wellness claims against scientific evidence. It takes three kinds of input: paste a social link, upload a screenshot, or search a brand name. I led product design and engineering, at the ZOE Women in Tech Hackathon in London in July 2026, in a team of six who were mostly strangers.</p>
+        <p>The interesting part is not the build, it is what the build settled. You cannot tell from a design file whether a trust score feels credible when the data behind it is thin. So the prototype pulls real numbers: a Cloudflare Worker fetches posts server&#8209;side, a model with search grounding identifies the product, and OpenAlex returns live counts of peer&#8209;reviewed studies. Once real data was flowing, the design question changed from "how should this look" to "what do we do when we cannot verify something", which is a much better question to be arguing about on day one.</p>
+        <ul class="stats">
+          <li><b>2 days</b><span>idea to working app</span></li>
+          <li><b>3 inputs</b><span>link, screenshot, brand</span></li>
+          <li><b>Live data</b><span>OpenAlex study counts</span></li>
+        </ul>
+        <p class="takeaway"><strong>Why I build rather than mock:</strong> a prototype in code exists to answer a question you cannot answer in a design file. Everything else is decoration.
+          <a href="https://irinacsapo.github.io/zoe-hackathon-app/">Open Vera</a> or <a href="https://irinacsapo.github.io/zoe-hackathon-app/case-study.html">read the case study</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>02</b> <i></i> Prototyping before implementation</p>
+      <blockquote class="jd">"Rapidly prototype workflows, interactions and usability concepts before implementation."
+        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <div class="card">
+        <h2>Omaze Monthly Millionaire, where the data ended the layout argument</h2>
+        <p>Omaze had raised its subscription price from &pound;10 to &pound;15. Monthly Millionaire, a &pound;1m monthly draw, launched as a free add&#8209;on to subscriptions and also pay as you go. It opened at roughly &pound;650k a month against a forecast above &pound;1m.</p>
+        <p>Two pieces of data decided the direction before any visual work started. Meta funnel analysis showed mobile users interacting predominantly with the bottom half of the screen, and internal data showed a customer base skewing 45 and over. That turned an opinion argument about layout into a rebuild with a clear value hierarchy above the fold, persistent thumb&#8209;reachable calls to action, winner testimonials, and larger, more legible type.</p>
+        <p>Then three experiments, one at a time, so each result meant something.</p>
+        <ul class="stats">
+          <li><b>+7.3%</b><span>TrustPilot rating and testimonials above the fold</span></li>
+          <li><b>+4.8%</b><span>winner reaction video as a looping hero</span></li>
+          <li><b>+8.5%</b><span>subscription surfaced early as "Best Value", anchored on entries rather than price</span></li>
+        </ul>
+        <p class="takeaway"><strong>The decision I am proudest of</strong> is the third one, because it carried real cannibalisation risk. Pushing subscription earlier could have eaten pay as you go, so we measured both sides rather than just the number that would have looked good. It did not cannibalise. Overall the work delivered a <strong>35% conversion uplift</strong>, &pound;1.5m in a month, sustained above &pound;1m. Separately, checkout bolt&#8209;ons lifted attachment rate by 27%.
+          <a href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/">Read the case study</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>03</b> <i></i> Complex enterprise software</p>
+      <blockquote class="jd">"Design UX for complex enterprise SaaS applications and supporting customer experiences."
+        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <div class="card">
+        <h2>Veva, one system for two users with nothing in common</h2>
+        <p>Veva is a mobile app controlling EV home charge points. It has two audiences who share almost no context: the homeowner who lives with it for years, and the installing engineer who meets it once, on a driveway, under time pressure. There is a dedicated engineer mode because those are genuinely different products wearing one badge.</p>
+        <p>I designed the installer's flow first. The install is the gate: if connecting the unit fails on the driveway, the homeowner never reaches the product at all, and the support cost lands immediately. So the app uses smart detection to find the charger, with a local hotspot fallback for when the home network is not usable at install time, rather than assuming a working home network is available at the one moment it usually is not.</p>
+        <p>For the homeowner side, charging status runs through eight animated states built in Rive and exported as JSON, using a pulsating dial as a metaphor for current. Alongside that: multi&#8209;user and multi&#8209;car support, schedules, spend analysis over time, cost tracking and remote management.</p>
+        <p><strong>No metrics exist for this project</strong>, so I am not going to give you any. The team was one product designer, which was me, plus a business analyst, a product manager and an iOS and an Android engineer.</p>
+        <p class="takeaway">My second example is <strong>Paycada</strong>, an automated invoice chasing platform in regulated fintech, where I was sole designer for three years from zero to one, across the platform, the website and the brand.
+          <a href="https://irinacsapo.co.uk/case-studies/veva-case-study/">Veva case study</a> &middot;
+          <a href="https://irinacsapo.co.uk/case-studies/paycada-case-study/">Paycada case study</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>04</b> <i></i> Accessibility and WCAG</p>
+      <blockquote class="jd">"Solid understanding of accessibility standards and WCAG."
+        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <div class="card">
+        <h2>The audit I ran, and the failure in my own portfolio</h2>
+        <p>On Paycada I ran a WCAG audit of the live product and it found two failures that were already shipped. That is the useful kind of audit, the one that costs you something.</p>
+        <p>Here is a more uncomfortable example. The hero on my own portfolio sets the word "experiences" in orange. Measured from the live CSS, that orange sits at <strong>2.1:1</strong> against the near&#8209;white hero. Large display text needs 3:1. It fails, and it has been failing in public for a while.</p>
+        <p>On this page the same orange is darkened to <strong>3.4:1</strong>, which passes at display size. Every other colour here was checked at the size it is used, and body text runs at 8.3:1. I would rather show you the working than assert the knowledge, so the tool below is the real WCAG calculation: sRGB linearisation, the 0.2126, 0.7152 and 0.0722 coefficients, and the 0.05 offsets. It opens on my own failure.</p>
+
+        <div class="tool">
+          <h3 id="tool-heading">Contrast checker</h3>
+          <div class="tool-row">
+            <div class="field">
+              <label for="fg">Text colour</label>
+              <div class="inputs">
+                <input type="color" id="fg" value="#f5a100" aria-label="Text colour picker"/>
+                <input type="text" id="fgHex" value="#f5a100" spellcheck="false" aria-label="Text colour hex value"/>
+              </div>
+            </div>
+            <div class="field">
+              <label for="bg">Background colour</label>
+              <div class="inputs">
+                <input type="color" id="bg" value="#fdfdff" aria-label="Background colour picker"/>
+                <input type="text" id="bgHex" value="#fdfdff" spellcheck="false" aria-label="Background colour hex value"/>
+              </div>
+            </div>
+            <div class="swatch" id="swatch">
+              <span class="big">Large display text</span>
+              <span class="small">Body text at 16 pixels</span>
+            </div>
+          </div>
+          <div class="result" role="status" aria-live="polite">
+            <span class="ratio" id="ratio">2.07:1</span>
+            <span class="verdict" id="vNormal">Body text 4.5:1</span>
+            <span class="verdict" id="vLarge">Large text 3:1</span>
+          </div>
+          <p class="tool-note">Large text means 24px and above, or 18.66px and above when bold. Anything smaller has to reach 4.5:1.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>05</b> <i></i> Design systems and coded components</p>
+      <blockquote class="jd">"Contribute to the design system, reusable UI patterns and coded component libraries."
+        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <div class="card">
+        <h2>Three tiers, and the drift problem I have not solved yet</h2>
+        <p>Paycada's system ended up in three tiers: brand primitives, semantic aliases, then component tokens, with full state coverage on components. I want to be accurate about how that happened. It <strong>emerged in the work</strong> rather than being architected on day one. I articulated it as three tiers afterwards, once the shape was obvious, and that retrospective clarity is what made it teachable.</p>
+        <p>The part I find genuinely unsolved is what happens to a system when you build with AI assistance. The failure mode is not broken code. Broken code announces itself. The failure mode is <strong>plausible code</strong>: a component that is ninety per cent right, uses a hard&#8209;coded hex instead of the semantic token, and passes review because it looks correct. Ninety per cent right is more dangerous than fifty per cent wrong, because nobody goes looking.</p>
+        <p>My current patch is to write the system's rules into a file the agent reads before it writes anything, so the constraints arrive before the code does. It helps. It is not a solution, and drift is still detectable by eye rather than by tooling.</p>
+        <p class="takeaway"><strong>This is work I would like to do properly with a team that has a real system to protect.</strong> If AI tooling is going to accelerate how much interface gets produced, then the interesting problem is not generating components faster, it is keeping a system coherent while it happens.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>06</b> <i></i> AI-assisted experiences</p>
+      <blockquote class="jd">"Design and prototype AI-assisted experiences: conversational interfaces, guided configuration, intelligent recommendations."
+        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <div class="card">
+        <h2>The decision that made Vera trustworthy</h2>
+        <p>The hardest call in Vera was what to do when the system cannot verify something.</p>
+        <p class="pull">If it cannot verify a field, that field comes back blank rather than invented.</p>
+        <p>A blank field looks worse in a demo. It is the only honest option in a product about evidence, because a plausible guess in a trust tool is not a small bug, it is the whole product failing quietly. Two consequences followed from it.</p>
+        <p>First, Vera scores the claim against the evidence, never the brand or the person making it. That keeps it a product about substance rather than a popularity engine, and it is why likes are deliberately excluded: they read as an endorsement the product has not earned. Second, the Claim Score is labelled openly as a prototype heuristic, and study counts link out to their sources, so a sceptical user can go and check.</p>
+        <p class="takeaway"><strong>The principle I would bring to identity work:</strong> users do not need a system to always be right, they need to be able to tell when it is not. That matters more, not less, when the automation is deciding whether someone is who they say they are, and the cost of a confident wrong answer is somebody either locked out or let in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>07</b> <i></i> Straight answers</p>
+      <h2>What I don't have</h2>
+      <div class="card">
+        <h3>Identity, authentication and cybersecurity</h3>
+        <p>None. I have not worked in the domain and I am not going to pretend the vocabulary is familiar. What I do have is the instinct the domain runs on: every security product lives on the tension between verification and friction, and the design job is deciding, step by step, which side you pay on. Regulated fintech and healthtech means designing inside constraints you cannot argue with is normal for me, so I expect to be slow on your terminology and quick on your tradeoffs.</p>
+
+        <h3>Production engineering inside someone else's codebase</h3>
+        <p>I ship my own products end to end, but I have not worked inside a large React codebase owned by a team of engineers. I direct and review rather than write from a blank file. I understand what I ship, I can debug it without the assistant in the room, and I can explain every decision in it. I would not claim to own your production architecture, and I would not want a role that needed me to.</p>
+
+        <h3>Primary qualitative research</h3>
+        <p>My research is behavioural and quantitative, plus usability testing: funnel data, experiments, watching people use the thing. I have not led an end to end interview programme with recruitment, discussion guide and synthesis. It is the gap I am actively closing, and on Strands I ran the research myself for emotionally sensitive health design, which is the closest I have come.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>08</b> <i></i> First weeks</p>
+      <h2>What I'd do first</h2>
+      <div class="card">
+        <ul class="plain">
+          <li><strong>Learn the domain by watching real admins work.</strong> Not a doc crawl. The vocabulary sticks when you have seen someone hesitate over a setting and then explain why.</li>
+          <li><strong>Find where people stall and prototype one fix.</strong> One coded prototype of the worst moment in a real workflow is worth more than a survey of all of them.</li>
+          <li><strong>Audit the design system for drift.</strong> Where has the shipped interface quietly stopped matching the tokens, and is that drift a mistake or a pattern the system has not caught up with yet.</li>
+          <li><strong>Keep asking which decision would tell us we were wrong.</strong> It is the question that turned the Omaze work from opinion into evidence, and it is the one I would bring to every review.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-links">
+      <a href="https://irinacsapo.co.uk">Portfolio</a>
+      <a href="https://irina.love">irina.love, shipped AI products</a>
+      <a href="https://www.cosmicpets.love/">Cosmic Pets</a>
+      <a href="https://www.linkedin.com/in/irinacsapo/">LinkedIn</a>
+      <a href="mailto:hello@irinacsapo.co.uk?subject=Senior%20UX%20Design%20Developer">hello@irinacsapo.co.uk</a>
+    </p>
+    <p><strong>Irina Csapo</strong>, senior product designer. UK, remote. Available now.</p>
+    <p>This page was built in code for this application, and it is not indexed or linked from my portfolio. Its source sits in the same public GitHub repository as the rest of the site.</p>
+  </div>
+</footer>
+
+<script>
+  /* Contrast checker: the real WCAG 2.x relative luminance calculation. */
+  (function () {
+    var fg = document.getElementById('fg'), fgHex = document.getElementById('fgHex');
+    var bg = document.getElementById('bg'), bgHex = document.getElementById('bgHex');
+    var swatch = document.getElementById('swatch');
+    var out = document.getElementById('ratio');
+    var vNormal = document.getElementById('vNormal'), vLarge = document.getElementById('vLarge');
+
+    function parse(hex) {
+      var h = String(hex).trim().replace(/^#/, '');
+      if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+      if (!/^[0-9a-f]{6}$/i.test(h)) return null;
+      return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+    }
+
+    function channel(v) {
+      v = v / 255;
+      return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    }
+
+    function luminance(rgb) {
+      return 0.2126 * channel(rgb[0]) + 0.7152 * channel(rgb[1]) + 0.0722 * channel(rgb[2]);
+    }
+
+    function contrast(a, b) {
+      var la = luminance(a), lb = luminance(b);
+      var hi = Math.max(la, lb), lo = Math.min(la, lb);
+      return (hi + 0.05) / (lo + 0.05);
+    }
+
+    function mark(el, ratio, threshold, label) {
+      var pass = ratio >= threshold;
+      el.className = 'verdict ' + (pass ? 'pass' : 'fail');
+      el.textContent = (pass ? 'Passes ' : 'Fails ') + label + ' ' + threshold + ':1';
+    }
+
+    function update() {
+      var f = parse(fgHex.value), b = parse(bgHex.value);
+      if (!f || !b) return;
+      var ratio = contrast(f, b);
+      out.textContent = ratio.toFixed(2) + ':1';
+      swatch.style.background = bgHex.value;
+      swatch.style.color = fgHex.value;
+      mark(vNormal, ratio, 4.5, 'body text');
+      mark(vLarge, ratio, 3, 'large text');
+    }
+
+    function sync(picker, text) {
+      picker.addEventListener('input', function () { text.value = picker.value; update(); });
+      text.addEventListener('input', function () {
+        if (parse(text.value)) { picker.value = '#' + parse(text.value).map(function (n) {
+          return ('0' + n.toString(16)).slice(-2); }).join(''); }
+        update();
+      });
+    }
+
+    sync(fg, fgHex);
+    sync(bg, bgHex);
+    update();
+  })();
+
+  /* Gentle reveal on scroll, skipped entirely for reduced motion. */
+  (function () {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
