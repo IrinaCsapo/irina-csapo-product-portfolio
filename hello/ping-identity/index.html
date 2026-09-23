@@ -448,7 +448,7 @@
       <div class="card">
         <h2>The audit I ran, and the failure in my own portfolio</h2>
         <p>On Paycada I ran a WCAG audit of the live product and it found two failures that were already shipped. That is the useful kind of audit, the one that costs you something.</p>
-        <p>Here is a more uncomfortable example. The hero on my own portfolio sets the word "experiences" in an animated gradient that runs from orange through coral to pink. Measured from the live CSS, those stops sit at <strong>2.1:1, 3.1:1 and 3.7:1</strong> against the near&#8209;white hero. Large display text needs 3:1, so for part of every cycle that word fails, and it has been failing in public for a while.</p>
+        <p>Here is a more uncomfortable example. The hero on my own portfolio sets the word "experiences" in an animated gradient that runs from orange through coral to pink. Measured from the live CSS, those stops sit at <strong>2.1:1, 3.0:1 and 3.7:1</strong> against the near&#8209;white hero. Large display text needs 3:1, so for part of every cycle that word fails, and it has been failing in public for a while.</p>
         <p>On this page the same orange is darkened to <strong>3.4:1</strong>, so every stop of the equivalent gradient clears 3:1. Every other colour here was checked at the size it is used, and body text runs at 8.3:1. I would rather show you the working than assert the knowledge, so the tool below is the real WCAG calculation: sRGB linearisation, the 0.2126, 0.7152 and 0.0722 coefficients, and the 0.05 offsets. It opens on my own failure.</p>
 
         <div class="tool">
