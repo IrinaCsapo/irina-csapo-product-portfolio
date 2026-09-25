@@ -263,6 +263,8 @@
 
   /* Project media, between the quoted line and the card. */
   .sec-media { margin: 0 0 22px; }
+  .card + .sec-media { margin-top: 30px; }
+  .sec-media--narrow { max-width: 560px; margin-left: auto; margin-right: auto; }
   .sec-media img, .sec-media video {
     display: block;
     width: 100%;
@@ -516,7 +518,7 @@
       <p class="num"><b>02</b> <i></i> Code as a design tool</p>
       <h2 class="jd">&ldquo;Use code as a design tool, not simply as an implementation medium.&rdquo;</h2>
       <figure class="sec-media">
-        <img src="vera-hero.webp" srcset="vera-hero-p-800.webp 800w, vera-hero.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Vera: score the claim, not the influencer. The app shown on a phone, with a link field, trending creators and recently checked products."/>
+        <img src="vera-hero.webp" width="1600" height="840" srcset="vera-hero-p-800.webp 800w, vera-hero.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Vera: score the claim, not the influencer. The app shown on a phone, with a link field, trending creators and recently checked products."/>
       </figure>
       <div class="card">
         <p><strong>Vera</strong> is my clearest example. A mobile prototype that checks supplement and wellness claims from TikTok and Instagram against scientific evidence: paste a link, upload a screenshot, or search a brand. I led product design and engineering, at the ZOE Women in Tech Hackathon in London in July 2026, in a team of six.</p>
@@ -572,12 +574,17 @@
       <p class="num"><b>04</b> <i></i> Complex enterprise software</p>
       <h2 class="jd">&ldquo;Design user experiences for complex enterprise SaaS applications.&rdquo;</h2>
       <figure class="sec-media">
-        <img src="paycada.webp" srcset="paycada-p-800.webp 800w, paycada.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Paycada: the payables dashboard, onboarding checklist, upcoming chase actions and payment details."/>
+        <img src="paycada.webp" width="1600" height="906" srcset="paycada-p-800.webp 800w, paycada.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Paycada: the payables dashboard, onboarding checklist, upcoming chase actions and payment details."/>
       </figure>
       <div class="card">
         <p><strong>Paycada</strong> is the one I'd bring to this. An automated invoice-chasing platform in regulated fintech, where I was sole designer for three years: platform, marketing site, brand and the design system underneath.</p>
         <p>Chasing an invoice means asking a customer for money without damaging the relationship. So the work was about control and tone: what goes out automatically, to whom, what a human sees first, and how far an escalation travels before someone decides.</p>
-        <p><a href="https://irinacsapo.co.uk/case-studies/paycada-case-study/" target="_blank" rel="noopener">View the Paycada case study</a></p>
+        <p class="takeaway"><a href="https://irinacsapo.co.uk/case-studies/paycada-case-study/" target="_blank" rel="noopener">View the Paycada case study</a></p>
+      </div>
+      <figure class="sec-media">
+        <img src="veva.webp" width="1600" height="906" srcset="veva-p-800.webp 800w, veva.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Veva on five phone screens: no charge point connected, the charge point added, a live charging dial, the charging history, and the off-peak schedule settings."/>
+      </figure>
+      <div class="card">
         <p><strong>Veva</strong> is a different complexity: one system, two users with nothing in common. The homeowner who lives with an EV charge point for years, and the engineer with one visit to make it work. I designed for both, with the edge cases, error states and separate journeys each needs, to cut friction out of installation and catch hardware faults fast.</p>
         <p class="takeaway"><a href="https://irinacsapo.co.uk/case-studies/veva-case-study/" target="_blank" rel="noopener">View the Veva case study</a></p>
       </div>
@@ -588,6 +595,9 @@
     <div class="wrap">
       <p class="num"><b>05</b> <i></i> Modern frontend</p>
       <h2 class="jd">&ldquo;Build prototypes using modern frontend technologies.&rdquo;</h2>
+      <figure class="sec-media">
+        <img src="github-contributions.webp" width="1584" height="454" srcset="github-contributions-p-800.webp 800w, github-contributions.webp 1584w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="My GitHub contribution graph for 2026: 800 contributions, with commits on most days from April onwards."/>
+      </figure>
       <div class="card">
         <p class="pull">You're reading the answer to this one.</p>
         <p>This page is built in HTML, CSS and vanilla JavaScript. The contrast tool further down is about thirty lines implementing the WCAG relative luminance formula: sRGB linearisation, the 0.2126 / 0.7152 / 0.0722 coefficients, the 0.05 offsets. A simple tool I built for myself.</p>
@@ -601,6 +611,9 @@
     <div class="wrap">
       <p class="num"><b>06</b> <i></i> Design tools</p>
       <h2 class="jd">&ldquo;Use modern design tools to explore concepts and communicate visual design.&rdquo;</h2>
+      <figure class="sec-media sec-media--narrow">
+        <video class="sec-video" data-src="veva-dials.webm" width="800" height="714" muted loop playsinline preload="metadata" poster="veva-dials-poster.webp" disablepictureinpicture aria-label="One of Veva's charging dials animating: the charge point waiting to connect to wi-fi, built in Rive."></video>
+      </figure>
       <div class="card">
         <p>Figma for layout, colour, imagery and the systems. I've recently started using Paper, because it designs straight into code for the web. Then into Claude Code to build it.</p>
         <ul class="kit">
@@ -678,7 +691,7 @@
       <p class="num"><b>09</b> <i></i> AI-assisted experiences</p>
       <h2 class="jd">&ldquo;Design and prototype AI-assisted experiences.&rdquo;</h2>
       <figure class="sec-media">
-        <video class="sec-video" muted loop playsinline preload="metadata" poster="soundtrack-poster.webp" disablepictureinpicture aria-label="Soundtrack of Your Life, an AI tool that turns four questions into a piece of music"></video>
+        <video class="sec-video" data-src="soundtrack-life.mp4" width="1280" height="710" muted loop playsinline preload="metadata" poster="soundtrack-poster.webp" disablepictureinpicture aria-label="Soundtrack of Your Life, an AI tool that turns four questions into a piece of music"></video>
       </figure>
       <div class="card">
         <p>This is the part of the role I want most, and the part I've spent the last year doing on my own time.</p>
@@ -800,21 +813,23 @@
     update();
   })();
 
-  /* Project video: load and play only while it is on screen. */
+  /* Project videos: load and play only while they are on screen. */
   (function () {
-    var v = document.querySelector('.sec-video');
-    if (!v) return;
-    var src = 'soundtrack-life.mp4';
+    var vids = [].slice.call(document.querySelectorAll('.sec-video[data-src]'));
+    if (!vids.length) return;
     if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (!('IntersectionObserver' in window)) { v.src = src; v.play().catch(function () {}); return; }
-    new IntersectionObserver(function (entries) {
+    var start = function (v) {
+      if (!v.getAttribute('src')) v.src = v.getAttribute('data-src');
+      v.play().catch(function () {});
+    };
+    if (!('IntersectionObserver' in window)) { vids.forEach(start); return; }
+    var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          if (!v.src) v.src = src;
-          v.play().catch(function () {});
-        } else v.pause();
+        if (e.isIntersecting) start(e.target);
+        else e.target.pause();
       });
-    }, { threshold: 0.3 }).observe(v);
+    }, { threshold: 0.3 });
+    vids.forEach(function (v) { io.observe(v); });
   })();
 
   /* The API list behind the question mark on the Live data stat. */
