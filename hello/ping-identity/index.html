@@ -33,7 +33,7 @@
   /* Accent is Ping Identity's red, #d20e0f, which measures 5.43:1 on this
      paper and so clears body text (4.5:1) as well as display (3:1).
      Checked at the size each is used:
-       --ink 18.6:1   --body 7.7:1   --muted 7.7:1
+       --ink 18.6:1   --body 13.5:1   --muted 9.7:1
        --red 5.43:1   --red-deep 8.40:1   --red-warm 4.18:1 (display only) */
   :root {
     --font: "Albert Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -41,8 +41,8 @@
     --card: #ffffff;
     --line: #ecdcdc;
     --ink: #000645;
-    --body: #4a5070;
-    --muted: #4a5070;
+    --body: #262b4d;
+    --muted: #3a406a;
     --red: #d20e0f;
     --red-deep: #9c0a0b;
     --red-warm: #e8332b;
@@ -260,6 +260,17 @@
     padding: 1px 6px;
   }
   .api-close { margin-top: 18px; padding: 11px 24px; font-size: 15px; }
+
+  /* Project media, between the quoted line and the card. */
+  .sec-media { margin: 0 0 22px; }
+  .sec-media img, .sec-media video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #f4f4fa;
+  }
 
   /* ---------- sections ---------- */
   section { padding: 56px 0; }
@@ -504,6 +515,9 @@
     <div class="wrap">
       <p class="num"><b>02</b> <i></i> Code as a design tool</p>
       <h2 class="jd">&ldquo;Use code as a design tool, not simply as an implementation medium.&rdquo;</h2>
+      <figure class="sec-media">
+        <img src="vera-hero.webp" srcset="vera-hero-p-800.webp 800w, vera-hero.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Vera: score the claim, not the influencer. The app shown on a phone, with a link field, trending creators and recently checked products."/>
+      </figure>
       <div class="card">
         <p><strong>Vera</strong> is my clearest example. A mobile prototype that checks supplement and wellness claims from TikTok and Instagram against scientific evidence: paste a link, upload a screenshot, or search a brand. I led product design and engineering, at the ZOE Women in Tech Hackathon in London in July 2026, in a team of six.</p>
         <p>Its claim score is a heuristic, but the numbers behind it are real. A Cloudflare Worker fetches posts server-side, a model with search grounding identifies the product, and OpenAlex returns live counts of peer-reviewed studies.</p>
@@ -557,6 +571,9 @@
     <div class="wrap">
       <p class="num"><b>04</b> <i></i> Complex enterprise software</p>
       <h2 class="jd">&ldquo;Design user experiences for complex enterprise SaaS applications.&rdquo;</h2>
+      <figure class="sec-media">
+        <img src="paycada.webp" srcset="paycada-p-800.webp 800w, paycada.webp 1600w" sizes="(max-width: 1020px) 100vw, 980px" loading="lazy" alt="Paycada: the payables dashboard, onboarding checklist, upcoming chase actions and payment details."/>
+      </figure>
       <div class="card">
         <p><strong>Paycada</strong> is the one I'd bring to this. An automated invoice-chasing platform in regulated fintech, where I was sole designer for three years: platform, marketing site, brand and the design system underneath.</p>
         <p>Chasing an invoice means asking a customer for money without damaging the relationship. So the work was about control and tone: what goes out automatically, to whom, what a human sees first, and how far an escalation travels before someone decides.</p>
@@ -660,6 +677,9 @@
     <div class="wrap">
       <p class="num"><b>09</b> <i></i> AI-assisted experiences</p>
       <h2 class="jd">&ldquo;Design and prototype AI-assisted experiences.&rdquo;</h2>
+      <figure class="sec-media">
+        <video class="sec-video" muted loop playsinline preload="metadata" poster="soundtrack-poster.webp" disablepictureinpicture aria-label="Soundtrack of Your Life, an AI tool that turns four questions into a piece of music"></video>
+      </figure>
       <div class="card">
         <p>This is the part of the role I want most, and the part I've spent the last year doing on my own time.</p>
         <p>At <a href="https://irina.love" target="_blank" rel="noopener">irina.love</a> I design and build small AI products and put them live: a tool that turns four questions into a piece of music written for you, one that writes you a letter from your future self in twenty-five languages, and one that turns a photo of your pet into a cosmic portrait and a short story. Real products, real users, built solo.</p>
@@ -778,6 +798,23 @@
     fg.addEventListener('change', update);
     bg.addEventListener('change', update);
     update();
+  })();
+
+  /* Project video: load and play only while it is on screen. */
+  (function () {
+    var v = document.querySelector('.sec-video');
+    if (!v) return;
+    var src = 'soundtrack-life.mp4';
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) { v.src = src; v.play().catch(function () {}); return; }
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          if (!v.src) v.src = src;
+          v.play().catch(function () {});
+        } else v.pause();
+      });
+    }, { threshold: 0.3 }).observe(v);
   })();
 
   /* The API list behind the question mark on the Live data stat. */
