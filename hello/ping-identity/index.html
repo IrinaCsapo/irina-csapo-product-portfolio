@@ -30,25 +30,23 @@
       U+2113, U+2C60-2C7F, U+A720-A7FF;
   }
 
-  /* Every colour below is checked at the size it is used.
-     Body text needs 4.5:1, large display text needs 3:1.
-       --ink        18.6:1    --body     8.3:1    --muted     5.8:1
-       --pink-text   5.8:1    --violet   6.6:1    --pink-display 3.7:1 (display only)
-       --orange      3.4:1 (display only, darkened from the portfolio's #f5a100 at 2.1:1) */
+  /* Accent is Ping Identity's red, #d20e0f, which measures 5.43:1 on this
+     paper and so clears body text (4.5:1) as well as display (3:1).
+     Checked at the size each is used:
+       --ink 18.6:1   --body 8.3:1   --muted 5.8:1
+       --red 5.43:1   --red-deep 8.40:1   --red-warm 4.18:1 (display only) */
   :root {
     --font: "Albert Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --paper: #fdfdff;
     --card: #ffffff;
-    --line: #e4e6f2;
+    --line: #ecdcdc;
     --ink: #000645;
     --body: #454b72;
     --muted: #5c628a;
-    --pink-text: #c2185b;
-    --pink-display: #ff0091;
-    --violet: #5b3fd6;
-    --violet-ring: #7b5cfa;
-    --orange: #e06a10;
-    --blue: #4b6bf5;
+    --red: #d20e0f;
+    --red-deep: #9c0a0b;
+    --red-warm: #e8332b;
+    --red-rose: #d81b4a;
   }
 
   * { box-sizing: border-box; }
@@ -73,19 +71,19 @@
     z-index: -1;
     pointer-events: none;
     background:
-      radial-gradient(42rem 30rem at 8% -6%, rgba(255, 233, 150, .5), transparent 70%),
-      radial-gradient(40rem 28rem at 96% 2%, rgba(255, 138, 205, .42), transparent 70%),
-      radial-gradient(38rem 30rem at -6% 42%, rgba(150, 168, 255, .38), transparent 70%),
-      radial-gradient(44rem 32rem at 100% 78%, rgba(255, 160, 205, .34), transparent 72%);
+      radial-gradient(42rem 30rem at 8% -6%, rgba(255, 196, 176, .46), transparent 70%),
+      radial-gradient(40rem 28rem at 96% 2%, rgba(232, 96, 90, .26), transparent 70%),
+      radial-gradient(38rem 30rem at -6% 42%, rgba(210, 14, 15, .12), transparent 72%),
+      radial-gradient(44rem 32rem at 100% 78%, rgba(255, 170, 158, .34), transparent 72%);
   }
 
   .wrap { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 24px; }
 
-  a { color: var(--violet); text-decoration: underline; text-underline-offset: 3px; }
-  a:hover { color: var(--pink-text); }
+  a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--red); }
 
   :focus-visible {
-    outline: 3px solid var(--violet-ring);
+    outline: 3px solid var(--red);
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -103,7 +101,15 @@
   .skip:focus { left: 0; z-index: 10; }
 
   /* ---------- hero ---------- */
-  header.hero { padding: 96px 0 72px; text-align: center; }
+  header.hero { padding: 84px 0 72px; text-align: center; }
+
+  .ping-logo {
+    display: block;
+    width: 252px;
+    max-width: 62vw;
+    height: auto;
+    margin: 0 auto 26px;
+  }
 
   .eyebrow {
     margin: 0 0 22px;
@@ -111,16 +117,16 @@
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--pink-text);
+    color: var(--red);
   }
 
   h1 {
     margin: 0 auto 26px;
-    max-width: 18ch;
-    font-size: clamp(42px, 7vw, 76px);
-    line-height: 1.06;
+    max-width: 17ch;
+    font-size: clamp(46px, 8.2vw, 94px);
+    line-height: 1.02;
     font-weight: 700;
-    letter-spacing: -.015em;
+    letter-spacing: -.025em;
     color: var(--ink);
   }
 
@@ -132,14 +138,15 @@
     color: transparent;
     -webkit-text-fill-color: transparent;
     padding-bottom: .06em;
-    animation: gradShift 4.5s ease-in-out infinite alternate;
+    animation: gradShift 6s ease-in-out infinite alternate;
   }
   @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
     .grad { color: var(--c1); -webkit-text-fill-color: var(--c1); }
   }
-  .g-design { --c1: #4b6bf5; --c2: #8a5cff; --c3: #27b3f2; }
-  .g-build  { --c1: #b04dff; --c2: #ff0091; --c3: #7b5cfa; }
-  .g-ship   { --c1: #e06a10; --c2: #e8543f; --c3: #ff0091; }
+  /* One red family, moving. Every stop clears 3:1 on this paper. */
+  .g-design { --c1: #9c0a0b; --c2: #d20e0f; --c3: #e8332b; }
+  .g-build  { --c1: #d20e0f; --c2: #e8332b; --c3: #b00c0d; }
+  .g-ship   { --c1: #b00c0d; --c2: #d81b4a; --c3: #d20e0f; }
   @keyframes gradShift { to { background-position: 100% 0; } }
 
   .lede {
@@ -168,7 +175,7 @@
     text-decoration: none;
     color: var(--muted);
   }
-  .meta a { color: var(--violet); font-weight: 700; }
+  .meta a { color: var(--red); font-weight: 700; }
 
   /* ---------- sections ---------- */
   section { padding: 56px 0; }
@@ -184,13 +191,13 @@
     text-transform: uppercase;
     color: var(--muted);
   }
-  .num b { color: var(--pink-text); }
+  .num b { color: var(--red); }
   .num i { flex: 1; height: 1px; background: var(--line); font-style: normal; }
 
   blockquote.jd {
     margin: 0 0 30px;
     padding: 0 0 0 22px;
-    border-left: 3px solid var(--pink-display);
+    border-left: 3px solid var(--red);
     font-size: clamp(23px, 3.1vw, 34px);
     line-height: 1.28;
     font-weight: 700;
@@ -264,7 +271,7 @@
     margin: 30px 0;
     padding: 26px 30px;
     border: 1px solid var(--line);
-    border-left: 3px solid var(--violet-ring);
+    border-left: 3px solid var(--red);
     border-radius: 14px;
     background: rgba(255, 255, 255, .8);
     font-size: clamp(20px, 2.5vw, 26px);
@@ -362,9 +369,10 @@
 
 <header class="hero">
   <div class="wrap">
+    <img class="ping-logo" src="ping-identity-logo.svg" width="252" height="44" alt="Ping Identity"/>
     <p class="eyebrow">For Ping Identity &middot; Senior UX Design Developer</p>
-    <h1>I <span class="grad g-design">design</span> it, then I <span class="grad g-build">build</span> it, then I <span class="grad g-ship">ship</span> it.</h1>
-    <p class="lede">This page is only about your role. <strong>Six lines from your job description, each answered with a decision I made and why.</strong> Then a section on what I don't have, because you will find that out anyway and I would rather you heard it from me.</p>
+    <h1>I <span class="grad g-design">design</span> it, <span class="grad g-build">build</span> it, and then <span class="grad g-ship">ship</span> it.</h1>
+    <p class="lede">Hello Ping Identity. I'm Irina, a senior product designer with 15 years experience across web and mobile in fintech, healthtech and connected hardware. <strong>This page is about your role.</strong> A few things you asked for, how my experience maps to them, what I've actually done about each, and one honest section about what I don't have yet.</p>
     <p class="meta">
       <span>Irina Csapo</span>
       <span>UK, remote</span>
@@ -449,7 +457,7 @@
         <h2>The audit I ran, and the failure in my own portfolio</h2>
         <p>On Paycada I ran a WCAG audit of the live product and it found two failures that were already shipped. That is the useful kind of audit, the one that costs you something.</p>
         <p>Here is a more uncomfortable example. The hero on my own portfolio sets the word "experiences" in an animated gradient that runs from orange through coral to pink. Measured from the live CSS, those stops sit at <strong>2.1:1, 3.0:1 and 3.7:1</strong> against the near&#8209;white hero. Large display text needs 3:1, so for part of every cycle that word fails, and it has been failing in public for a while.</p>
-        <p>On this page the same orange is darkened to <strong>3.4:1</strong>, so every stop of the equivalent gradient clears 3:1. Every other colour here was checked at the size it is used, and body text runs at 8.3:1. I would rather show you the working than assert the knowledge, so the tool below is the real WCAG calculation: sRGB linearisation, the 0.2126, 0.7152 and 0.0722 coefficients, and the 0.05 offsets. It opens on my own failure.</p>
+        <p>On this page every accent is your red, <strong>#d20e0f at 5.4:1</strong> on this paper, which clears body text as well as display, and each stop of the moving gradient in the headline clears 3:1 too. Every other colour here was checked at the size it is used, and body text runs at 8.3:1. I would rather show you the working than assert the knowledge, so the tool below is the real WCAG calculation: sRGB linearisation, the 0.2126, 0.7152 and 0.0722 coefficients, and the 0.05 offsets. It opens on my own failure.</p>
 
         <div class="tool">
           <h3 id="tool-heading">Contrast checker</h3>
