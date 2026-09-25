@@ -194,7 +194,7 @@
   .num b { color: var(--red); }
   .num i { flex: 1; height: 1px; background: var(--line); font-style: normal; }
 
-  blockquote.jd {
+  .jd {
     margin: 0 0 30px;
     padding: 0 0 0 22px;
     border-left: 3px solid var(--red);
@@ -204,7 +204,7 @@
     letter-spacing: -.01em;
     color: var(--ink);
   }
-  blockquote.jd cite {
+  .jd cite {
     display: block;
     margin-top: 12px;
     font-size: 14px;
@@ -292,6 +292,20 @@
   ul.plain { margin: 0 0 18px; padding-left: 22px; }
   ul.plain li { margin-bottom: 10px; max-width: 66ch; }
 
+  /* Toolkit chips, same shape as the hero's meta chips. */
+  .kit { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 6px; padding: 0; list-style: none; }
+  .kit li {
+    margin: 0;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, .8);
+    border-radius: 14px;
+    padding: 11px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .kit li small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: var(--muted); }
+
   /* ---------- contrast tool ---------- */
   .tool { margin-top: 28px; }
   .tool-row { display: flex; flex-wrap: wrap; gap: 22px; align-items: flex-end; }
@@ -301,6 +315,11 @@
   .field input[type="color"] {
     width: 48px; height: 44px; padding: 0;
     border: 1px solid var(--line); border-radius: 10px; background: none; cursor: pointer;
+  }
+  .field select {
+    font-family: var(--font); font-size: 16px; padding: 11px 12px;
+    border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink);
+    min-width: 232px;
   }
   .field input[type="text"] {
     width: 116px; padding: 11px 12px;
@@ -372,112 +391,152 @@
     <img class="ping-logo" src="ping-identity-logo.svg" width="252" height="44" alt="Ping Identity"/>
     <p class="eyebrow">For Ping Identity &middot; Senior UX Design Developer</p>
     <h1>I <span class="grad g-design">design</span> it, <span class="grad g-build">build</span> it, and then <span class="grad g-ship">ship</span> it.</h1>
-    <p class="lede">Hello Ping Identity. I'm Irina, a senior product designer with 15 years experience across web and mobile in fintech, healthtech and connected hardware. <strong>This page is about your role.</strong> A few things you asked for, how my experience maps to them, what I've actually done about each, and one honest section about what I don't have yet.</p>
+    <p class="lede">Hello Ping Identity. I'm Irina, a product designer with fifteen years across fintech, healthtech and connected hardware. <strong>This page is only about your role.</strong> Nine things you asked for, what I've actually done about each, and one honest section about what I don't have yet.</p>
     <p class="meta">
       <span>Irina Csapo</span>
-      <span>UK, remote</span>
-      <span>Built in code for this application</span>
-      <a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a>
-      <a href="https://irina.love">irina.love</a>
+      <span>Milton Keynes, UK</span>
+      <span>Available now</span>
+      <a href="https://irinacsapo.co.uk">Portfolio</a>
+      <a href="https://irina.love">Things I've built</a>
     </p>
   </div>
 </header>
 
 <main id="start">
 
-  <!-- 1 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>01</b> <i></i> Code as a design tool</p>
-      <blockquote class="jd">"You'll use code as a design tool, not simply as an implementation medium."
-        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <p class="num"><b>01</b> <i></i> Where I am now</p>
+      <h2 class="jd">&ldquo;Equally comfortable designing experiences and bringing them to life in code.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
       <div class="card">
-        <h2>Vera, built in two days because the question needed answering</h2>
-        <p>Vera checks supplement and wellness claims against scientific evidence. It takes three kinds of input: paste a social link, upload a screenshot, or search a brand name. I led product design and engineering, at the ZOE Women in Tech Hackathon in London in July 2026, in a team of six who were mostly strangers.</p>
-        <p>The interesting part is not the build, it is what the build settled. You cannot tell from a design file whether a trust score feels credible when the data behind it is thin. So the prototype pulls real numbers: a Cloudflare Worker fetches posts server&#8209;side, a model with search grounding identifies the product, and OpenAlex returns live counts of peer&#8209;reviewed studies. Once real data was flowing, the design question changed from "how should this look" to "what do we do when we cannot verify something", which is a much better question to be arguing about on day one.</p>
+        <p>This is the sentence I'd have written about myself if I'd been asked to describe what I do now, and it's the reason this page exists rather than a covering letter.</p>
+        <p>For most of fifteen years I designed and handed over. For the last two I've been closing that loop myself: design the experience, build it, put it in front of someone, change it. Not because I want to be an engineer, but because the distance between a design file and a working thing is where most of the interesting questions live, and I got tired of not being able to answer them.</p>
+        <p>Everything below is evidence for that one claim, taken from your own job description.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>02</b> <i></i> Code as a design tool</p>
+      <h2 class="jd">&ldquo;Use code as a design tool, not simply as an implementation medium.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <div class="card">
+        <p>That sentence is unusually precise for a job ad, and it describes how I already work.</p>
+        <p><strong>Vera</strong> is the clearest example. It checks supplement and wellness claims against scientific evidence: paste a social post, and it identifies the real product, grades each claim against peer-reviewed research, and shows live study counts pulled from OpenAlex. Behind it sits a Cloudflare Worker fetching posts server-side, a model doing identification, and real research data coming back live.</p>
+        <p>I led product design and engineering. It went from a rough "how might we" to something that runs, in front of people, in two days at the ZOE Women in Tech Hackathon.</p>
         <ul class="stats">
-          <li><b>2 days</b><span>idea to working app</span></li>
-          <li><b>3 inputs</b><span>link, screenshot, brand</span></li>
-          <li><b>Live data</b><span>OpenAlex study counts</span></li>
+          <li><b>2 days</b><span>idea to working build</span></li>
+          <li><b>3 inputs</b><span>link, screenshot, brand name</span></li>
+          <li><b>Live data</b><span>nothing mocked</span></li>
         </ul>
-        <p class="takeaway"><strong>Why I build rather than mock:</strong> a prototype in code exists to answer a question you cannot answer in a design file. Everything else is decoration.
-          <a href="https://irinacsapo.github.io/zoe-hackathon-app/">Open Vera</a> or <a href="https://irinacsapo.github.io/zoe-hackathon-app/case-study.html">read the case study</a>.</p>
+        <p class="takeaway">A prototype in code exists to answer a question you can't answer in a design file. Here the question was whether a model could identify a real product reliably enough to build a product on top of it. The answer was yes, but only with a rule attached, which I'll come back to. <a href="https://irinacsapo.github.io/zoe-hackathon-app/">Open Vera</a> or <a href="https://irinacsapo.github.io/zoe-hackathon-app/case-study.html">read the case study</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- 2 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>02</b> <i></i> Prototyping before implementation</p>
-      <blockquote class="jd">"Rapidly prototype workflows, interactions and usability concepts before implementation."
-        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <p class="num"><b>03</b> <i></i> Prototyping before implementation</p>
+      <h2 class="jd">&ldquo;Rapidly prototype workflows and usability concepts before implementation.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
       <div class="card">
-        <h2>Omaze Monthly Millionaire, where the data ended the layout argument</h2>
-        <p>Omaze had raised its subscription price from &pound;10 to &pound;15. Monthly Millionaire, a &pound;1m monthly draw, launched as a free add&#8209;on to subscriptions and also pay as you go. It opened at roughly &pound;650k a month against a forecast above &pound;1m.</p>
-        <p>Two pieces of data decided the direction before any visual work started. Meta funnel analysis showed mobile users interacting predominantly with the bottom half of the screen, and internal data showed a customer base skewing 45 and over. That turned an opinion argument about layout into a rebuild with a clear value hierarchy above the fold, persistent thumb&#8209;reachable calls to action, winner testimonials, and larger, more legible type.</p>
-        <p>Then three experiments, one at a time, so each result meant something.</p>
+        <p>Prototyping to explore is one thing. Prototyping to <strong>settle an argument</strong> is what I find useful.</p>
+        <p>At Omaze UK, the Monthly Millionaire subscription launched at around &pound;650k a month against a &pound;1m+ forecast. Funnel data showed mobile users engaging almost entirely with the bottom half of the screen, and a customer base skewing 45 and over. That told us where attention actually was, so we stopped debating layout and rebuilt around reachable actions, value and trust above the fold, and type sized for a real phone in real light.</p>
+        <p>Then I tested the things the data couldn't answer, one hypothesis at a time.</p>
         <ul class="stats">
-          <li><b>+7.3%</b><span>TrustPilot rating and testimonials above the fold</span></li>
-          <li><b>+4.8%</b><span>winner reaction video as a looping hero</span></li>
-          <li><b>+8.5%</b><span>subscription surfaced early as "Best Value", anchored on entries rather than price</span></li>
+          <li><b>+7.3%</b><span>trust signals above the fold</span></li>
+          <li><b>+4.8%</b><span>winner reaction video hero</span></li>
+          <li><b>+8.5%</b><span>subscription reframed as best value</span></li>
         </ul>
-        <p class="takeaway"><strong>The decision I am proudest of</strong> is the third one, because it carried real cannibalisation risk. Pushing subscription earlier could have eaten pay as you go, so we measured both sides rather than just the number that would have looked good. It did not cannibalise. Overall the work delivered a <strong>35% conversion uplift</strong>, &pound;1.5m in a month, sustained above &pound;1m. Separately, checkout bolt&#8209;ons lifted attachment rate by 27%.
-          <a href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/">Read the case study</a>.</p>
+        <p class="takeaway">The third is the one I argued hardest for and the one with real risk attached: the page had been built to lead with pay as you go, so promoting the subscription could simply have moved revenue from one pocket to another. We measured both. It didn't. <strong>35% overall conversion uplift, &pound;1.5m in a month, sustained above &pound;1m.</strong> <a href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/">Read the case study</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- 3 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>03</b> <i></i> Complex enterprise software</p>
-      <blockquote class="jd">"Design UX for complex enterprise SaaS applications and supporting customer experiences."
-        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <p class="num"><b>04</b> <i></i> Complex enterprise software</p>
+      <h2 class="jd">&ldquo;Design user experiences for complex enterprise SaaS applications.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
       <div class="card">
-        <h2>Veva, one system for two users with nothing in common</h2>
-        <p>Veva is a mobile app controlling EV home charge points. It has two audiences who share almost no context: the homeowner who lives with it for years, and the installing engineer who meets it once, on a driveway, under time pressure. There is a dedicated engineer mode because those are genuinely different products wearing one badge.</p>
-        <p>I designed the installer's flow first. The install is the gate: if connecting the unit fails on the driveway, the homeowner never reaches the product at all, and the support cost lands immediately. So the app uses smart detection to find the charger, with a local hotspot fallback for when the home network is not usable at install time, rather than assuming a working home network is available at the one moment it usually is not.</p>
-        <p>For the homeowner side, charging status runs through eight animated states built in Rive and exported as JSON, using a pulsating dial as a metaphor for current. Alongside that: multi&#8209;user and multi&#8209;car support, schedules, spend analysis over time, cost tracking and remote management.</p>
-        <p><strong>No metrics exist for this project</strong>, so I am not going to give you any. The team was one product designer, which was me, plus a business analyst, a product manager and an iOS and an Android engineer.</p>
-        <p class="takeaway">My second example is <strong>Paycada</strong>, an automated invoice chasing platform in regulated fintech, where I was sole designer for three years from zero to one, across the platform, the website and the brand.
-          <a href="https://irinacsapo.co.uk/case-studies/veva-case-study/">Veva case study</a> &middot;
-          <a href="https://irinacsapo.co.uk/case-studies/paycada-case-study/">Paycada case study</a>.</p>
+        <p><strong>Paycada</strong> is the one I'd bring to this. An automated invoice chasing platform in regulated fintech, where I was the sole designer for three years, from the first idea through to a shipped product with a design system underneath it. Platform, marketing site and brand.</p>
+        <p>The interesting part isn't the workflow, it's what the workflow is for. Chasing an invoice means asking your customer for money without damaging the relationship you have with them. Automate it badly and you've built a machine that irritates the people who pay you. So a lot of the design work was about control and tone: what goes out automatically, what a human sees before it goes, how far an escalation is allowed to travel before someone has to decide. Regulated, financial, and used by people who live in it all day.</p>
+        <p><strong>Veva</strong> is the second one, and it's about a different kind of complexity: one system serving two people with nothing in common. A mobile app controlling EV home charge points, used by the homeowner who lives with it for years and the engineer who has one visit to make it work.</p>
+        <p class="takeaway">I committed the design to the installer first, because that's the gate. If the charge point never gets on the network, the owner never sees a schedule, and their first experience of something they just paid for is a call to support. One decision followed from it: commissioning cannot depend on the home network being reachable, so the app detects the situation and falls back to a local hotspot from the charge point itself. The cleaner flow, the one assuming working wifi and correct credentials, is a better-looking design file and it fails in a driveway. <a href="https://irinacsapo.co.uk/case-studies/veva-case-study/">Veva case study</a> &middot; <a href="https://irinacsapo.co.uk/case-studies/paycada-case-study/">Paycada case study</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- 4 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>04</b> <i></i> Accessibility and WCAG</p>
-      <blockquote class="jd">"Solid understanding of accessibility standards and WCAG."
-        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <p class="num"><b>05</b> <i></i> Modern frontend</p>
+      <h2 class="jd">&ldquo;Build prototypes using modern frontend technologies.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
       <div class="card">
-        <h2>The audit I ran, and the failure in my own portfolio</h2>
-        <p>On Paycada I ran a WCAG audit of the live product and it found two failures that were already shipped. That is the useful kind of audit, the one that costs you something.</p>
-        <p>Here is a more uncomfortable example. The hero on my own portfolio sets the word "experiences" in an animated gradient that runs from orange through coral to pink. Measured from the live CSS, those stops sit at <strong>2.1:1, 3.0:1 and 3.7:1</strong> against the near&#8209;white hero. Large display text needs 3:1, so for part of every cycle that word fails, and it has been failing in public for a while.</p>
-        <p>On this page every accent is your red, <strong>#d20e0f at 5.4:1</strong> on this paper, which clears body text as well as display, and each stop of the moving gradient in the headline clears 3:1 too. Every other colour here was checked at the size it is used, and body text runs at 8.3:1. I would rather show you the working than assert the knowledge, so the tool below is the real WCAG calculation: sRGB linearisation, the 0.2126, 0.7152 and 0.0722 coefficients, and the 0.05 offsets. It opens on my own failure.</p>
+        <p class="pull">You're reading the answer to this one.</p>
+        <p>This page is hand-built HTML, CSS and vanilla JavaScript, no framework and no build step. The contrast tool further down is about thirty lines of real JavaScript implementing the WCAG relative luminance formula: sRGB linearisation, the 0.2126, 0.7152 and 0.0722 coefficients, the 0.05 offsets. It isn't a picture of a tool. It runs.</p>
+        <p>For anything larger I work in <strong>React via Next.js</strong>, with TypeScript, Tailwind and Framer Motion, plus Python on the backend, Cloudflare Workers, Supabase, and Rive when something needs to move properly. Veva's eight charging states were built in Rive and handed to iOS and Android as JSON.</p>
+        <p class="takeaway">Honest note, because you list it: I haven't used Vue. I've picked up enough frameworks by now that I'm not worried about it, but I'd rather say so than let you find out in week two.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>06</b> <i></i> Design tools</p>
+      <h2 class="jd">&ldquo;Use modern design tools to explore concepts and communicate visual design.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <div class="card">
+        <p>Figma for the thinking and the systems. Paper for the part before that, because the first version of anything is faster by hand. Then straight into code once the question stops being "what shape is this" and starts being "does this actually work".</p>
+        <ul class="kit">
+          <li>Figma<small>design, systems, prototypes</small></li>
+          <li>Paper<small>first pass, always</small></li>
+          <li>Claude Code<small>daily, build and iterate</small></li>
+          <li>Lovable<small>fast throwaway directions</small></li>
+          <li>GitHub<small>version, deploy, ship</small></li>
+          <li>Rive<small>interactive motion</small></li>
+        </ul>
+        <p class="takeaway">The tools matter less than the order. I've stopped treating "design tool" and "build tool" as two stages with a wall between them, and the work got better when I did.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>07</b> <i></i> Accessibility and WCAG</p>
+      <h2 class="jd">&ldquo;Solid understanding of accessibility standards and WCAG guidelines.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <div class="card">
+        <p>On Paycada I ran a contrast audit across the component set and found <strong>two live failures</strong> that had shipped, because nobody had checked a hover state against its own background rather than against white.</p>
+        <p>Since then I check rather than assume. I measured my own portfolio the same way, computing relative luminance from the live CSS: the hero word "experiences" runs as a gradient, and its stops sit at <strong>2.1:1, 3.0:1 and 3.7:1</strong> against the near-white background. It's large display text, so it needs 3:1, and for part of every cycle it doesn't make it. Every accent on this page is your red at <strong>5.4:1</strong>, which clears large display text and body text both.</p>
+        <p>Here's the tool, working, on the page. Every colour listed is one from my own system, or yours.</p>
 
         <div class="tool">
           <h3 id="tool-heading">Contrast checker</h3>
           <div class="tool-row">
             <div class="field">
-              <label for="fg">Text colour</label>
-              <div class="inputs">
-                <input type="color" id="fg" value="#f5a100" aria-label="Text colour picker"/>
-                <input type="text" id="fgHex" value="#f5a100" spellcheck="false" aria-label="Text colour hex value"/>
-              </div>
+              <label for="fg">Foreground</label>
+              <select id="fg">
+                <option value="#f5a100">Portfolio hero orange #f5a100</option>
+                <option value="#000645">Ink #000645</option>
+                <option value="#454b72">Body #454b72</option>
+                <option value="#d20e0f">Ping red #d20e0f</option>
+                <option value="#ff0091">Pink, display #ff0091</option>
+                <option value="#4b6bf5">Blue #4b6bf5</option>
+              </select>
             </div>
             <div class="field">
-              <label for="bg">Background colour</label>
-              <div class="inputs">
-                <input type="color" id="bg" value="#fdfdff" aria-label="Background colour picker"/>
-                <input type="text" id="bgHex" value="#fdfdff" spellcheck="false" aria-label="Background colour hex value"/>
-              </div>
+              <label for="bg">Background</label>
+              <select id="bg">
+                <option value="#fdfdff">Paper #fdfdff</option>
+                <option value="#ffffff">White #ffffff</option>
+                <option value="#000645">Ink #000645</option>
+              </select>
             </div>
             <div class="swatch" id="swatch">
-              <span class="big">Large display text</span>
+              <span class="big">Verify before you trust it.</span>
               <span class="small">Body text at 16 pixels</span>
             </div>
           </div>
@@ -488,73 +547,101 @@
           </div>
           <p class="tool-note">Large text means 24px and above, or 18.66px and above when bold. Anything smaller has to reach 4.5:1.</p>
         </div>
+        <p class="takeaway">This page passes its own test. Focus is visible throughout, motion respects <strong>prefers-reduced-motion</strong>, and the headings run in order.</p>
       </div>
     </div>
   </section>
 
-  <!-- 5 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>05</b> <i></i> Design systems and coded components</p>
-      <blockquote class="jd">"Contribute to the design system, reusable UI patterns and coded component libraries."
-        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <p class="num"><b>08</b> <i></i> Design systems and coded components</p>
+      <h2 class="jd">&ldquo;Contribute to the design system, reusable patterns and coded component libraries.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
       <div class="card">
-        <h2>Three tiers, and the drift problem I have not solved yet</h2>
-        <p>Paycada's system ended up in three tiers: brand primitives, semantic aliases, then component tokens, with full state coverage on components. I want to be accurate about how that happened. It <strong>emerged in the work</strong> rather than being architected on day one. I articulated it as three tiers afterwards, once the shape was obvious, and that retrospective clarity is what made it teachable.</p>
-        <p>The part I find genuinely unsolved is what happens to a system when you build with AI assistance. The failure mode is not broken code. Broken code announces itself. The failure mode is <strong>plausible code</strong>: a component that is ninety per cent right, uses a hard&#8209;coded hex instead of the semantic token, and passes review because it looks correct. Ninety per cent right is more dangerous than fifty per cent wrong, because nobody goes looking.</p>
-        <p>My current patch is to write the system's rules into a file the agent reads before it writes anything, so the constraints arrive before the code does. It helps. It is not a solution, and drift is still detectable by eye rather than by tooling.</p>
-        <p class="takeaway"><strong>This is work I would like to do properly with a team that has a real system to protect.</strong> If AI tooling is going to accelerate how much interface gets produced, then the interesting problem is not generating components faster, it is keeping a system coherent while it happens.</p>
+        <p>The Paycada system emerged in the work rather than being formalised upfront, and I've since gone back and articulated it properly as three tiers: brand primitives, semantic aliases, then component tokens. Full state coverage across the set, so nobody has to invent a disabled style at four o'clock on a Friday.</p>
+        <p>The thing I care about most now is drift. When I build with AI assistance the failure mode isn't broken code, it's <strong>plausible</strong> code: a spacing value quietly invented, a near-miss colour, a component rebuilt instead of reused. It's 90% right, which is more dangerous than 50%, because you don't see it until it has spread across a dozen files.</p>
+        <p class="takeaway">My current answer is to write the system's rules into a file the agent reads before it generates anything. It helps. It's still a patch on something that should be structural, and turning it into something a whole team can rely on is one of the problems I'd most like to work on properly.</p>
       </div>
     </div>
   </section>
 
-  <!-- 6 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>06</b> <i></i> AI-assisted experiences</p>
-      <blockquote class="jd">"Design and prototype AI-assisted experiences: conversational interfaces, guided configuration, intelligent recommendations."
-        <cite>Ping Identity, Senior UX Design Developer</cite></blockquote>
+      <p class="num"><b>09</b> <i></i> AI-native tooling</p>
+      <h2 class="jd">&ldquo;Leverage AI-native tools to accelerate ideation and generate realistic prototype data.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
       <div class="card">
-        <h2>The decision that made Vera trustworthy</h2>
-        <p>The hardest call in Vera was what to do when the system cannot verify something.</p>
-        <p class="pull">If it cannot verify a field, that field comes back blank rather than invented.</p>
-        <p>A blank field looks worse in a demo. It is the only honest option in a product about evidence, because a plausible guess in a trust tool is not a small bug, it is the whole product failing quietly. Two consequences followed from it.</p>
-        <p>First, Vera scores the claim against the evidence, never the brand or the person making it. That keeps it a product about substance rather than a popularity engine, and it is why likes are deliberately excluded: they read as an endorsement the product has not earned. Second, the Claim Score is labelled openly as a prototype heuristic, and study counts link out to their sources, so a sceptical user can go and check.</p>
-        <p class="takeaway"><strong>The principle I would bring to identity work:</strong> users do not need a system to always be right, they need to be able to tell when it is not. That matters more, not less, when the automation is deciding whether someone is who they say they are, and the cost of a confident wrong answer is somebody either locked out or let in.</p>
+        <p>Three things I'd say about this, all from doing it rather than reading about it.</p>
+        <h3>Realistic data is the whole game</h3>
+        <p>A prototype filled with placeholder text tests nothing. People respond to the content, not the layout, and lorem ipsum hides every problem you actually needed to find: the name that's too long, the empty state nobody designed, the number that breaks the column. Vera was built on live data for exactly that reason, and generating believable data is now the first thing I set up rather than the last.</p>
+        <h3>Three versions beat one argument</h3>
+        <p>Building fast means I can put three real directions in front of a team instead of defending one. That changes the conversation from "do you like it" to "which of these is wrong, and why", which is a much better meeting.</p>
+        <h3>Speed is the smaller half of it</h3>
+        <p>The real gain isn't hours saved, it's the number of questions you're willing to ask. When trying something costs twenty minutes rather than two days, you test the idea you'd otherwise have talked yourself out of.</p>
       </div>
     </div>
   </section>
 
-  <!-- 7 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>07</b> <i></i> Straight answers</p>
+      <p class="num"><b>10</b> <i></i> AI-assisted experiences</p>
+      <h2 class="jd">&ldquo;Design and prototype AI-assisted experiences.&rdquo;
+        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <div class="card">
+        <p>This is the part of the role I want most, and I've had to make the decision that matters.</p>
+        <p>Vera's users are people being sold to by influencers they already trust, and we were asking them to move some of that trust to us. A generative model will always produce something. If it half recognised a product and filled in plausible ingredients, we'd be doing exactly what the influencer was doing, in a more authoritative voice.</p>
+        <p class="pull">If the system can't verify a field, that field comes back blank rather than invented.</p>
+        <p>A visible gap instead of a confident guess. It makes the product look less capable on some inputs, and that was the trade I wanted, because one fabricated ingredient list destroys the whole premise. Two things followed: we score the claim against the evidence rather than the brand, with study counts linked to source so anyone can check us, and we labelled the score honestly as a prototype heuristic rather than dressing it up as a scientific instrument.</p>
+        <p><strong>Users don't need a system to always be right. They need to be able to tell when it isn't.</strong></p>
+        <h3>What I'd want to prototype here</h3>
+        <p>You mention conversational interfaces, guided configuration and intelligent recommendations. Guided configuration is the one I'd go at first, because it's where that rule bites hardest. An admin configuring identity policy is making a decision with consequences, and a system that proposes a setting needs to show where the proposal came from, how confident it is, and what changes if it's wrong. Model proposes, human commits, evidence visible on the value itself, correction available in one interaction rather than buried in settings.</p>
+        <p class="takeaway">That's a pattern rather than a screen, which is why it belongs in a component library rather than in one flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>11</b> <i></i> Why you</p>
+      <h2>Why Ping</h2>
+      <div class="card">
+        <p>Two reasons, and both are things I think I can solve for you rather than things I admire from a distance.</p>
+        <p><strong>You've said the future isn't settled yet.</strong> Design and implementation are converging through modern tooling and AI-native workflows, and you want someone to help define what that looks like here. I've been living inside that convergence for two years and I've already hit the failure modes, drift being the big one. I'd be arriving with working opinions rather than theories, and I'd much rather develop them with a team than alone at my kitchen table.</p>
+        <p class="takeaway"><strong>And trust is about to become a design problem for you.</strong> Your products increasingly make an automated decision about whether someone is who they say they are. I've had to make that call on my own product: what should a system do when it isn't sure. A confident wrong answer gets accepted. A visible gap gets checked. That question will turn up in every AI-assisted feature you build, and I've had to answer it once already.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>12</b> <i></i> Straight answers</p>
       <h2>What I don't have</h2>
       <div class="card">
         <h3>Identity, authentication and cybersecurity</h3>
-        <p>None. I have not worked in the domain and I am not going to pretend the vocabulary is familiar. What I do have is the instinct the domain runs on: every security product lives on the tension between verification and friction, and the design job is deciding, step by step, which side you pay on. Regulated fintech and healthtech means designing inside constraints you cannot argue with is normal for me, so I expect to be slow on your terminology and quick on your tradeoffs.</p>
-
+        <p>None. It's the domain and I'd be learning it. What I do bring is regulated fintech and healthtech, so designing inside a constraint you cannot argue with is familiar. My instinct is that every security product lives on the same tension: more verification means more friction, more friction means fewer people complete, and there's no clever way to make that disappear. You only choose, step by step, which side you're paying. I'd want to find out quickly where Ping pays it.</p>
         <h3>Production engineering inside someone else's codebase</h3>
-        <p>I ship my own products end to end, but I have not worked inside a large React codebase owned by a team of engineers. I direct and review rather than write from a blank file. I understand what I ship, I can debug it without the assistant in the room, and I can explain every decision in it. I would not claim to own your production architecture, and I would not want a role that needed me to.</p>
-
+        <p>I build and ship my own products end to end, and Claude Code is part of that workflow daily. But I direct and review rather than write from a blank file, and I haven't worked inside a large existing team codebase. I read what I ship, I can debug it, and I can explain every decision in it. I wouldn't claim to be an engineer who'd own your production architecture, and I don't think this role is asking me to.</p>
         <h3>Primary qualitative research</h3>
-        <p>My research is behavioural and quantitative, plus usability testing: funnel data, experiments, watching people use the thing. I have not led an end to end interview programme with recruitment, discussion guide and synthesis. It is the gap I am actively closing, and on Strands I ran the research myself for emotionally sensitive health design, which is the closest I have come.</p>
+        <p>Most of my research has been behavioural and quantitative, plus usability and prototype testing. I haven't personally led an end-to-end interview programme. It's the thing I'm most actively closing.</p>
       </div>
     </div>
   </section>
 
-  <!-- 8 -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>08</b> <i></i> First weeks</p>
-      <h2>What I'd do first</h2>
+      <p class="num"><b>13</b> <i></i> What happens next</p>
+      <h2>Where this goes</h2>
       <div class="card">
+        <h3>In the first month</h3>
         <ul class="plain">
-          <li><strong>Learn the domain by watching real admins work.</strong> Not a doc crawl. The vocabulary sticks when you have seen someone hesitate over a setting and then explain why.</li>
-          <li><strong>Find where people stall and prototype one fix.</strong> One coded prototype of the worst moment in a real workflow is worth more than a survey of all of them.</li>
-          <li><strong>Audit the design system for drift.</strong> Where has the shipped interface quietly stopped matching the tokens, and is that drift a mistake or a pattern the system has not caught up with yet.</li>
-          <li><strong>Keep asking which decision would tell us we were wrong.</strong> It is the question that turned the Omaze work from opinion into evidence, and it is the one I would bring to every review.</li>
+          <li>Learn the domain by watching real admins configure something, not by reading the docs.</li>
+          <li>Find the step in your flows where people stall, and build a prototype that tests one fix rather than arguing about three.</li>
+          <li>Audit the design system for drift, the gap between what's documented and what's actually in production.</li>
+          <li>Keep saying the quiet part: which of these decisions would tell us we were wrong, and how fast would we find out?</li>
         </ul>
+        <h3>In five years</h3>
+        <p>Deeper, not sideways. I'd want to know identity well enough to argue about it rather than just make it look better, and that takes a couple of years inside a domain.</p>
+        <p class="takeaway">And I'd want the design-and-code practice to be something the team has rather than something I do. Right now the way I work is mine, held together by my own habits. In five years I'd want it documented and shared, with patterns and coded components other designers reach for, so the whole team is prototyping at a level that doesn't depend on any one person being in the room.</p>
       </div>
     </div>
   </section>
@@ -564,22 +651,21 @@
 <footer>
   <div class="wrap">
     <p class="foot-links">
-      <a href="https://irinacsapo.co.uk">Portfolio</a>
-      <a href="https://irina.love">irina.love, shipped AI products</a>
-      <a href="https://www.cosmicpets.love/">Cosmic Pets</a>
+      <a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a>
+      <a href="https://irina.love">irina.love</a>
       <a href="https://www.linkedin.com/in/irinacsapo/">LinkedIn</a>
       <a href="mailto:hello@irinacsapo.co.uk?subject=Senior%20UX%20Design%20Developer">hello@irinacsapo.co.uk</a>
     </p>
-    <p><strong>Irina Csapo</strong>, senior product designer. UK, remote. Available now.</p>
-    <p>This page was built in code for this application, and it is not indexed or linked from my portfolio. Its source sits in the same public GitHub repository as the rest of the site.</p>
+    <p><strong>Irina Csapo</strong> &middot; Milton Keynes, UK &middot; available now</p>
+    <p>Designed and built for this application. The source is on GitHub with the rest of the site.</p>
   </div>
 </footer>
 
 <script>
   /* Contrast checker: the real WCAG 2.x relative luminance calculation. */
   (function () {
-    var fg = document.getElementById('fg'), fgHex = document.getElementById('fgHex');
-    var bg = document.getElementById('bg'), bgHex = document.getElementById('bgHex');
+    var fg = document.getElementById('fg');
+    var bg = document.getElementById('bg');
     var swatch = document.getElementById('swatch');
     var out = document.getElementById('ratio');
     var vNormal = document.getElementById('vNormal'), vLarge = document.getElementById('vLarge');
@@ -613,27 +699,18 @@
     }
 
     function update() {
-      var f = parse(fgHex.value), b = parse(bgHex.value);
+      var f = parse(fg.value), b = parse(bg.value);
       if (!f || !b) return;
       var ratio = contrast(f, b);
       out.textContent = ratio.toFixed(2) + ':1';
-      swatch.style.background = bgHex.value;
-      swatch.style.color = fgHex.value;
+      swatch.style.background = bg.value;
+      swatch.style.color = fg.value;
       mark(vNormal, ratio, 4.5, 'body text');
       mark(vLarge, ratio, 3, 'large text');
     }
 
-    function sync(picker, text) {
-      picker.addEventListener('input', function () { text.value = picker.value; update(); });
-      text.addEventListener('input', function () {
-        if (parse(text.value)) { picker.value = '#' + parse(text.value).map(function (n) {
-          return ('0' + n.toString(16)).slice(-2); }).join(''); }
-        update();
-      });
-    }
-
-    sync(fg, fgHex);
-    sync(bg, bgHex);
+    fg.addEventListener('change', update);
+    bg.addEventListener('change', update);
     update();
   })();
 
