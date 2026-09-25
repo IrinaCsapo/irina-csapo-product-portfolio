@@ -49,6 +49,36 @@ Then **Settings → Pages → Custom domain**, enter `irinacsapo.co.uk`, and tic
    `https://<your-username>.github.io/irina-csapo-product-portfolio/`.
 
 
+## Tailored application pages (`/hello/<company>/`)
+
+One page per job application, e.g. `/hello/ping-identity/`. Each is a single
+self-contained `index.html`: no build step, no framework, and no external
+requests, because it uses the site's own self-hosted Albert Sans. Copy the
+closest existing one and change the tokens, the copy and the sections.
+
+Rules that make them safe to hand to a hiring team:
+
+- `<meta name="robots" content="noindex, nofollow">` in the head.
+- Never linked from the site's nav, footer or sitemap. The URL only ever goes
+  in an application or an email.
+- Every colour checked at the size it is used: body text 4.5:1, large display
+  text 3:1. These pages make accessibility claims, so they get inspected.
+- Visible focus rings, a skip link, correct heading order, and animation
+  disabled under `prefers-reduced-motion`.
+- Only facts that are verified. Numbers quoted on these pages are measured,
+  not estimated.
+
+**Indexing.** `noindex` is what actually keeps them out of search results, so
+crawling is deliberately *not* blocked in a `robots.txt`: a blocked page cannot
+be read, so the `noindex` would never be seen, and the URL could still surface
+if anyone linked to it.
+
+**Privacy.** The repo is public, so these pages' source is readable on GitHub
+whatever the page itself does. A JavaScript password on GitHub Pages is theatre,
+not protection. Real options, in order of effort: retire the page when the
+process ends; use an unguessable slug; or serve `/hello/*` from a Cloudflare
+Pages project with Cloudflare Access (free, real authentication).
+
 ## Layout
 
 ```
