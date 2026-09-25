@@ -112,7 +112,8 @@
   }
 
   .eyebrow {
-    margin: 0 0 22px;
+    max-width: none;
+    margin: 0 auto 22px;
     font-size: 13px;
     font-weight: 700;
     letter-spacing: .18em;
@@ -176,6 +177,89 @@
     color: var(--muted);
   }
   .meta a { color: var(--red); font-weight: 700; }
+
+  /* Big pill CTAs, matching the portfolio. */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin: 34px 0 0;
+    max-width: none;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity .25s;
+  }
+
+  .btn--ghost { background: transparent; color: var(--ink); }
+  .btn:hover { opacity: .85; }
+
+  /* Question button on the Live data stat, and the dialog it opens. */
+  .api-info {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 4px;
+    padding: 0;
+    border: 1px solid var(--red);
+    border-radius: 999px;
+    background: none;
+    color: var(--red);
+    font: 700 12px var(--font);
+    line-height: 1;
+    cursor: pointer;
+    vertical-align: baseline;
+  }
+
+  .api-info:hover { background: var(--red); color: #fff; }
+
+  .api-dialog {
+    width: min(620px, calc(100vw - 32px));
+    padding: 28px 30px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--card);
+    color: var(--body);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .api-dialog::backdrop { background: rgba(0, 6, 69, .38); }
+  .api-dialog h3 { margin: 0 0 6px; font-size: 22px; }
+  .api-group {
+    margin: 22px 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .api-list { margin: 0; padding-left: 22px; }
+  .api-list li { margin-bottom: 12px; }
+  .api-dialog code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .88em;
+    color: var(--ink);
+    background: #f4f4fa;
+    border-radius: 6px;
+    padding: 1px 6px;
+  }
+  .api-close { margin-top: 18px; padding: 11px 24px; font-size: 15px; }
 
   /* ---------- sections ---------- */
   section { padding: 56px 0; }
@@ -394,12 +478,10 @@
     <p class="eyebrow">For Ping Identity &middot; Senior UX Design Developer</p>
     <h1>I <span class="grad g-design">design</span> it, <span class="grad g-build">build</span> it, and then <span class="grad g-ship">ship</span> it.</h1>
     <p class="lede">Hello Ping Identity. I'm Irina, a product designer with fifteen years across fintech, healthtech and connected hardware. <strong>This page is only about your role.</strong> Nine things you asked for, what I've actually done about each, and one honest section about what I don't have yet.</p>
-    <p class="meta">
-      <span>Irina Csapo</span>
-      <span>Milton Keynes, UK</span>
-      <span>Available now</span>
-      <a href="https://irinacsapo.co.uk">Portfolio</a>
-      <a href="https://irina.love">Things I've built</a>
+    <p class="hero-actions">
+      <a class="btn" href="https://irinacsapo.co.uk" target="_blank" rel="noopener">Portfolio</a>
+      <a class="btn btn--ghost" href="https://irina.love" target="_blank" rel="noopener">Things I've built</a>
+      <a class="btn btn--ghost" href="../../assets/docs/irina-csapo-cv-senior-ux-design-developer-sept-2026.pdf" target="_blank" rel="noopener">CV</a>
     </p>
   </div>
 </header>
@@ -421,16 +503,32 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>02</b> <i></i> Code as a design tool</p>
-      <h2 class="jd">&ldquo;Use code as a design tool, not simply as an implementation medium.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Use code as a design tool, not simply as an implementation medium.&rdquo;</h2>
       <div class="card">
         <p><strong>Vera</strong> is my clearest example. A mobile prototype that checks supplement and wellness claims from TikTok and Instagram against scientific evidence: paste a link, upload a screenshot, or search a brand. I led product design and engineering, at the ZOE Women in Tech Hackathon in London in July 2026, in a team of six.</p>
         <p>Its claim score is a heuristic, but the numbers behind it are real. A Cloudflare Worker fetches posts server-side, a model with search grounding identifies the product, and OpenAlex returns live counts of peer-reviewed studies.</p>
         <ul class="stats">
           <li><b>2 days</b><span>idea to working build</span></li>
           <li><b>3 inputs</b><span>link, screenshot, brand name</span></li>
-          <li><b>Live data</b><span>nothing mocked</span></li>
+          <li><b>Live data</b><span>7 APIs connected <button type="button" class="api-info" aria-haspopup="dialog" aria-label="See the seven APIs Vera connects to">?</button></span></li>
         </ul>
+        <dialog id="api-dialog" class="api-dialog" aria-labelledby="api-dialog-title">
+          <h3 id="api-dialog-title">What Vera connects to</h3>
+          <p class="api-group">Third-party data APIs</p>
+          <ol class="api-list">
+            <li><strong>Google Gemini</strong> <code>generativelanguage.googleapis.com</code><br/>Identifies the real product from a caption, screenshot or brand name, with Google Search grounding. Called via the Vera Worker.</li>
+            <li><strong>OpenAlex</strong> <code>api.openalex.org</code><br/>Live count of related peer-reviewed studies, with links to the research.</li>
+            <li><strong>NIH DSLD</strong> <code>dsldapi.od.nih.gov</code><br/>The Dietary Supplement Label Database, for label lookups and search.</li>
+            <li><strong>Open Food Facts</strong> <code>world.openfoodfacts.org</code><br/>Product and ingredient data, and their product image CDN.</li>
+            <li><strong>TikTok oEmbed</strong> <code>tiktok.com/oembed</code><br/>Pulls the real post's handle, caption and thumbnail.</li>
+          </ol>
+          <p class="api-group">Infrastructure</p>
+          <ol class="api-list" start="6">
+            <li><strong>Cloudflare Worker</strong> <code>vera-tiktok.irina-csapo.workers.dev</code><br/>Backend proxy that reads the public TikTok page server-side and calls Gemini.</li>
+            <li><strong>Umami</strong> <code>irina-umami.vercel.app</code><br/>Analytics, plus session replay and heatmap recording.</li>
+          </ol>
+          <button type="button" class="btn btn--ghost api-close">Close</button>
+        </dialog>
         <p class="takeaway"><a href="https://irinacsapo.github.io/zoe-hackathon-app/" target="_blank" rel="noopener">Open the Vera prototype</a> &middot; <a href="https://irinacsapo.github.io/zoe-hackathon-app/case-study.html" target="_blank" rel="noopener">Read the case study</a></p>
       </div>
     </div>
@@ -439,8 +537,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>03</b> <i></i> Prototyping before implementation</p>
-      <h2 class="jd">&ldquo;Rapidly prototype workflows and usability concepts before implementation.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Rapidly prototype workflows and usability concepts before implementation.&rdquo;</h2>
       <div class="card">
         <p>Prototyping to explore is one thing. Prototyping to <strong>settle an argument</strong> is where it gets interesting.</p>
         <p>Omaze UK's Monthly Millionaire launched at around &pound;650k a month against a &pound;1m+ forecast. Funnel data showed mobile users engaging almost entirely with the bottom half of the screen, on a customer base skewing 40 and over. 89% of them are on mobile. So we stopped debating layout and rebuilt around reachable actions, value and trust above the fold, and legible type.</p>
@@ -459,8 +556,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>04</b> <i></i> Complex enterprise software</p>
-      <h2 class="jd">&ldquo;Design user experiences for complex enterprise SaaS applications.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Design user experiences for complex enterprise SaaS applications.&rdquo;</h2>
       <div class="card">
         <p><strong>Paycada</strong> is the one I'd bring to this. An automated invoice-chasing platform in regulated fintech, where I was sole designer for three years: platform, marketing site, brand and the design system underneath.</p>
         <p>Chasing an invoice means asking a customer for money without damaging the relationship. So the work was about control and tone: what goes out automatically, to whom, what a human sees first, and how far an escalation travels before someone decides.</p>
@@ -474,8 +570,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>05</b> <i></i> Modern frontend</p>
-      <h2 class="jd">&ldquo;Build prototypes using modern frontend technologies.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Build prototypes using modern frontend technologies.&rdquo;</h2>
       <div class="card">
         <p class="pull">You're reading the answer to this one.</p>
         <p>This page is built in HTML, CSS and vanilla JavaScript. The contrast tool further down is about thirty lines implementing the WCAG relative luminance formula: sRGB linearisation, the 0.2126 / 0.7152 / 0.0722 coefficients, the 0.05 offsets. A simple tool I built for myself.</p>
@@ -488,8 +583,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>06</b> <i></i> Design tools</p>
-      <h2 class="jd">&ldquo;Use modern design tools to explore concepts and communicate visual design.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Use modern design tools to explore concepts and communicate visual design.&rdquo;</h2>
       <div class="card">
         <p>Figma for layout, colour, imagery and the systems. I've recently started using Paper, because it designs straight into code for the web. Then into Claude Code to build it.</p>
         <ul class="kit">
@@ -509,8 +603,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>07</b> <i></i> Accessibility and WCAG</p>
-      <h2 class="jd">&ldquo;Solid understanding of accessibility standards and WCAG guidelines.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Solid understanding of accessibility standards and WCAG guidelines.&rdquo;</h2>
       <div class="card">
         <p>On Paycada I ran a contrast audit across the component set and found <strong>two live failures</strong>. Since then I check rather than assume, including my own work, so that what I ship is WCAG compliant.</p>
         <p>Here's a little tool I built, working, on the page. Every colour listed is one from my own system.</p>
@@ -555,8 +648,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>08</b> <i></i> Design systems and coded components</p>
-      <h2 class="jd">&ldquo;Contribute to the design system, reusable patterns and coded component libraries.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Contribute to the design system, reusable patterns and coded component libraries.&rdquo;</h2>
       <div class="card">
         <p>The Paycada system emerged in the work rather than being formalised upfront, and I've since gone back and articulated it properly as three tiers: brand primitives, semantic aliases, then component tokens.</p>
         <p class="takeaway">I've worked on other design systems since, and I can contribute to one effectively.</p>
@@ -567,8 +659,7 @@
   <section class="reveal">
     <div class="wrap">
       <p class="num"><b>09</b> <i></i> AI-assisted experiences</p>
-      <h2 class="jd">&ldquo;Design and prototype AI-assisted experiences.&rdquo;
-        <cite>Ping Identity, Senior UX Design Developer</cite></h2>
+      <h2 class="jd">&ldquo;Design and prototype AI-assisted experiences.&rdquo;</h2>
       <div class="card">
         <p>This is the part of the role I want most, and the part I've spent the last year doing on my own time.</p>
         <p>At <a href="https://irina.love" target="_blank" rel="noopener">irina.love</a> I design and build small AI products and put them live: a tool that turns four questions into a piece of music written for you, one that writes you a letter from your future self in twenty-five languages, and one that turns a photo of your pet into a cosmic portrait and a short story. Real products, real users, built solo.</p>
@@ -632,7 +723,7 @@
       <a href="mailto:hello@irinacsapo.co.uk?subject=Senior%20UX%20Design%20Developer">hello@irinacsapo.co.uk</a>
     </p>
     <p><strong>Irina Csapo</strong> &middot; Milton Keynes, UK &middot; available now</p>
-    <p>Designed and built for this application. The source is on GitHub with the rest of the site.</p>
+    <p>Designed and built for this application. This page isn't indexed and won't turn up in a search: the only way to it is the link I sent you.</p>
   </div>
 </footer>
 
@@ -687,6 +778,22 @@
     fg.addEventListener('change', update);
     bg.addEventListener('change', update);
     update();
+  })();
+
+  /* The API list behind the question mark on the Live data stat. */
+  (function () {
+    var open = document.querySelector('.api-info');
+    var dlg = document.getElementById('api-dialog');
+    if (!open || !dlg) return;
+    open.addEventListener('click', function () {
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else dlg.setAttribute('open', '');
+    });
+    dlg.querySelector('.api-close').addEventListener('click', function () {
+      if (typeof dlg.close === 'function') dlg.close();
+      else dlg.removeAttribute('open');
+      open.focus();
+    });
   })();
 
   /* Gentle reveal on scroll, skipped entirely for reduced motion. */
