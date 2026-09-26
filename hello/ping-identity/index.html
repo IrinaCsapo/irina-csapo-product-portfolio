@@ -430,8 +430,9 @@
     font-family: var(--font); font-size: 16px; color: var(--ink); background: var(--card);
   }
   .swatch {
-    flex: 1 1 260px;
-    min-height: 116px;
+    width: 100%;
+    margin-top: 22px;
+    min-height: 132px;
     border: 1px solid var(--line);
     border-radius: 14px;
     padding: 18px 20px;
@@ -664,10 +665,10 @@
                 <option value="#000645">Ink #000645</option>
               </select>
             </div>
-            <div class="swatch" id="swatch">
-              <span class="big">Verify before you trust it.</span>
-              <span class="small">Body text at 16 pixels</span>
-            </div>
+          </div>
+          <div class="swatch" id="swatch">
+            <span class="big">Verify before you trust it.</span>
+            <span class="small">Body text at 16 pixels</span>
           </div>
           <div class="result" role="status" aria-live="polite">
             <span class="ratio" id="ratio">2.07:1</span>
