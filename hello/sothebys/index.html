@@ -25,7 +25,7 @@
     --display: 'Libre Caslon Display', 'Libre Caslon Text', Georgia, serif;
     --sans:    'Albert Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-    --ink:       #000000;   /* 20.52:1 on paper */
+    --ink:       #333333;   /* 12.35:1 on paper */
     --ink-soft:  #55565A;   /*  7.16:1 on paper */
     --blue:      #23448D;   /*  8.98:1 on paper */
     --gold:      #C29B40;   /* RULES AND ORNAMENT ONLY — 2.55:1, never text */
@@ -34,6 +34,7 @@
     --line:      #E6E2DA;
 
     --maxw: 1320px;   /* the plate row is the widest thing on the page */
+    --col: 1100px;    /* the lots and the sale information */
     --measure: 900px; /* the reading column, as drawn */
   }
 
@@ -43,6 +44,7 @@
   body{
     margin:0; background:var(--paper); color:var(--ink);
     font-family:var(--serif); font-size:17px; line-height:1.72;
+    letter-spacing:.02em;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
@@ -50,7 +52,7 @@
   /* ---------- shared marks ---------- */
   .label{
     font-family:var(--sans); font-size:18px; font-weight:700;
-    letter-spacing:.02em; text-transform:uppercase; color:var(--gold-ink);
+    letter-spacing:normal; text-transform:uppercase; color:var(--gold-ink);
   }
   .rule{height:1px; background:var(--line); border:0; margin:0}
   .rule--gold{height:2px; background:var(--gold)}
@@ -100,22 +102,25 @@
   .intro{margin:72px auto 0}
   .intro p{margin:0}
   .intro .lead{
-    font-family:var(--serif); font-size:clamp(1.3rem, 2vw, 32px);
-    line-height:1.25; margin:0 0 48px;
+    font-family:var(--serif); font-size:clamp(1.2rem, 1.85vw, 26px);
+    line-height:1.385; margin:0 0 16px;
   }
-  .intro p:last-child{font-size:clamp(1.05rem, 1.45vw, 23px); line-height:1.22}
+  .intro p:last-child{font-size:clamp(1.05rem, 1.42vw, 20px); line-height:1.5}
 
   .what{margin:82px auto 0; text-align:left}
   .what .rule-gold-short{width:100px; margin:0 auto 21px}
   .what .label{display:block; margin:0 0 21px}
-  .what p{font-size:clamp(1.05rem, 1.45vw, 23px); line-height:1.22; margin:0 0 28px}
+  .what p{font-size:clamp(1.05rem, 1.42vw, 20px); line-height:1.5; margin:0 0 30px}
   .what p:last-child{margin-bottom:0}
 
   /* ---------- sale information ---------- */
-  .sale{border-top:1px solid var(--gold); margin:74px 0 0; padding:40px 0 0; text-align:left}
+  .sale{
+    border-top:1px solid var(--gold); margin:74px auto 0; padding:40px 0 0;
+    text-align:left; max-width:var(--col);
+  }
   .sale dl{
     display:grid; grid-template-columns:repeat(4, minmax(0, 1fr));
-    gap:40px 51px; margin:0; max-width:1200px;
+    gap:40px 65px; margin:0;   /* 65 not the drawn 80: it keeps the columns at 226px inside 1100 */
   }
   .sale dt{margin:0 0 4px}
   .sale dd{margin:0; font-size:20px; line-height:1.75}
@@ -131,19 +136,25 @@
      title over a 30px descriptor, then a narrow column of terse lines beside a
      wide column of prose. */
   section{padding:58px 0}
-  .lot-head{border-top:1px solid var(--gold); padding-top:30px; margin-bottom:32px}
+  .lot-head{
+    border-top:1px solid var(--gold); padding-top:30px; margin-bottom:32px;
+    max-width:var(--col); margin-inline:auto;
+  }
   .lot-no{display:block; margin-bottom:32px}
   h2{
     font-family:var(--display); font-weight:400;
     font-size:clamp(2.1rem, 4.4vw, 64px); line-height:1.22;
-    margin:0 0 8px; letter-spacing:0;
+    margin:0 0 8px; letter-spacing:.02em;
   }
   .descriptor{
     font-style:normal; color:var(--ink); margin:0;
-    font-size:clamp(1.25rem, 2.1vw, 30px); line-height:1.2; max-width:684px;
+    font-size:clamp(1.2rem, 1.95vw, 28px); line-height:1.215; max-width:684px;
   }
 
-  .lot-body{display:grid; grid-template-columns:376px 1fr; gap:11px; align-items:start}
+  .lot-body{
+    display:grid; grid-template-columns:376px minmax(0, 713px); gap:11px;
+    align-items:start; max-width:var(--col); margin-inline:auto;
+  }
   .facts{margin:0}
   .facts dt{margin:0 0 4px}
   .facts dd{margin:0; font-size:20px; line-height:1.75}
@@ -158,7 +169,7 @@
   .lot-cta:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
 
   .prose .label{display:block; margin:0 0 4px}
-  .prose p{margin:0 0 20px; font-size:20px; line-height:1.4; text-wrap:pretty}
+  .prose p{margin:0 0 20px; font-size:20px; line-height:1.5; text-wrap:pretty}
   .prose p:last-child{margin-bottom:0}
   .attribution{
     font-family:var(--sans); font-size:14px; color:var(--ink-soft);
@@ -296,13 +307,13 @@
       <p class="lead">
         I'm Irina Csapo, a senior product designer with 15 years behind me. Most of that time has
         gone on the two things this role asks for at once: the experience a client sees, and the
-        tooling the people inside the business use to make it happen. E-commerce, regulated fintech,
+        tooling the people inside the business use to make it happen. Regulated fintech, e-commerce,
         healthcare, and hardware that sits in people's homes.
       </p>
       <p>
         I am also a practising artist but this isn't the reason to hire me. It is one of the reasons
-        I want to work at Sotheby's so much, to be closer to the art world and perhaps, the reason I
-        am writing to you like this rather than just applying quietly through a form.
+        that makes me want to work at Sotheby's, to be closer to the art world and also, the reason
+        I am trying to reach to you like this rather than just applying quietly through a form.
       </p>
     </div>
 
