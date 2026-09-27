@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Irina Csapo — A Catalogue of Work</title>
+<meta name="description" content="Senior Product Designer. A catalogue of work, assembled for Sotheby's.">
+<link rel="shortcut icon" href="../../assets/images/5eb585a77fc0256e26aa1c03_favicon_32x32px_v3.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --serif: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+    --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    --ink:       #333333;   /* 12.32:1 on paper */
+    --ink-soft:  #55565A;   /*  7.15:1 on paper */
+    --blue:      #23448D;   /*  8.97:1 on paper */
+    --gold:      #C29B40;   /* RULES AND ORNAMENT ONLY — 2.54:1, never text */
+    --gold-ink:  #8A6A1F;   /*  4.92:1 on paper — the gold used for type */
+    --paper:     #FDFCFA;
+    --line:      #E6E2DA;
+
+    --maxw: 1020px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.72;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px}
+
+  /* ---------- shared marks ---------- */
+  .label{
+    font-family:var(--sans); font-size:11px; font-weight:600;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);
+  }
+  .rule{height:1px; background:var(--line); border:0; margin:0}
+  .rule--gold{height:2px; background:var(--gold)}
+
+  a{color:var(--blue); text-underline-offset:3px; text-decoration-thickness:1px}
+  a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+
+  /* ---------- masthead ---------- */
+  header{padding:84px 0 54px; text-align:center}
+  .masthead-rule{display:flex; align-items:center; gap:18px; margin-bottom:34px}
+  .masthead-rule .rule{flex:1}
+  .masthead-rule .label{color:var(--gold-ink)}
+
+  .addressed{
+    font-family:var(--sans); font-size:12px; font-weight:600;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);
+    margin:0 0 40px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:400;
+    font-size:clamp(2.9rem,8.5vw,6rem); line-height:1.0;
+    margin:0 0 34px; letter-spacing:-.02em;
+  }
+  .sothebys-mark{
+    display:block; max-width:min(300px, 62vw); height:auto;
+    margin:0 auto 46px; opacity:.92;
+  }
+  .rule-gold-short{
+    width:64px; height:2px; background:var(--gold);
+    border:0; margin:0 auto 46px;
+  }
+  .role{
+    font-family:var(--sans); font-size:13px; font-weight:500;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .intro{max-width:40rem; margin:0 auto; text-align:left}
+  .intro p{margin:0 0 18px}
+  .intro .lead{font-size:19px}
+  .intro p:last-child{margin-bottom:0}
+
+  .what{
+    max-width:40rem; margin:46px auto 0; text-align:left;
+    border-top:1px solid var(--line); padding-top:26px;
+  }
+  .what .label{display:block; color:var(--gold-ink); margin-bottom:14px}
+  .what p{margin:0 0 16px}
+  .what p:last-child{margin-bottom:0}
+
+  /* ---------- sale information ---------- */
+  .sale{
+    border-top:2px solid var(--gold); border-bottom:1px solid var(--line);
+    margin:54px 0 0; padding:26px 0;
+  }
+  .sale dl{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:22px 32px; margin:0;
+  }
+  .sale dt{margin-bottom:6px}
+  .sale dd{margin:0; font-size:16px; line-height:1.5}
+
+  /* ---------- lots ---------- */
+  section{padding:58px 0}
+  .lot-head{border-top:1px solid var(--ink); padding-top:14px; margin-bottom:26px}
+  .lot-no{display:block; color:var(--gold-ink); margin-bottom:22px}
+  h2{
+    font-family:var(--serif); font-weight:400;
+    font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.12;
+    margin:0 0 8px; letter-spacing:-.005em;
+  }
+  .descriptor{font-style:italic; color:var(--ink-soft); margin:0; font-size:17px}
+
+  .lot-body{display:grid; grid-template-columns:minmax(220px,34%) 1fr; gap:44px}
+  .facts dt{margin:0 0 5px}
+  .facts dd{margin:0 0 20px; font-size:15.5px; line-height:1.55}
+  .facts dd:last-child{margin-bottom:0}
+  .prose p{margin:0 0 18px}
+  .prose p:last-child{margin-bottom:0}
+  .attribution{
+    font-family:var(--sans); font-size:13px; color:var(--ink-soft);
+    border-left:2px solid var(--gold); padding-left:14px; margin-top:26px;
+  }
+
+  /* ---------- essay blocks ---------- */
+  .essay{max-width:40rem}
+  .essay p{margin:0 0 18px}
+  .essay p:last-child{margin-bottom:0}
+
+  .note{
+    border-top:2px solid var(--gold); border-bottom:1px solid var(--line);
+    padding:34px 0;
+  }
+  .condition h3{
+    font-family:var(--serif); font-weight:700; font-size:17px;
+    margin:26px 0 6px; color:var(--ink);
+  }
+  .condition h3:first-of-type{margin-top:18px}
+  .condition p{margin:0; max-width:40rem}
+
+  /* ---------- spread embed ---------- */
+  .spread-frame{margin-top:34px; min-height:360px; position:relative}
+  .spread-frame .spread{width:100%}
+  .embed-caption{
+    font-family:var(--sans); font-size:12px; color:var(--ink-soft);
+    letter-spacing:.04em; margin:14px 0 0;
+  }
+  .spread-fallback{
+    border:1px solid var(--line); border-left:2px solid var(--gold);
+    padding:22px 24px; margin:0; font-style:italic; color:var(--ink-soft);
+    max-width:40rem;
+  }
+
+  /* ---------- footer ---------- */
+  footer{padding:60px 0 84px; text-align:center; border-top:1px solid var(--ink)}
+  footer .name{font-size:22px; margin:22px 0 6px}
+  footer .meta{font-family:var(--sans); font-size:14px; color:var(--ink-soft); margin:0 0 16px}
+  footer .contact{
+    font-family:var(--sans); font-size:15px; margin:0 0 28px;
+    display:flex; gap:12px; justify-content:center; align-items:center; flex-wrap:wrap;
+  }
+  footer .contact a{text-decoration:none; border-bottom:1px solid var(--gold); padding-bottom:2px}
+  footer .contact .sep{color:var(--gold-ink)}
+  .footer-links{display:flex; gap:26px; justify-content:center; flex-wrap:wrap}
+  .footer-links a{
+    font-family:var(--sans); font-size:13px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; text-decoration:none;
+    border-bottom:1px solid var(--gold); padding-bottom:3px;
+  }
+  .colophon{font-family:var(--sans); font-size:12px; color:var(--ink-soft); margin-top:44px}
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0; transform:translateY(12px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.in{opacity:1; transform:none}
+  }
+  @media (max-width:760px){
+    .lot-body{grid-template-columns:1fr; gap:28px}
+    header{padding:52px 0 40px}
+    section{padding:42px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <p class="addressed">An application for the role of Senior Product Designer</p>
+
+    <h1>Hello, Sotheby's.</h1>
+
+    <!-- Drop the wordmark at /sothebys/sothebys-logo.svg (or .png).
+         If the file is missing the image removes itself, leaving the gold rule. -->
+    <img class="sothebys-mark" src="sothebys-logo.svg" alt="Sotheby's"
+         onerror="this.remove()">
+    <hr class="rule-gold-short">
+
+    <div class="intro">
+      <p class="lead">
+        I'm Irina Csapo, a product designer with fifteen years behind me. Most of that time has gone on
+        the two things this role asks for at once: the experience a client sees, and the tooling the
+        people inside the business use to make it happen. E-commerce, regulated fintech, healthcare, and
+        hardware that sits in people's homes.
+      </p>
+      <p>
+        I am also a practising artist. That isn't the reason to hire me, but it is the reason I am writing
+        to you like this rather than applying quietly through the form.
+      </p>
+    </div>
+
+    <div class="what">
+      <span class="label">What this is</span>
+      <p>
+        Four pieces of work, selected because they answer your job description rather than because I am
+        fondest of them. Each is described the way you would describe an object: what it is, where it came
+        from, the condition it was found in, and what it achieved.
+      </p>
+      <p>
+        Then a note on institutions, and a condition report, because it seemed wrong to make a catalogue
+        and leave out the part where you disclose the flaws.
+      </p>
+    </div>
+
+    <div class="sale">
+      <dl>
+        <div><dt class="label">Specialisms</dt><dd>Consumer experience, operational tooling, native mobile, design systems</dd></div>
+        <div><dt class="label">Sectors</dt><dd>E-commerce, fintech and payments, healthtech, connected hardware</dd></div>
+        <div><dt class="label">Experience</dt><dd>Fifteen years, five long-term appointments</dd></div>
+        <div><dt class="label">Viewing</dt><dd><a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a></dd></div>
+      </dl>
+    </div>
+  </header>
+
+  <!-- LOT 1 -->
+  <section class="reveal">
+    <div class="lot-head">
+      <span class="label lot-no">Lot 1</span>
+      <h2>Omaze UK, Monthly Millionaire</h2>
+      <p class="descriptor">Consumer subscription experience, mobile-first, built within Shopify</p>
+    </div>
+    <div class="lot-body">
+      <dl class="facts">
+        <dt class="label">Provenance</dt>
+        <dd>Commissioned following a subscription price increase from £10 to £15, which required the business to demonstrate new value to an audience it had just asked for more money.</dd>
+        <dt class="label">Condition</dt>
+        <dd>Launched at approximately £650,000 per month against a forecast exceeding £1,000,000.</dd>
+        <dt class="label">Result</dt>
+        <dd>35% conversion uplift. £1,500,000 in a single month, sustained thereafter above £1,000,000.</dd>
+      </dl>
+      <div class="prose">
+        <p>
+          Funnel analysis showed two things worth more than any opinion in the room: the customer base
+          skewed to forty-five and over, and mobile users engaged almost entirely with the lower half of
+          the screen. That settled the argument about layout. The page was rebuilt around reachable
+          actions, with value and trust placed above the fold and type sized for a real phone in real light.
+        </p>
+        <p>
+          Three hypotheses were then tested in sequence. Third-party trust signals returned 7.3%. Winner
+          reaction footage as a looping hero returned 4.8%. Reframing the subscription as the better value,
+          rather than the alternative to a single purchase, returned 8.5%. That third change carried the
+          risk of simply moving revenue from one pocket to another, so both figures were measured. It did not.
+        </p>
+        <p class="attribution">
+          Sole designer. Two engineers, two product managers, growth and CRM.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOT 2 -->
+  <section class="reveal">
+    <div class="lot-head">
+      <span class="label lot-no">Lot 2</span>
+      <h2>Paycada</h2>
+      <p class="descriptor">Operational platform for automated invoice chasing, regulated fintech</p>
+    </div>
+    <div class="lot-body">
+      <dl class="facts">
+        <dt class="label">Provenance</dt>
+        <dd>Built from nothing. Sole designer for three years, across platform, marketing site and brand.</dd>
+        <dt class="label">Condition</dt>
+        <dd>A business asking its own customers for money, repeatedly, without damaging the relationship it depends on.</dd>
+        <dt class="label">Result</dt>
+        <dd>A shipped product with a design system beneath it: three tiers of tokens, full component state coverage, and an accessibility audit that identified two live contrast failures already in production.</dd>
+      </dl>
+      <div class="prose">
+        <p>
+          The workflows are the unglamorous kind, and there are a great many of them. Add a user, remove a
+          user, create an organisation, edit its permissions, decide what leaves the building and when.
+        </p>
+        <p>
+          The design question underneath all of it is control. What goes out automatically, what a person
+          sees before it goes, and how far an escalation is permitted to travel before somebody has to
+          decide. Automate that badly and you have built a machine that irritates the people who pay you.
+          Most of the work was in deciding where the human belongs.
+        </p>
+        <p class="attribution">
+          Sole designer, three years. Screens available on request.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOT 3 -->
+  <section class="reveal">
+    <div class="lot-head">
+      <span class="label lot-no">Lot 3</span>
+      <h2>Veva</h2>
+      <p class="descriptor">Native application for electric vehicle charge points, iOS and Android</p>
+    </div>
+    <div class="lot-body">
+      <dl class="facts">
+        <dt class="label">Provenance</dt>
+        <dd>Hardware installed at a customer's home, requiring a single application to serve two people with nothing in common.</dd>
+        <dt class="label">Condition</dt>
+        <dd>The homeowner lives with the product for years. The engineer has one visit, outdoors, on a poor connection, to make it work at all.</dd>
+        <dt class="label">Result</dt>
+        <dd>Eight charging states authored in Rive and delivered to both platforms. An installation flow that completes without the home network.</dd>
+      </dl>
+      <div class="prose">
+        <p>
+          The installer's experience was designed first, because it is the gate. If the charge point never
+          reaches the network, the owner never sees a schedule, and the first experience of something
+          expensive is a call to support.
+        </p>
+        <p>
+          One decision followed from that. Commissioning cannot depend on the home wifi being reachable, so
+          the application detects the situation and falls back to a local hotspot broadcast by the charge
+          point itself. The cleaner flow, the one that assumes working credentials and a good signal, makes
+          a better-looking design file and fails in a driveway.
+        </p>
+        <p class="attribution">
+          Sole designer. Business analyst, product manager, iOS and Android engineers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOT 4 -->
+  <section class="reveal">
+    <div class="lot-head">
+      <span class="label lot-no">Lot 4</span>
+      <h2>Tender Tech</h2>
+      <p class="descriptor">Mixed media, electronic waste on board, ongoing</p>
+    </div>
+    <div class="lot-body">
+      <dl class="facts">
+        <dt class="label">Materials</dt>
+        <dd>Circuit boards, ribbon cable, keyboard keys and hard drive platters, recovered from disposal.</dd>
+        <dt class="label">Exhibited</dt>
+        <dd>Bucharest Collage Festival. Talk delivered at MK Geek Night, “Tender Tech: Joy, E-Waste and the Art of Delightful Making”.</dd>
+        <dt class="label">Note</dt>
+        <dd>Not offered as a qualification.</dd>
+      </dl>
+      <div class="prose">
+        <p>
+          Included because it explains the other three. I began in print and branding before moving into
+          product, and I have never entirely lost the habit of treating a discarded object as the most
+          interesting thing in the room.
+        </p>
+        <p>
+          It is also the honest answer to why this application takes this form rather than the form of a
+          covering letter.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A NOTE ON THE FORM -->
+  <section class="reveal">
+    <div class="note">
+      <span class="label lot-no">A note on the form</span>
+      <div class="essay">
+        <p>
+          This page is laid out as a catalogue, which may read as a flourish. It isn't. I'm currently
+          building a tool that takes a set of images and lets you read them as a book, spread by spread,
+          because I have never found a satisfying way to look at a body of work online and I got tired of
+          waiting for one.
+        </p>
+        <p>
+          It is unfinished. What follows is it running.
+        </p>
+      </div>
+
+      <div class="spread-frame">
+        <div class="spread" data-book="https://spread.irina.love/book.json"></div>
+        <p class="spread-fallback" id="spreadFallback" hidden>
+          The reader isn't loading here, which is the honest state of a thing still being built.
+          I'd be glad to show you where it has got to.
+        </p>
+      </div>
+      <p class="embed-caption" id="spreadCaption">Spread · in progress · spread.irina.love</p>
+    </div>
+  </section>
+
+  <!-- ESSAY -->
+  <section class="reveal">
+    <div class="note">
+      <span class="label lot-no">A note on institutions</span>
+      <div class="essay">
+        <p>
+          Sotheby's has been selling things since 1744 and is now also shipping software. Those two facts
+          sit in tension, and I suspect the tension is most of the job.
+        </p>
+        <p>
+          Most product designers treat heritage as drag: the weight that slows the release down, the
+          approval that has to be routed around. I have never been able to see it that way. I spent the
+          first part of my career in print and branding before moving into product, and I make pictures out
+          of things other people have thrown away, so I am constitutionally inclined to believe the old
+          thing is the valuable thing.
+        </p>
+        <p>
+          In practice that means moving at the pace a modern product team needs without treating the
+          institution around it as an obstacle. A name that has survived two hundred and eighty-two years
+          is an asset most companies would pay almost anything to have. It should be designed with, rather
+          than in spite of.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONDITION REPORT -->
+  <section class="reveal condition">
+    <div class="lot-head">
+      <span class="label lot-no">Condition report</span>
+      <h2>Offered as seen</h2>
+      <p class="descriptor">The following is noted in the interest of accuracy</p>
+    </div>
+
+    <h3>No auction house experience</h3>
+    <p>
+      I know this world as someone who makes and exhibits work within it, not as someone who has worked
+      inside the business of it. I would be learning the trade, and I would rather say so than imply that
+      fifteen years transfers wholesale. What does transfer is above: complex operational workflows,
+      commercial outcomes on the consumer side, native mobile, and the discipline of designing for two
+      audiences at once.
+    </p>
+
+    <h3>Research</h3>
+    <p>
+      Most of mine has been behavioural and quantitative, alongside usability and prototype testing. I
+      have not personally led an end-to-end qualitative programme with primary interviews at its centre.
+      It is the thing I am most actively closing, and I would want to begin by sitting with specialists
+      rather than with a research plan.
+    </p>
+
+    <h3>Location</h3>
+    <p>
+      Milton Keynes, which is a little over half an hour from Euston. Remote suits the way I work and
+      New Bond Street is straightforward.
+    </p>
+  </section>
+
+  <footer>
+    <div class="masthead-rule" style="margin-top:0">
+      <hr class="rule"><span class="label">End of catalogue</span><hr class="rule">
+    </div>
+    <p class="name">Irina Csapo</p>
+    <p class="meta">Senior Product Designer · Available now</p>
+    <p class="contact">
+      <a href="mailto:irina.csapo@gmail.com">irina.csapo@gmail.com</a>
+      <span class="sep" aria-hidden="true">·</span>
+      <a href="tel:+447599840486">07599 840486</a>
+    </p>
+    <div class="footer-links">
+      <a href="https://irinacsapo.co.uk">Portfolio</a>
+      <a href="https://irina.love">Built work</a>
+    </div>
+    <p class="colophon">
+      Designed and built for this application.
+    </p>
+  </footer>
+
+</div>
+
+<!-- Spread reader. Served from spread.irina.love, so it must be reachable over HTTPS. -->
+<link rel="stylesheet" href="https://spread.irina.love/spread.css">
+<script src="https://spread.irina.love/vendor/page-flip.browser.js"></script>
+<script src="https://spread.irina.love/spread.js"></script>
+
+<script>
+/* If the reader hasn't rendered anything after a few seconds, show the fallback
+   rather than an empty box. An unfinished thing is fine; a broken-looking one isn't. */
+(function(){
+  var frame    = document.querySelector('.spread-frame');
+  var mount    = document.querySelector('.spread');
+  var fallback = document.getElementById('spreadFallback');
+  var caption  = document.getElementById('spreadCaption');
+  if (!mount || !fallback) return;
+
+  setTimeout(function(){
+    if (mount.children.length === 0 && mount.textContent.trim() === ''){
+      mount.hidden = true;
+      fallback.hidden = false;
+      if (frame) frame.style.minHeight = '0';
+      if (caption) caption.hidden = true;
+    }
+  }, 4000);
+})();
+</script>
+
+<script>
+(function(){
+  if (window.IntersectionObserver && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+})();
+</script>
+</body>
+</html>
