@@ -458,6 +458,50 @@
   .verdict.fail { border-color: #b3261e; color: #8c1d18; }
   .tool-note { margin-top: 16px; font-size: 15px; color: var(--muted); max-width: 66ch; }
 
+  /* ---------- jump buttons ---------- */
+  .jump {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .jump-btn {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 6, 69, .06);
+    transition: border-color .2s ease, color .2s ease, opacity .2s ease;
+  }
+  .jump-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .jump-btn:hover { border-color: var(--red); color: var(--red); }
+  .jump-btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+  .jump-btn:disabled { opacity: .28; cursor: default; box-shadow: none; }
+  @media (max-width: 600px) {
+    .jump { right: 14px; bottom: 14px; gap: 10px; }
+    .jump-btn { width: 44px; height: 44px; }
+    .jump-btn svg { width: 18px; height: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .jump-btn { transition: none; } }
+  @media print { .jump { display: none; } }
+
   /* ---------- footer ---------- */
   footer {
     margin-top: 40px;
@@ -767,6 +811,15 @@
   </div>
 </footer>
 
+<div class="jump">
+  <button type="button" class="jump-btn" id="jumpBottom" aria-label="Scroll to the bottom of the page">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4.5v15M5.5 13l6.5 6.5L18.5 13"/></svg>
+  </button>
+  <button type="button" class="jump-btn" id="jumpTop" aria-label="Back to the top of the page">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19.5v-15M5.5 11 12 4.5 18.5 11"/></svg>
+  </button>
+</div>
+
 <script>
   /* Contrast checker: the real WCAG 2.x relative luminance calculation. */
   (function () {
@@ -871,6 +924,36 @@
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+<script>
+  /* Jump to the top or the bottom. Each button switches itself off when there is
+     nothing left in that direction, so neither is ever a dead control. */
+  (function () {
+    var btnTop = document.getElementById('jumpTop');
+    var btnBottom = document.getElementById('jumpBottom');
+    if (!btnTop || !btnBottom) return;
+    function reduce() {
+      return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    function go(y) {
+      try {
+        window.scrollTo({ top: y, behavior: reduce() ? 'auto' : 'smooth' });
+      } catch (e) {
+        window.scrollTo(0, y);
+      }
+    }
+    btnTop.addEventListener('click', function () { go(0); });
+    btnBottom.addEventListener('click', function () { go(document.documentElement.scrollHeight); });
+    function sync() {
+      var y = window.scrollY || document.documentElement.scrollTop || 0;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      btnTop.disabled = y < 40;
+      btnBottom.disabled = y > max - 40;
+    }
+    sync();
+    addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync, { passive: true });
   })();
 </script>
 </body>
