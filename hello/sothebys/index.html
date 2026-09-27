@@ -9,21 +9,32 @@
 <link rel="shortcut icon" href="../../assets/images/5eb585a77fc0256e26aa1c03_favicon_32x32px_v3.png" type="image/x-icon">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="preload" href="../../assets/fonts/albert-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* Albert Sans, self-hosted with the rest of the site. */
+  @font-face{
+    font-family:"Albert Sans";
+    font-style:normal;
+    font-weight:300 700;
+    font-display:swap;
+    src:url(../../assets/fonts/albert-sans-latin.woff2) format("woff2");
+  }
   :root{
-    --serif: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
-    --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --serif:   'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+    --display: 'Libre Caslon Display', 'Libre Caslon Text', Georgia, serif;
+    --sans:    'Albert Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-    --ink:       #333333;   /* 12.32:1 on paper */
-    --ink-soft:  #55565A;   /*  7.15:1 on paper */
-    --blue:      #23448D;   /*  8.97:1 on paper */
-    --gold:      #C29B40;   /* RULES AND ORNAMENT ONLY — 2.54:1, never text */
-    --gold-ink:  #8A6A1F;   /*  4.92:1 on paper — the gold used for type */
-    --paper:     #FDFCFA;
+    --ink:       #000000;   /* 20.52:1 on paper */
+    --ink-soft:  #55565A;   /*  7.16:1 on paper */
+    --blue:      #23448D;   /*  8.98:1 on paper */
+    --gold:      #C29B40;   /* RULES AND ORNAMENT ONLY — 2.55:1, never text */
+    --gold-ink:  #8A6A1F;   /*  4.93:1 on paper — the gold used for type */
+    --paper:     #FFFCF7;
     --line:      #E6E2DA;
 
-    --maxw: 1020px;
+    --maxw: 1320px;   /* the plate row is the widest thing on the page */
+    --measure: 900px; /* the reading column, as drawn */
   }
 
   *{box-sizing:border-box}
@@ -38,8 +49,8 @@
 
   /* ---------- shared marks ---------- */
   .label{
-    font-family:var(--sans); font-size:11px; font-weight:600;
-    letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft);
+    font-family:var(--sans); font-size:18px; font-weight:700;
+    letter-spacing:.02em; text-transform:uppercase; color:var(--gold-ink);
   }
   .rule{height:1px; background:var(--line); border:0; margin:0}
   .rule--gold{height:2px; background:var(--gold)}
@@ -47,59 +58,72 @@
   a{color:var(--blue); text-underline-offset:3px; text-decoration-thickness:1px}
   a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
 
-  /* ---------- masthead ---------- */
-  header{padding:84px 0 54px; text-align:center}
-  .masthead-rule{display:flex; align-items:center; gap:18px; margin-bottom:34px}
-  .masthead-rule .rule{flex:1}
-  .masthead-rule .label{color:var(--gold-ink)}
+  /* ---------- masthead ----------
+     Ported from the Paper file. Sizes are the drawn values; each display size
+     is clamped so it holds together below the 1796px the design was drawn at. */
+  header{padding:84px 0 0; text-align:center}
 
   .addressed{
-    font-family:var(--sans); font-size:12px; font-weight:600;
-    letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);
-    margin:0 0 40px;
+    font-family:var(--sans); font-size:13px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft);
+    margin:0 0 44px;
   }
   h1{
-    font-family:var(--serif); font-weight:400;
-    font-size:clamp(2.9rem,8.5vw,6rem); line-height:1.0;
-    margin:0 0 34px; letter-spacing:-.02em;
+    font-family:var(--display); font-weight:400;
+    font-size:clamp(2.4rem, 4.4vw, 64px); line-height:1.22;
+    margin:0; letter-spacing:0;
   }
   .sothebys-mark{
-    display:block; max-width:min(300px, 62vw); height:auto;
-    margin:0 auto 46px; opacity:.92;
+    display:block; width:min(571px, 84vw); height:auto;
+    margin:9px auto 0;
   }
   .rule-gold-short{
-    width:64px; height:2px; background:var(--gold);
-    border:0; margin:0 auto 46px;
+    width:160px; height:4px; background:var(--gold);
+    border:0; margin:35px auto 0;
   }
-  .role{
-    font-family:var(--sans); font-size:13px; font-weight:500;
-    letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft);
-    margin:0 0 14px;
-  }
-  .intro{max-width:40rem; margin:0 auto; text-align:left}
-  .intro p{margin:0 0 18px}
-  .intro .lead{font-size:19px}
-  .intro p:last-child{margin-bottom:0}
 
-  .what{
-    max-width:40rem; margin:46px auto 0; text-align:left;
-    border-top:1px solid var(--line); padding-top:26px;
+  /* ---------- plate row ---------- */
+  .plates{
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:23px;
+    margin:64px 0 0; padding:0; list-style:none;
   }
-  .what .label{display:block; color:var(--gold-ink); margin-bottom:14px}
-  .what p{margin:0 0 16px}
+  .plates li{margin:0}
+  .plates img{
+    display:block; width:100%; height:auto; aspect-ratio:245 / 279;
+    object-fit:cover; background:var(--line);
+  }
+
+  /* ---------- reading column ---------- */
+  .measure{max-width:var(--measure); margin:0 auto; text-align:left}
+
+  .intro{margin:72px auto 0}
+  .intro p{margin:0}
+  .intro .lead{
+    font-family:var(--serif); font-size:clamp(1.3rem, 2vw, 32px);
+    line-height:1.25; margin:0 0 48px;
+  }
+  .intro p:last-child{font-size:clamp(1.05rem, 1.45vw, 23px); line-height:1.22}
+
+  .what{margin:82px auto 0; text-align:left}
+  .what .rule-gold-short{width:100px; margin:0 auto 21px}
+  .what .label{display:block; margin:0 0 21px}
+  .what p{font-size:clamp(1.05rem, 1.45vw, 23px); line-height:1.22; margin:0 0 28px}
   .what p:last-child{margin-bottom:0}
 
   /* ---------- sale information ---------- */
-  .sale{
-    border-top:2px solid var(--gold); border-bottom:1px solid var(--line);
-    margin:54px 0 0; padding:26px 0;
-  }
+  .sale{border-top:1px solid var(--gold); margin:74px 0 0; padding:40px 0 0; text-align:left}
   .sale dl{
-    display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-    gap:22px 32px; margin:0;
+    display:grid; grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:40px 51px; margin:0; max-width:1200px;
   }
-  .sale dt{margin-bottom:6px}
-  .sale dd{margin:0; font-size:16px; line-height:1.5}
+  .sale dt{margin:0 0 4px}
+  .sale dd{margin:0; font-size:20px; line-height:1.75}
+  /* Still links, but they read as the plain lines the design draws. */
+  .sale dd a{
+    display:table; color:inherit; text-decoration:none;
+    border-bottom:1px solid var(--gold); padding-bottom:1px;
+  }
+  .sale dd a:hover{border-bottom-color:var(--gold-ink)}
 
   /* ---------- lots ---------- */
   section{padding:58px 0}
@@ -202,10 +226,24 @@
     .reveal{opacity:0; transform:translateY(12px); transition:opacity .7s ease, transform .7s ease}
     .reveal.in{opacity:1; transform:none}
   }
+  @media (max-width:1000px){
+    .sale dl{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:34px 40px}
+  }
   @media (max-width:760px){
     .lot-body{grid-template-columns:1fr; gap:28px}
-    header{padding:52px 0 40px}
+    header{padding:52px 0 0}
     section{padding:42px 0}
+    .plates{grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:44px}
+    .intro{margin-top:48px}
+    .intro .lead{margin-bottom:32px}
+    .what{margin-top:56px}
+    .sale{margin-top:52px; padding-top:30px}
+    .label{font-size:15px}
+    .sale dd{font-size:17px; line-height:1.7}
+  }
+  @media (max-width:520px){
+    .plates{grid-template-columns:repeat(2, 1fr)}
+    .rule-gold-short{margin-top:26px}
   }
 </style>
 </head>
@@ -216,46 +254,73 @@
   <header>
     <p class="addressed">An application for the role of Senior Product Designer</p>
 
-    <h1>Hello, Sotheby's.</h1>
+    <h1>Hello</h1>
 
-    <!-- Drop the wordmark at /sothebys/sothebys-logo.svg (or .png).
-         If the file is missing the image removes itself, leaving the gold rule. -->
-    <img class="sothebys-mark" src="sothebys-logo.svg" alt="Sotheby's"
-         onerror="this.remove()">
+    <!-- The wordmark is drawn at 571px wide in the Paper file. The SVG declares
+         160px, so this needs width rather than max-width, which cannot scale up. -->
+    <img class="sothebys-mark" src="sothebys-logo.svg" alt="Sotheby's, established 1744"
+         width="160" height="33" onerror="this.remove()">
     <hr class="rule-gold-short">
 
-    <div class="intro">
+    <ul class="plates">
+      <li><img src="art/red-lips-bust.webp" width="620" height="752" loading="lazy" alt="Collage of a silver bust on a red circle over blue paper, with a red television, lips and a remote control"></li>
+      <li><img src="art/glass-head.webp" width="775" height="620" loading="lazy" alt="Transparent glass head in profile filled with pink flowers and blue petals"></li>
+      <li><img src="art/dancers-cpu.webp" width="620" height="827" loading="lazy" alt="Collage of 1920s dancers posed on RAM sticks and processors over sheet music, blue paper and coloured circles"></li>
+      <li><img src="art/panther-ram.webp" width="620" height="827" loading="lazy" alt="Collage of a woman's neck and emerald necklace, a gold panther bangle and RAM sticks over torn purple, red and blue paper"></li>
+      <li><img src="art/glass-pour.webp" width="620" height="823" loading="lazy" alt="Iridescent glass pouring a stream of tiny pastel flowers into a second glass"></li>
+    </ul>
+
+    <div class="intro measure">
       <p class="lead">
-        I'm Irina Csapo, a product designer with fifteen years behind me. Most of that time has gone on
-        the two things this role asks for at once: the experience a client sees, and the tooling the
-        people inside the business use to make it happen. E-commerce, regulated fintech, healthcare, and
-        hardware that sits in people's homes.
+        I'm Irina Csapo, a senior product designer with 15 years behind me. Most of that time has
+        gone on the two things this role asks for at once: the experience a client sees, and the
+        tooling the people inside the business use to make it happen. E-commerce, regulated fintech,
+        healthcare, and hardware that sits in people's homes.
       </p>
       <p>
-        I am also a practising artist. That isn't the reason to hire me, but it is the reason I am writing
-        to you like this rather than applying quietly through the form.
+        I am also a practising artist but this isn't the reason to hire me. It is one of the reasons
+        I want to work at Sotheby's so much, to be closer to the art world and perhaps, the reason I
+        am writing to you like this rather than just applying quietly through a form.
       </p>
     </div>
 
-    <div class="what">
+    <div class="what measure">
+      <hr class="rule-gold-short">
       <span class="label">What this is</span>
       <p>
-        Four pieces of work, selected because they answer your job description rather than because I am
-        fondest of them. Each is described the way you would describe an object: what it is, where it came
-        from, the condition it was found in, and what it achieved.
+        Four pieces of my work I mapped to your job description. Each is described the way you would
+        describe an art object: what it is, where it came from, the condition it was found in, and
+        what it achieved.
       </p>
       <p>
-        Then a note on institutions, and a condition report, because it seemed wrong to make a catalogue
-        and leave out the part where you disclose the flaws.
+        Then a note on institutions, and a condition report, because it seemed wrong to make a
+        catalogue and leave out the part where you disclose the flaws.
       </p>
     </div>
 
     <div class="sale">
       <dl>
-        <div><dt class="label">Specialisms</dt><dd>Consumer experience, operational tooling, native mobile, design systems</dd></div>
-        <div><dt class="label">Sectors</dt><dd>E-commerce, fintech and payments, healthtech, connected hardware</dd></div>
-        <div><dt class="label">Experience</dt><dd>Fifteen years, five long-term appointments</dd></div>
-        <div><dt class="label">Viewing</dt><dd><a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a></dd></div>
+        <div>
+          <dt class="label">Specialisms</dt>
+          <dd>Consumer experience<br>Operational tooling<br>Native mobile<br>Design systems</dd>
+        </div>
+        <div>
+          <dt class="label">Sectors</dt>
+          <dd>E-commerce<br>Fintech and payments<br>Healthtech<br>Connected hardware</dd>
+        </div>
+        <div>
+          <dt class="label">Experience</dt>
+          <dd>Fifteen years<br>Web &amp; Mobile Apps<br>UX Research<br>Prototypes/Workflows</dd>
+        </div>
+        <div>
+          <dt class="label">Available to view</dt>
+          <dd>
+            <a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a>
+            <a href="https://irina.love">irina.love</a>
+            <a href="https://www.instagram.com/irina_csapo_art/">@irina_csapo_art</a>
+            <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf">Download CV</a>
+          </dd>
+        </div>
       </dl>
     </div>
   </header>
