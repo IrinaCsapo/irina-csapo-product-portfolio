@@ -88,6 +88,7 @@
     margin:64px 0 0; padding:0; list-style:none;
   }
   .plates li{margin:0}
+  .plates--divider{margin:34px 0 20px}
   .plates img{
     display:block; width:100%; height:auto; aspect-ratio:245 / 279;
     object-fit:cover; background:var(--line);
@@ -125,26 +126,43 @@
   }
   .sale dd a:hover{border-bottom-color:var(--gold-ink)}
 
-  /* ---------- lots ---------- */
+  /* ---------- lots ----------
+     The lot layout from the Paper file: a gold hairline, the number, a 64px
+     title over a 30px descriptor, then a narrow column of terse lines beside a
+     wide column of prose. */
   section{padding:58px 0}
-  .lot-head{border-top:1px solid var(--ink); padding-top:14px; margin-bottom:26px}
-  .lot-no{display:block; color:var(--gold-ink); margin-bottom:22px}
+  .lot-head{border-top:1px solid var(--gold); padding-top:30px; margin-bottom:32px}
+  .lot-no{display:block; margin-bottom:32px}
   h2{
-    font-family:var(--serif); font-weight:400;
-    font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.12;
-    margin:0 0 8px; letter-spacing:-.005em;
+    font-family:var(--display); font-weight:400;
+    font-size:clamp(2.1rem, 4.4vw, 64px); line-height:1.22;
+    margin:0 0 8px; letter-spacing:0;
   }
-  .descriptor{font-style:italic; color:var(--ink-soft); margin:0; font-size:17px}
+  .descriptor{
+    font-style:normal; color:var(--ink); margin:0;
+    font-size:clamp(1.25rem, 2.1vw, 30px); line-height:1.2; max-width:684px;
+  }
 
-  .lot-body{display:grid; grid-template-columns:minmax(220px,34%) 1fr; gap:44px}
-  .facts dt{margin:0 0 5px}
-  .facts dd{margin:0 0 20px; font-size:15.5px; line-height:1.55}
-  .facts dd:last-child{margin-bottom:0}
-  .prose p{margin:0 0 18px}
+  .lot-body{display:grid; grid-template-columns:376px 1fr; gap:11px; align-items:start}
+  .facts{margin:0}
+  .facts dt{margin:0 0 4px}
+  .facts dd{margin:0; font-size:20px; line-height:1.75}
+  .lot-cta{
+    display:inline-block; margin-top:34px;
+    font-family:var(--serif); font-size:20px; line-height:1.3;
+    color:var(--ink); text-decoration:none; text-align:center;
+    border:2px solid var(--ink); padding:14px 25px; min-width:236px;
+    transition:background-color .2s ease, color .2s ease;
+  }
+  .lot-cta:hover{background:var(--ink); color:var(--paper)}
+  .lot-cta:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+
+  .prose .label{display:block; margin:0 0 4px}
+  .prose p{margin:0 0 20px; font-size:20px; line-height:1.4; text-wrap:pretty}
   .prose p:last-child{margin-bottom:0}
   .attribution{
-    font-family:var(--sans); font-size:13px; color:var(--ink-soft);
-    border-left:2px solid var(--gold); padding-left:14px; margin-top:26px;
+    font-family:var(--sans); font-size:14px; color:var(--ink-soft);
+    border-left:2px solid var(--gold); padding-left:14px; margin-top:28px;
   }
 
   /* ---------- essay blocks ---------- */
@@ -228,6 +246,10 @@
   }
   @media (max-width:1000px){
     .sale dl{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:34px 40px}
+  }
+  @media (max-width:980px){
+    .lot-body{grid-template-columns:1fr; gap:34px}
+    .prose p, .facts dd{font-size:18px}
   }
   @media (max-width:760px){
     .lot-body{grid-template-columns:1fr; gap:28px}
@@ -333,30 +355,40 @@
       <p class="descriptor">Consumer subscription experience, mobile-first, built within Shopify</p>
     </div>
     <div class="lot-body">
-      <dl class="facts">
-        <dt class="label">Provenance</dt>
-        <dd>Commissioned following a subscription price increase from £10 to £15, which required the business to demonstrate new value to an audience it had just asked for more money.</dd>
-        <dt class="label">Condition</dt>
-        <dd>Launched at approximately £650,000 per month against a forecast exceeding £1,000,000.</dd>
-        <dt class="label">Result</dt>
-        <dd>35% conversion uplift. £1,500,000 in a single month, sustained thereafter above £1,000,000.</dd>
-      </dl>
+      <div>
+        <dl class="facts">
+          <dt class="label">Specialisms</dt>
+          <dd>Consumer subscription experience<br>Mobile-first, built in Shopify<br>Conversion and funnel analysis<br>Sole designer</dd>
+        </dl>
+        <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/" target="_blank" rel="noopener">Omaze Case Study</a>
+      </div>
       <div class="prose">
+        <span class="label">Results</span>
         <p>
-          Funnel analysis showed two things worth more than any opinion in the room: the customer base
-          skewed to forty-five and over, and mobile users engaged almost entirely with the lower half of
-          the screen. That settled the argument about layout. The page was rebuilt around reachable
-          actions, with value and trust placed above the fold and type sized for a real phone in real light.
+          Commissioned following a subscription price increase from &pound;10 to &pound;15, which
+          required the business to demonstrate new value to an audience it had just asked for more
+          money. It launched at approximately &pound;650,000 per month against a forecast exceeding
+          &pound;1,000,000.
         </p>
         <p>
-          Three hypotheses were then tested in sequence. Third-party trust signals returned 7.3%. Winner
-          reaction footage as a looping hero returned 4.8%. Reframing the subscription as the better value,
-          rather than the alternative to a single purchase, returned 8.5%. That third change carried the
-          risk of simply moving revenue from one pocket to another, so both figures were measured. It did not.
+          Funnel analysis showed two things worth more than any opinion in the room: the customer
+          base skewed to forty-five and over, and mobile users engaged almost entirely with the
+          lower half of the screen. That settled the argument about layout. The page was rebuilt
+          around reachable actions, with value and trust placed above the fold and type sized for a
+          real phone in real light.
         </p>
-        <p class="attribution">
-          Sole designer. Two engineers, two product managers, growth and CRM.
+        <p>
+          Three hypotheses were then tested in sequence. Third-party trust signals returned 7.3%.
+          Winner reaction footage as a looping hero returned 4.8%. Reframing the subscription as the
+          better value, rather than the alternative to a single purchase, returned 8.5%. That third
+          change carried the risk of simply moving revenue from one pocket to another, so both
+          figures were measured. It did not.
         </p>
+        <p>
+          35% conversion uplift. &pound;1,500,000 in a single month, sustained thereafter above
+          &pound;1,000,000.
+        </p>
+        <p class="attribution">Sole designer. Two engineers, two product managers, growth and CRM.</p>
       </div>
     </div>
   </section>
@@ -366,34 +398,48 @@
     <div class="lot-head">
       <span class="label lot-no">Lot 2</span>
       <h2>Paycada</h2>
-      <p class="descriptor">Operational platform for automated invoice chasing, regulated fintech</p>
+      <p class="descriptor">Operational web platform for automated invoice chasing and payments, regulated fintech platform.</p>
     </div>
     <div class="lot-body">
-      <dl class="facts">
-        <dt class="label">Provenance</dt>
-        <dd>Built from nothing. Sole designer for three years, across platform, marketing site and brand.</dd>
-        <dt class="label">Condition</dt>
-        <dd>A business asking its own customers for money, repeatedly, without damaging the relationship it depends on.</dd>
-        <dt class="label">Result</dt>
-        <dd>A shipped product with a design system beneath it: three tiers of tokens, full component state coverage, and an accessibility audit that identified two live contrast failures already in production.</dd>
-      </dl>
+      <div>
+        <dl class="facts">
+          <dt class="label">Specialisms</dt>
+          <dd>Consumer &amp; enterprise web app<br>Built in ambiguity<br>Design systems<br>Sole designer, three years</dd>
+        </dl>
+        <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/paycada-case-study/" target="_blank" rel="noopener">Paycada Case Study</a>
+      </div>
       <div class="prose">
+        <span class="label">Results</span>
         <p>
-          The workflows are the unglamorous kind, and there are a great many of them. Add a user, remove a
-          user, create an organisation, edit its permissions, decide what leaves the building and when.
+          A business asking its own customers for money, repeatedly, without damaging the
+          relationship it depends on.
         </p>
         <p>
-          The design question underneath all of it is control. What goes out automatically, what a person
-          sees before it goes, and how far an escalation is permitted to travel before somebody has to
-          decide. Automate that badly and you have built a machine that irritates the people who pay you.
-          Most of the work was in deciding where the human belongs.
+          A shipped product with a design system beneath it: three tiers of tokens, full component
+          state coverage, and an accessibility audit that identified two live contrast failures
+          already in production.
         </p>
-        <p class="attribution">
-          Sole designer, three years. Screens available on request.
+        <p>
+          The workflows are the unglamorous kind: add a user, remove a user, create an organisation,
+          edit its permissions, decide who gets to use the platform and what level of permissions
+          they have.
+        </p>
+        <p>
+          Decisions about what goes out automatically, what a person sees before it goes, and how
+          far an escalation is permitted to travel before somebody has to decide. Most of the work
+          was in deciding where the human decision belongs.
         </p>
       </div>
     </div>
   </section>
+
+  <ul class="plates plates--divider">
+    <li><img src="art/doppel-effect.webp" width="620" height="752" loading="lazy" alt="Framed collage in a red frame: a pixelated face on a phone screen, circuit boards, RAM sticks, red lips and a drawn eye"></li>
+    <li><img src="art/dancers-cpu.webp" width="620" height="827" loading="lazy" alt="Collage of 1920s dancers posed on RAM sticks and processors over sheet music, blue paper and coloured circles"></li>
+    <li><img src="art/panther-ram.webp" width="620" height="827" loading="lazy" alt="Collage of a woman's neck and emerald necklace, a gold panther bangle and RAM sticks over torn purple, red and blue paper"></li>
+    <li><img src="art/glass-head.webp" width="775" height="620" loading="lazy" alt="Transparent glass head in profile filled with pink flowers and blue petals"></li>
+    <li><img src="art/glass-pour.webp" width="620" height="823" loading="lazy" alt="Iridescent glass pouring a stream of tiny pastel flowers into a second glass"></li>
+  </ul>
 
   <!-- LOT 3 -->
   <section class="reveal">
@@ -403,29 +449,36 @@
       <p class="descriptor">Native application for electric vehicle charge points, iOS and Android</p>
     </div>
     <div class="lot-body">
-      <dl class="facts">
-        <dt class="label">Provenance</dt>
-        <dd>Hardware installed at a customer's home, requiring a single application to serve two people with nothing in common.</dd>
-        <dt class="label">Condition</dt>
-        <dd>The homeowner lives with the product for years. The engineer has one visit, outdoors, on a poor connection, to make it work at all.</dd>
-        <dt class="label">Result</dt>
-        <dd>Eight charging states authored in Rive and delivered to both platforms. An installation flow that completes without the home network.</dd>
-      </dl>
+      <div>
+        <dl class="facts">
+          <dt class="label">Specialisms</dt>
+          <dd>Native iOS and Android app<br>Two audiences, one system<br>Motion authored in Rive<br>Sole designer</dd>
+        </dl>
+        <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/veva-case-study/" target="_blank" rel="noopener">Veva Case Study</a>
+      </div>
       <div class="prose">
+        <span class="label">Results</span>
         <p>
-          The installer's experience was designed first, because it is the gate. If the charge point never
-          reaches the network, the owner never sees a schedule, and the first experience of something
-          expensive is a call to support.
+          Hardware installed at a customer's home, requiring a single application to serve two
+          people with nothing in common. The homeowner lives with the product for years. The
+          engineer has one visit, outdoors, on a poor connection, to make it work at all.
         </p>
         <p>
-          One decision followed from that. Commissioning cannot depend on the home wifi being reachable, so
-          the application detects the situation and falls back to a local hotspot broadcast by the charge
-          point itself. The cleaner flow, the one that assumes working credentials and a good signal, makes
-          a better-looking design file and fails in a driveway.
+          The installer's experience was designed first, because it is the gate. If the charge point
+          never reaches the network, the owner never sees a schedule, and the first experience of
+          something expensive is a call to support.
         </p>
-        <p class="attribution">
-          Sole designer. Business analyst, product manager, iOS and Android engineers.
+        <p>
+          One decision followed from that. Commissioning cannot depend on the home wifi being
+          reachable, so the application detects the situation and falls back to a local hotspot
+          broadcast by the charge point itself. The cleaner flow, the one that assumes working
+          credentials and a good signal, makes a better-looking design file and fails in a driveway.
         </p>
+        <p>
+          Eight charging states authored in Rive and delivered to both platforms. An installation
+          flow that completes without the home network.
+        </p>
+        <p class="attribution">Sole designer. Business analyst, product manager, iOS and Android engineers.</p>
       </div>
     </div>
   </section>
@@ -438,24 +491,29 @@
       <p class="descriptor">Mixed media, electronic waste on board, ongoing</p>
     </div>
     <div class="lot-body">
-      <dl class="facts">
-        <dt class="label">Materials</dt>
-        <dd>Circuit boards, ribbon cable, keyboard keys and hard drive platters, recovered from disposal.</dd>
-        <dt class="label">Exhibited</dt>
-        <dd>Bucharest Collage Festival. Talk delivered at MK Geek Night, “Tender Tech: Joy, E-Waste and the Art of Delightful Making”.</dd>
-        <dt class="label">Note</dt>
-        <dd>Not offered as a qualification.</dd>
-      </dl>
+      <div>
+        <dl class="facts">
+          <dt class="label">Materials</dt>
+          <dd>Circuit boards and ribbon cable<br>Keyboard keys<br>Hard drive platters<br>Recovered from disposal</dd>
+        </dl>
+        <a class="lot-cta" href="https://www.instagram.com/irina_csapo_art/" target="_blank" rel="noopener">See the work</a>
+      </div>
       <div class="prose">
+        <span class="label">Exhibited</span>
         <p>
-          Included because it explains the other three. I began in print and branding before moving into
-          product, and I have never entirely lost the habit of treating a discarded object as the most
-          interesting thing in the room.
+          Bucharest Collage Festival. Talk delivered at MK Geek Night, &ldquo;Tender Tech: Joy,
+          E-Waste and the Art of Delightful Making&rdquo;.
         </p>
         <p>
-          It is also the honest answer to why this application takes this form rather than the form of a
-          covering letter.
+          Included because it explains the other three. I began in print and branding before moving
+          into product, and I have never entirely lost the habit of treating a discarded object as
+          the most interesting thing in the room.
         </p>
+        <p>
+          It is also the honest answer to why this application takes this form rather than the form
+          of a covering letter.
+        </p>
+        <p class="attribution">Not offered as a qualification.</p>
       </div>
     </div>
   </section>
