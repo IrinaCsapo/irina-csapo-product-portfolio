@@ -33,7 +33,7 @@
     --paper:     #FFFCF7;
     --line:      #E6E2DA;
 
-    --maxw: 1320px;   /* the plate row is the widest thing on the page */
+    --maxw: 1509px;   /* the galleries run to 1453 inside the 28px gutters */
     --col: 1100px;    /* the lots and the sale information */
     --measure: 900px; /* the reading column, as drawn */
   }
@@ -92,25 +92,46 @@
   .plates li{margin:0}
   .plates--divider{margin:34px 0 20px}
   .plates img{
-    display:block; width:100%; height:auto; aspect-ratio:245 / 279;
+    display:block; width:100%; height:auto; aspect-ratio:272 / 320;
     object-fit:cover; background:var(--line);
+  }
+
+  /* ---------- project galleries ----------
+     Each row is 1453 x 405 in the file, with 23px gutters and tiles at set
+     widths. The fr units carry the drawn proportions to any width. */
+  .gal{
+    display:grid; gap:23px; margin:34px 0 0;
+    aspect-ratio:1453 / 405;
+  }
+  .gal--648-380-380{grid-template-columns:648fr 380fr 380fr}
+  .gal--380-380-648{grid-template-columns:380fr 380fr 648fr}
+  .gal--683-747{grid-template-columns:683fr 747fr}
+  .gal--469{grid-template-columns:repeat(3, 1fr)}
+  .gal img{
+    display:block; width:100%; height:100%;
+    object-fit:cover; background:var(--line);
+  }
+  .gal + .gal{margin-top:23px}
+  .spread-shot{
+    display:block; width:100%; height:auto; margin:44px 0 0;
+    aspect-ratio:1292 / 945; object-fit:cover; background:var(--line);
   }
 
   /* ---------- reading column ---------- */
   .measure{max-width:var(--measure); margin:0 auto; text-align:left}
 
   .intro{margin:72px auto 0}
-  .intro p{margin:0}
+  .intro p{margin:0; letter-spacing:normal}
   .intro .lead{
-    font-family:var(--serif); font-size:clamp(1.2rem, 1.85vw, 26px);
-    line-height:1.385; margin:0 0 16px;
+    font-family:var(--serif); font-size:clamp(1.2rem, 1.78vw, 25px);
+    line-height:1.4; margin:0 0 16px;
   }
-  .intro p:last-child{font-size:clamp(1.05rem, 1.42vw, 20px); line-height:1.5}
+  .intro p:last-child{font-size:clamp(1rem, 1.28vw, 18px); line-height:1.556}
 
   .what{margin:82px auto 0; text-align:left}
   .what .rule-gold-short{width:100px; margin:0 auto 21px}
   .what .label{display:block; margin:0 0 21px}
-  .what p{font-size:clamp(1.05rem, 1.42vw, 20px); line-height:1.5; margin:0 0 30px}
+  .what p{font-size:clamp(1rem, 1.28vw, 18px); line-height:1.556; margin:0 0 28px}
   .what p:last-child{margin-bottom:0}
 
   /* ---------- sale information ---------- */
@@ -123,7 +144,7 @@
     gap:40px 65px; margin:0;   /* 65 not the drawn 80: it keeps the columns at 226px inside 1100 */
   }
   .sale dt{margin:0 0 4px}
-  .sale dd{margin:0; font-size:20px; line-height:1.75}
+  .sale dd{margin:0; font-size:18px; line-height:1.945}
   /* Still links, but they read as the plain lines the design draws. */
   .sale dd a{
     display:table; color:inherit; text-decoration:none;
@@ -148,19 +169,20 @@
   }
   .descriptor{
     font-style:normal; color:var(--ink); margin:0;
-    font-size:clamp(1.2rem, 1.95vw, 28px); line-height:1.215; max-width:684px;
+    font-size:clamp(1.15rem, 1.78vw, 25px); line-height:1.4; max-width:735px;
   }
 
   .lot-body{
     display:grid; grid-template-columns:376px minmax(0, 713px); gap:11px;
     align-items:start; max-width:var(--col); margin-inline:auto;
   }
+  .prose.essay{max-width:var(--col); margin-inline:auto}
   .facts{margin:0}
   .facts dt{margin:0 0 4px}
-  .facts dd{margin:0; font-size:20px; line-height:1.75}
+  .facts dd{margin:0; font-size:16px; line-height:1.875}
   .lot-cta{
-    display:inline-block; margin-top:34px;
-    font-family:var(--serif); font-size:20px; line-height:1.3;
+    display:block; width:236px; margin-top:34px;
+    font-family:var(--serif); font-size:18px; line-height:1.3;
     color:var(--ink); text-decoration:none; text-align:center;
     border:2px solid var(--ink); padding:14px 25px; min-width:236px;
     transition:background-color .2s ease, color .2s ease;
@@ -169,7 +191,7 @@
   .lot-cta:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
 
   .prose .label{display:block; margin:0 0 4px}
-  .prose p{margin:0 0 20px; font-size:20px; line-height:1.5; text-wrap:pretty}
+  .prose p{margin:0 0 20px; font-size:18px; line-height:1.556; text-wrap:pretty}
   .prose p:last-child{margin-bottom:0}
   .attribution{
     font-family:var(--sans); font-size:14px; color:var(--ink-soft);
@@ -177,33 +199,13 @@
   }
 
   /* ---------- essay blocks ---------- */
-  .essay{max-width:40rem}
-  .essay p{margin:0 0 18px}
+  .essay{max-width:901px; margin-inline:auto}
   .essay p:last-child{margin-bottom:0}
-
-  .note{
-    border-top:2px solid var(--gold); border-bottom:1px solid var(--line);
-    padding:34px 0;
-  }
   .condition h3{
-    font-family:var(--serif); font-weight:700; font-size:17px;
-    margin:26px 0 6px; color:var(--ink);
+    font-family:var(--serif); font-weight:700; font-size:18px; line-height:1.556;
+    margin:36px 0 12px; color:var(--ink);
   }
-  .condition h3:first-of-type{margin-top:18px}
-  .condition p{margin:0; max-width:40rem}
-
-  /* ---------- spread embed ---------- */
-  .spread-frame{margin-top:34px; min-height:360px; position:relative}
-  .spread-frame .spread{width:100%}
-  .embed-caption{
-    font-family:var(--sans); font-size:12px; color:var(--ink-soft);
-    letter-spacing:.04em; margin:14px 0 0;
-  }
-  .spread-fallback{
-    border:1px solid var(--line); border-left:2px solid var(--gold);
-    padding:22px 24px; margin:0; font-style:italic; color:var(--ink-soft);
-    max-width:40rem;
-  }
+  .condition h3:first-of-type{margin-top:0}
 
   /* ---------- jump buttons ---------- */
   .jump{
@@ -260,7 +262,15 @@
   }
   @media (max-width:980px){
     .lot-body{grid-template-columns:1fr; gap:34px}
-    .prose p, .facts dd{font-size:18px}
+    .lot-cta{width:100%; max-width:320px}
+  }
+  @media (max-width:760px){
+    .gal{
+      grid-template-columns:1fr !important;
+      aspect-ratio:auto; gap:14px;
+    }
+    .gal img{aspect-ratio:16 / 10; height:auto}
+    .gal + .gal{margin-top:14px}
   }
   @media (max-width:760px){
     .lot-body{grid-template-columns:1fr; gap:28px}
@@ -272,7 +282,7 @@
     .what{margin-top:56px}
     .sale{margin-top:52px; padding-top:30px}
     .label{font-size:15px}
-    .sale dd{font-size:17px; line-height:1.7}
+    .sale dd{font-size:16px; line-height:1.8}
   }
   @media (max-width:520px){
     .plates{grid-template-columns:repeat(2, 1fr)}
@@ -362,52 +372,6 @@
   <section class="reveal">
     <div class="lot-head">
       <span class="label lot-no">Lot 1</span>
-      <h2>Omaze UK, Monthly Millionaire</h2>
-      <p class="descriptor">Consumer subscription experience, mobile-first, built within Shopify</p>
-    </div>
-    <div class="lot-body">
-      <div>
-        <dl class="facts">
-          <dt class="label">Specialisms</dt>
-          <dd>Consumer subscription experience<br>Mobile-first, built in Shopify<br>Conversion and funnel analysis<br>Sole designer</dd>
-        </dl>
-        <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/" target="_blank" rel="noopener">Omaze Case Study</a>
-      </div>
-      <div class="prose">
-        <span class="label">Results</span>
-        <p>
-          Commissioned following a subscription price increase from &pound;10 to &pound;15, which
-          required the business to demonstrate new value to an audience it had just asked for more
-          money. It launched at approximately &pound;650,000 per month against a forecast exceeding
-          &pound;1,000,000.
-        </p>
-        <p>
-          Funnel analysis showed two things worth more than any opinion in the room: the customer
-          base skewed to forty-five and over, and mobile users engaged almost entirely with the
-          lower half of the screen. That settled the argument about layout. The page was rebuilt
-          around reachable actions, with value and trust placed above the fold and type sized for a
-          real phone in real light.
-        </p>
-        <p>
-          Three hypotheses were then tested in sequence. Third-party trust signals returned 7.3%.
-          Winner reaction footage as a looping hero returned 4.8%. Reframing the subscription as the
-          better value, rather than the alternative to a single purchase, returned 8.5%. That third
-          change carried the risk of simply moving revenue from one pocket to another, so both
-          figures were measured. It did not.
-        </p>
-        <p>
-          35% conversion uplift. &pound;1,500,000 in a single month, sustained thereafter above
-          &pound;1,000,000.
-        </p>
-        <p class="attribution">Sole designer. Two engineers, two product managers, growth and CRM.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- LOT 2 -->
-  <section class="reveal">
-    <div class="lot-head">
-      <span class="label lot-no">Lot 2</span>
       <h2>Paycada</h2>
       <p class="descriptor">Operational web platform for automated invoice chasing and payments, regulated fintech platform.</p>
     </div>
@@ -421,197 +385,228 @@
       </div>
       <div class="prose">
         <span class="label">Results</span>
-        <p>
-          A business asking its own customers for money, repeatedly, without damaging the
-          relationship it depends on.
-        </p>
-        <p>
-          A shipped product with a design system beneath it: three tiers of tokens, full component
-          state coverage, and an accessibility audit that identified two live contrast failures
-          already in production.
-        </p>
-        <p>
-          The workflows are the unglamorous kind: add a user, remove a user, create an organisation,
-          edit its permissions, decide who gets to use the platform and what level of permissions
-          they have.
-        </p>
-        <p>
-          Decisions about what goes out automatically, what a person sees before it goes, and how
-          far an escalation is permitted to travel before somebody has to decide. Most of the work
-          was in deciding where the human decision belongs.
-        </p>
+        <p>A business asking its own customers for money, repeatedly, without damaging the relationship it depends on.</p>
+        <p>A shipped product with a design system beneath it: three tiers of tokens, full component state coverage, and an accessibility audit that identified two live contrast failures already in production.</p>
+        <p>The workflows are the unglamorous kind: add a user, remove a user, create an organisation, edit its permissions, decide who gets to use the platform and what level of permissions they have.</p>
+        <p>Decisions about what goes out automatically, what a person sees before an invoice is sent, and how far an escalation is permitted to travel before somebody has to decide. Most of the work was in deciding where the human decision belongs.</p>
       </div>
     </div>
   </section>
 
-  <ul class="plates plates--divider">
-    <li><img src="art/doppel-effect.webp" width="620" height="752" loading="lazy" alt="Framed collage in a red frame: a pixelated face on a phone screen, circuit boards, RAM sticks, red lips and a drawn eye"></li>
-    <li><img src="art/dancers-cpu.webp" width="620" height="827" loading="lazy" alt="Collage of 1920s dancers posed on RAM sticks and processors over sheet music, blue paper and coloured circles"></li>
-    <li><img src="art/panther-ram.webp" width="620" height="827" loading="lazy" alt="Collage of a woman's neck and emerald necklace, a gold panther bangle and RAM sticks over torn purple, red and blue paper"></li>
-    <li><img src="art/glass-head.webp" width="775" height="620" loading="lazy" alt="Transparent glass head in profile filled with pink flowers and blue petals"></li>
-    <li><img src="art/glass-pour.webp" width="620" height="823" loading="lazy" alt="Iridescent glass pouring a stream of tiny pastel flowers into a second glass"></li>
-  </ul>
+  <div class="gal gal--648-380-380">
+    <img src="art/paycada-laptops.webp" loading="lazy" alt="The Paycada platform shown across two laptop screens">
+    <img src="art/paycada-tablet.webp" loading="lazy" alt="A Paycada screen on a tablet against a blue ground">
+    <img src="art/paycada-interface.webp" loading="lazy" alt="The Paycada interface, showing the payables list">
+  </div>
 
-  <!-- LOT 3 -->
+  <div class="gal gal--380-380-648">
+    <img src="art/paycada-dashboard-a.webp" loading="lazy" alt="The Paycada dashboard on a laptop screen">
+    <img src="art/paycada-dashboard-a.webp" loading="lazy" alt="The Paycada dashboard on a laptop screen, second view">
+    <img src="art/paycada-in-use.webp" loading="lazy" alt="Someone using Paycada on a laptop">
+  </div>
+
+  <!-- LOT 2 -->
   <section class="reveal">
     <div class="lot-head">
-      <span class="label lot-no">Lot 3</span>
+      <span class="label lot-no">Lot 2</span>
       <h2>Veva</h2>
-      <p class="descriptor">Native application for electric vehicle charge points, iOS and Android</p>
+      <p class="descriptor">Mobile native application for electric vehicle charge points, iOS and Android</p>
     </div>
     <div class="lot-body">
       <div>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
-          <dd>Native iOS and Android app<br>Two audiences, one system<br>Motion authored in Rive<br>Sole designer</dd>
+          <dd>Consumer mobile app<br>Built in systems<br>Multiple users<br>Multiple edge case scenarios</dd>
         </dl>
         <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/veva-case-study/" target="_blank" rel="noopener">Veva Case Study</a>
       </div>
       <div class="prose">
         <span class="label">Results</span>
-        <p>
-          Hardware installed at a customer's home, requiring a single application to serve two
-          people with nothing in common. The homeowner lives with the product for years. The
-          engineer has one visit, outdoors, on a poor connection, to make it work at all.
-        </p>
-        <p>
-          The installer's experience was designed first, because it is the gate. If the charge point
-          never reaches the network, the owner never sees a schedule, and the first experience of
-          something expensive is a call to support.
-        </p>
-        <p>
-          One decision followed from that. Commissioning cannot depend on the home wifi being
-          reachable, so the application detects the situation and falls back to a local hotspot
-          broadcast by the charge point itself. The cleaner flow, the one that assumes working
-          credentials and a good signal, makes a better-looking design file and fails in a driveway.
-        </p>
-        <p>
-          Eight charging states authored in Rive and delivered to both platforms. An installation
-          flow that completes without the home network.
-        </p>
-        <p class="attribution">Sole designer. Business analyst, product manager, iOS and Android engineers.</p>
+        <p>Hardware installed at a customer's home, requiring a single mobile application to serve two users, electrical engineers and home users, with nothing in common.</p>
+        <p>The users are guided in the app through a series of steps that help them with crucial settings to configure and test against the charge point they're installing.</p>
+        <p>Multiple user journeys and wireframes created to evaluate the engineers' and users' precise steps. This allowed us to simplify their journey as well as discover areas of opportunity to better help them achieve their goals with the product.</p>
+        <p>Eleven conditional charging states animated in Rive and delivered to both platforms. An installation flow that completes without the home network.</p>
+        <p>Users can configure different cars and charging cycles specific to their needs, with multiple users accessing specific data relevant to them and their vehicle, from single or multiple home charge points.</p>
       </div>
     </div>
   </section>
+
+  <div class="gal gal--683-747">
+    <img src="art/veva-phones.webp" loading="lazy" alt="The Veva app on two phones, showing charging and history">
+    <img src="art/veva-in-car.webp" loading="lazy" alt="Someone in a car using the Veva app">
+  </div>
+
+  <div class="gal gal--469">
+    <img src="art/veva-charging-modes.webp" loading="lazy" alt="Veva charging modes on a phone screen">
+    <img src="art/veva-app-interface.webp" loading="lazy" alt="The Veva app interface">
+    <img src="art/veva-app-settings.webp" loading="lazy" alt="Veva app settings, showing the off-peak schedule">
+  </div>
+
+  <!-- LOT 3 -->
+  <section class="reveal">
+    <div class="lot-head">
+      <span class="label lot-no">Lot 3</span>
+      <h2>Omaze UK, New Draw Launch</h2>
+      <p class="descriptor">Consumer subscription and PAYG experience, mobile-first, built within Shopify</p>
+    </div>
+    <div class="lot-body">
+      <div>
+        <dl class="facts">
+          <dt class="label">Specialisms</dt>
+          <dd>New draw launch<br>Conversion uplift<br>A/B testing<br>Conversion optimisation<br>Behavioural experimentation</dd>
+        </dl>
+        <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/" target="_blank" rel="noopener">Omaze Case Study</a>
+      </div>
+      <div class="prose">
+        <span class="label">Results</span>
+        <p>Commissioned following a subscription price increase from &pound;10 to &pound;15, which required the business to demonstrate new value to an audience it had just asked for more money.</p>
+        <p>Launched at approximately &pound;650,000 per month of revenue against a forecast exceeding &pound;1,000,000.</p>
+        <p>To increase conversion and revenue, we A/B tested a series of hypotheses. Third-party trust signals returned 7.3%. Winner reaction footage as a looping hero returned 4.8%. Reframing the subscription as the better value, rather than the alternative to a single purchase, returned 8.5%.</p>
+        <p>In total our conversion efforts led to a 35% conversion uplift. &pound;1,500,000 in a single month, sustained thereafter above &pound;1,000,000.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="gal gal--683-747">
+    <img src="art/omaze-trust.webp" loading="lazy" alt="The Omaze trust signals section as built">
+    <img src="art/omaze-winner.webp" loading="lazy" alt="An Omaze winner with their arms raised">
+  </div>
+
+  <div class="gal gal--469">
+    <img src="art/omaze-hero-a.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, first variant">
+    <img src="art/omaze-hero-b.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, second variant">
+    <img src="art/omaze-hero-c.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, third variant">
+  </div>
 
   <!-- LOT 4 -->
   <section class="reveal">
     <div class="lot-head">
       <span class="label lot-no">Lot 4</span>
       <h2>Tender Tech</h2>
-      <p class="descriptor">Mixed media, electronic waste on board, ongoing</p>
+      <p class="descriptor">Personal art practice, explorations of mixed media, electronic waste and collage, ongoing</p>
     </div>
     <div class="lot-body">
       <div>
         <dl class="facts">
-          <dt class="label">Materials</dt>
-          <dd>Circuit boards and ribbon cable<br>Keyboard keys<br>Hard drive platters<br>Recovered from disposal</dd>
+          <dt class="label">Specialisms</dt>
+          <dd>Mixed media art<br>Analogue collage<br>Found ephemera<br>Interactive digital art</dd>
         </dl>
-        <a class="lot-cta" href="https://www.instagram.com/irina_csapo_art/" target="_blank" rel="noopener">See the work</a>
+        <a class="lot-cta" href="https://www.instagram.com/irina_csapo_art/" target="_blank" rel="noopener">Art</a>
       </div>
       <div class="prose">
-        <span class="label">Exhibited</span>
-        <p>
-          Bucharest Collage Festival. Talk delivered at MK Geek Night, &ldquo;Tender Tech: Joy,
-          E-Waste and the Art of Delightful Making&rdquo;.
-        </p>
-        <p>
-          Included because it explains the other three. I began in print and branding before moving
-          into product, and I have never entirely lost the habit of treating a discarded object as
-          the most interesting thing in the room.
-        </p>
-        <p>
-          It is also the honest answer to why this application takes this form rather than the form
-          of a covering letter.
-        </p>
-        <p class="attribution">Not offered as a qualification.</p>
+        <span class="label">Results</span>
+        <p>Included because it explains the other three. I began in print and branding before moving into product, and I have never entirely lost the habit of treating a discarded object as the most interesting thing in the room.</p>
+        <p>It is also the honest answer to why this application takes this form rather than the form of a covering letter.</p>
+        <p>Circuit boards, memory modules, ribbon cables and Raspberry Pi circuit integration, recovered from disposal and reused in my practice.</p>
+        <p>Bucharest Collage Festival. Talk delivered at MK Geek Night, &ldquo;Tender Tech: Joy, E-Waste and the Art of Delightful Making&rdquo;.</p>
+        <p>Not necessarily a qualification, but offered here as a flavour of my design practice.</p>
       </div>
     </div>
   </section>
 
-  <!-- A NOTE ON THE FORM -->
-  <section class="reveal">
-    <div class="note">
-      <span class="label lot-no">A note on the form</span>
-      <div class="essay">
-        <p>
-          This page is laid out as a catalogue, which may read as a flourish. It isn't. I'm currently
-          building a tool that takes a set of images and lets you read them as a book, spread by spread,
-          because I have never found a satisfying way to look at a body of work online and I got tired of
-          waiting for one.
-        </p>
-        <p>
-          It is unfinished. What follows is it running.
-        </p>
-      </div>
+  <div class="gal gal--648-380-380">
+    <img src="art/art-process.webp" loading="lazy" alt="A collage in progress on the desk, with cut paper and components">
+    <img src="art/art-electronic-collage.webp" loading="lazy" alt="A vibrant collage built from electronic components">
+    <img src="art/art-blue-scene.webp" loading="lazy" alt="A collage scene on a blue ground">
+  </div>
 
-      <div class="spread-frame">
-        <div class="spread" data-book="https://spread.irina.love/book.json"></div>
-        <p class="spread-fallback" id="spreadFallback" hidden>
-          The reader isn't loading here, which is the honest state of a thing still being built.
-          I'd be glad to show you where it has got to.
-        </p>
+  <div class="gal gal--380-380-648">
+    <img src="art/art-blue-collage.webp" loading="lazy" alt="A blue collage with cut paper and circuit board">
+    <img src="art/art-face-collage.webp" loading="lazy" alt="A collage of a face built from electronics">
+    <img src="art/art-with-works.webp" loading="lazy" alt="Irina with several of the finished works">
+  </div>
+
+  <!-- AN ARTIST'S SPREAD -->
+  <section class="reveal">
+    <div class="lot-head">
+      <span class="label lot-no">Notes on the form</span>
+      <h2>An Artist's Spread</h2>
+      <p class="descriptor">I'm building tools for artists so they can present their art in different forms</p>
+    </div>
+    <div class="lot-body">
+      <div>
+        <dl class="facts">
+          <dt class="label">Specialisms</dt>
+          <dd>AI coding and prototyping<br>Design &amp; build<br>Found ephemera<br>Interactive digital art</dd>
+        </dl>
+        <a class="lot-cta" href="https://spread.irina.love" target="_blank" rel="noopener">Spread Love</a>
       </div>
-      <p class="embed-caption" id="spreadCaption">Spread · in progress · spread.irina.love</p>
+      <div class="prose">
+        <span class="label">Results</span>
+        <p>I love building tools and prototypes. The pages below are laid out as a catalogue, which may read as a flourish. It isn't. It's deliberate. I'm currently building a tool that takes a set of images and lets you read them as a book, spread by spread, because I have never found a satisfying way to look at a body of work online and I got tired of waiting for one. It is a work in progress.</p>
+      </div>
     </div>
   </section>
 
-  <!-- ESSAY -->
+  <img class="spread-shot" src="art/spread-book.webp" loading="lazy" alt="The Spread reader open on a red and white book spread">
+
+  <!-- A NOTE ON INSTITUTIONS -->
   <section class="reveal">
-    <div class="note">
-      <span class="label lot-no">A note on institutions</span>
-      <div class="essay">
-        <p>
-          Sotheby's has been selling things since 1744 and is now also shipping software. Those two facts
-          sit in tension, and I suspect the tension is most of the job.
-        </p>
-        <p>
-          Most product designers treat heritage as drag: the weight that slows the release down, the
-          approval that has to be routed around. I have never been able to see it that way. I spent the
-          first part of my career in print and branding before moving into product, and I make pictures out
-          of things other people have thrown away, so I am constitutionally inclined to believe the old
-          thing is the valuable thing.
-        </p>
-        <p>
-          In practice that means moving at the pace a modern product team needs without treating the
-          institution around it as an obstacle. A name that has survived two hundred and eighty-two years
-          is an asset most companies would pay almost anything to have. It should be designed with, rather
-          than in spite of.
-        </p>
-      </div>
+    <div class="lot-head">
+      <span class="label lot-no">Notes on the form</span>
+      <h2>A Note on Institutions</h2>
+      <p class="descriptor">How I would understand working as a Senior Product Designer at Sotheby's</p>
+    </div>
+    <div class="prose essay">
+      <p>
+        Sotheby's has been selling things since 1744 and is now also shipping software. Those two
+        facts sit in tension, and I suspect the tension is most of the job.
+      </p>
+      <p>
+        Most product designers treat heritage as drag: the weight that slows the release down, the
+        approval that has to be routed around. I have never been able to see it that way. I spent
+        the first part of my career in print and branding before moving into product, and I make
+        pictures out of things other people have thrown away, so I am constitutionally inclined to
+        believe the old thing is the valuable thing.
+      </p>
+      <p>
+        In practice that means moving at the pace a modern product team needs without treating the
+        institution around it as an obstacle. A name that has survived two hundred and eighty-two
+        years is an asset most companies would pay almost anything to have. It should be designed
+        with, rather than in spite of.
+      </p>
     </div>
   </section>
 
   <!-- CONDITION REPORT -->
   <section class="reveal condition">
     <div class="lot-head">
-      <span class="label lot-no">Condition report</span>
+      <span class="label lot-no">Notes on the form</span>
       <h2>Offered as seen</h2>
-      <p class="descriptor">The following is noted in the interest of accuracy</p>
+      <p class="descriptor">The following is noted in the interest of transparency and accuracy</p>
     </div>
+    <div class="prose essay">
+      <h3>No auction house experience</h3>
+      <p>
+        I know this world as someone who makes and exhibits work within it, not as someone who has
+        worked inside the business of it. I would be learning the trade, and honestly, that makes me
+        deeply excited. But what I can bring is above: complex operational workflows, commercial
+        outcomes on the consumer side, native mobile, and the discipline of designing for two
+        audiences at once.
+      </p>
+      <p>
+        I also believe in the transformative power of art and culture. I'm a deeply passionate,
+        empathetic and curious person who loves nothing more than to learn and create.
+      </p>
+      <p>
+        Sotheby's say that diverse backgrounds, identities, and perspectives are indispensable to
+        their global success. And I would love to live within those values.
+      </p>
 
-    <h3>No auction house experience</h3>
-    <p>
-      I know this world as someone who makes and exhibits work within it, not as someone who has worked
-      inside the business of it. I would be learning the trade, and I would rather say so than imply that
-      fifteen years transfers wholesale. What does transfer is above: complex operational workflows,
-      commercial outcomes on the consumer side, native mobile, and the discipline of designing for two
-      audiences at once.
-    </p>
+      <h3>Research</h3>
+      <p>
+        Most of mine has been behavioural and quantitative, alongside usability and prototype
+        testing. I have not personally led an end-to-end research programme with primary interviews
+        at its centre. It is the thing I am most actively closing, and I would want to begin by
+        sitting with specialists rather than with a research plan.
+      </p>
 
-    <h3>Research</h3>
-    <p>
-      Most of mine has been behavioural and quantitative, alongside usability and prototype testing. I
-      have not personally led an end-to-end qualitative programme with primary interviews at its centre.
-      It is the thing I am most actively closing, and I would want to begin by sitting with specialists
-      rather than with a research plan.
-    </p>
-
-    <h3>Location</h3>
-    <p>
-      Milton Keynes, which is a little over half an hour from Euston. Remote suits the way I work and
-      New Bond Street is straightforward.
-    </p>
+      <h3>Location</h3>
+      <p>
+        I'm based in Milton Keynes, which is a little over half an hour from Euston by train. Remote
+        or hybrid suits the way I work and the office in New Bond Street is easy to reach.
+      </p>
+    </div>
   </section>
 
   <footer>
@@ -644,32 +639,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19.5v-15M5.5 11 12 4.5 18.5 11"/></svg>
   </button>
 </div>
-
-<!-- Spread reader. Served from spread.irina.love, so it must be reachable over HTTPS. -->
-<link rel="stylesheet" href="https://spread.irina.love/spread.css">
-<script src="https://spread.irina.love/vendor/page-flip.browser.js"></script>
-<script src="https://spread.irina.love/spread.js"></script>
-
-<script>
-/* If the reader hasn't rendered anything after a few seconds, show the fallback
-   rather than an empty box. An unfinished thing is fine; a broken-looking one isn't. */
-(function(){
-  var frame    = document.querySelector('.spread-frame');
-  var mount    = document.querySelector('.spread');
-  var fallback = document.getElementById('spreadFallback');
-  var caption  = document.getElementById('spreadCaption');
-  if (!mount || !fallback) return;
-
-  setTimeout(function(){
-    if (mount.children.length === 0 && mount.textContent.trim() === ''){
-      mount.hidden = true;
-      fallback.hidden = false;
-      if (frame) frame.style.minHeight = '0';
-      if (caption) caption.hidden = true;
-    }
-  }, 4000);
-})();
-</script>
 
 <script>
 (function(){
