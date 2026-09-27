@@ -197,6 +197,40 @@
     border-left:2px solid var(--gold); padding-left:14px; margin-top:28px;
   }
 
+  /* ---------- a note on tools ---------- */
+  .tools{max-width:var(--col); margin-inline:auto; border-top:1px solid var(--gold); padding-top:30px}
+  .tools-head .label{display:block; margin:0 0 28px}
+  .tools-lead{
+    font-family:var(--serif); font-size:clamp(1.15rem, 1.78vw, 25px);
+    line-height:1.4; margin:0; max-width:735px;
+  }
+  .tools-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0, 1fr));
+    column-gap:44px; margin:44px 0 0; padding:0; list-style:none;
+    border-top:1px solid var(--line);
+  }
+  .tools-grid li{margin:0; border-bottom:1px solid var(--line)}
+  .tools-grid a{
+    display:flex; gap:14px; align-items:baseline;
+    padding:15px 0; color:inherit; text-decoration:none;
+  }
+  .tools-grid b{
+    flex:0 0 auto; font-family:var(--serif); font-weight:400;
+    font-size:22px; line-height:1.3; white-space:nowrap;
+  }
+  .tools-grid span{
+    font-family:var(--sans); font-size:15px; line-height:1.6;
+    color:var(--ink-soft); letter-spacing:normal;
+  }
+  .tools-new{
+    display:inline-block; margin-left:6px; vertical-align:2px;
+    font-family:var(--sans); font-style:normal; font-size:11px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--gold-ink);
+    border:1px solid var(--gold); padding:3px 7px;
+  }
+  .tools-grid a:hover b{color:var(--gold-ink)}
+  .tools-grid a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+
   /* ---------- essay blocks ---------- */
   .essay{max-width:901px; margin-inline:auto}
   .essay p:last-child{margin-bottom:0}
@@ -281,10 +315,15 @@
     .spread-shot.is-loaded{opacity:1}
 
     /* the stagger */
-    .plates li:nth-child(2), .gal .tile:nth-child(2), .sale dl > div:nth-child(2){--rise:90ms}
-    .plates li:nth-child(3), .gal .tile:nth-child(3), .sale dl > div:nth-child(3){--rise:180ms}
-    .plates li:nth-child(4), .sale dl > div:nth-child(4){--rise:270ms}
-    .plates li:nth-child(5){--rise:360ms}
+    .plates li:nth-child(2), .gal .tile:nth-child(2), .sale dl > div:nth-child(2),
+    .tools-grid li:nth-child(2){--rise:90ms}
+    .plates li:nth-child(3), .gal .tile:nth-child(3), .sale dl > div:nth-child(3),
+    .tools-grid li:nth-child(3){--rise:180ms}
+    .plates li:nth-child(4), .sale dl > div:nth-child(4),
+    .tools-grid li:nth-child(4){--rise:60ms}
+    .plates li:nth-child(5), .tools-grid li:nth-child(5){--rise:150ms}
+    .tools-grid li:nth-child(6){--rise:240ms}
+    .tools-grid li:nth-child(7){--rise:120ms}
     h1[data-rise]{--rise:80ms}
     .sothebys-mark[data-rise]{--rise:180ms}
     .rule-gold-short[data-rise]{--rise:300ms}
@@ -292,6 +331,12 @@
   }
   @media (max-width:1000px){
     .sale dl{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:34px 40px}
+    .tools-grid{grid-template-columns:repeat(2, minmax(0, 1fr)); column-gap:48px}
+  }
+  @media (max-width:620px){
+    .tools-grid{grid-template-columns:1fr}
+    .tools-grid a{flex-direction:column; gap:4px}
+    .tools-grid b{white-space:normal}
   }
   @media (max-width:980px){
     .lot-body{grid-template-columns:1fr; gap:34px}
@@ -572,6 +617,65 @@
   </section>
 
   <img class="spread-shot" data-rise src="art/spread-book.webp" loading="lazy" alt="The Spread reader open on a red and white book spread">
+
+  <!-- A NOTE ON TOOLS -->
+  <section>
+    <div class="tools">
+      <div class="tools-head" data-rise>
+        <span class="label">A note on tools</span>
+        <p class="tools-lead">
+          A catalogue ought to list its materials, so here are mine. Figma for layout, colour,
+          imagery and the systems that hold them together. Recently Paper, which designs straight
+          into code for the web, because the distance between a drawing and a working page is the
+          part I most want to close. Then Claude Code to build it and keep iterating on it.
+        </p>
+      </div>
+      <ul class="tools-grid">
+        <li data-rise>
+          <a href="https://www.figma.com/" target="_blank" rel="noopener">
+            <b>Figma</b>
+            <span>Design, systems, prototypes. Where most of the thinking happens.</span>
+          </a>
+        </li>
+        <li data-rise>
+          <a href="https://paper.design/" target="_blank" rel="noopener">
+            <b>Paper <em class="tools-new">New</em></b>
+            <span>Designs straight into code for the web.</span>
+          </a>
+        </li>
+        <li data-rise>
+          <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">
+            <b>Claude Code</b>
+            <span>Daily. Building and iterating on the front end.</span>
+          </a>
+        </li>
+        <li data-rise>
+          <a href="https://lovable.dev/" target="_blank" rel="noopener">
+            <b>Lovable</b>
+            <span>Fast directions, made to be thrown away.</span>
+          </a>
+        </li>
+        <li data-rise>
+          <a href="https://rive.app/" target="_blank" rel="noopener">
+            <b>Rive</b>
+            <span>Interactive motion and animated assets.</span>
+          </a>
+        </li>
+        <li data-rise>
+          <a href="https://jitter.video/" target="_blank" rel="noopener">
+            <b>Jitter</b>
+            <span>Motion design for the web.</span>
+          </a>
+        </li>
+        <li data-rise>
+          <a href="https://github.com/" target="_blank" rel="noopener">
+            <b>GitHub</b>
+            <span>Version, deploy, ship. Including this page.</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
 
   <!-- A NOTE ON INSTITUTIONS -->
   <section>
