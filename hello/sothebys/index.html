@@ -111,6 +111,33 @@
   .gal img{display:block; width:100%; height:100%; object-fit:cover}
   .plates li{overflow:clip}
   .gal + .gal{margin-top:23px}
+  /* ---------- the behind the scenes clip ---------- */
+  .lot-video{position:relative; margin:34px 0 0; overflow:clip}
+  .lot-video video{
+    display:block; width:100%; height:auto; aspect-ratio:1920 / 1080;
+    background:var(--line);
+  }
+  .clip-toggle{
+    position:absolute; right:18px; bottom:18px;
+    width:44px; height:44px; padding:0;
+    display:grid; place-items:center;
+    border:1px solid var(--line); border-radius:50%;
+    background:var(--paper); color:var(--ink);
+    cursor:pointer; box-shadow:0 2px 10px rgba(51,51,51,.12);
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .clip-toggle svg{
+    width:20px; height:20px; fill:none; stroke:currentColor;
+    stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round;
+  }
+  .clip-toggle .i-play{display:none; fill:currentColor; stroke:none}
+  .clip-toggle[aria-pressed="true"] .i-pause{display:none}
+  .clip-toggle[aria-pressed="true"] .i-play{display:block}
+  .clip-toggle:hover{border-color:var(--gold); color:var(--gold-ink)}
+  .clip-toggle:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+  @media (prefers-reduced-motion:reduce){.clip-toggle{transition:none}}
+  @media (max-width:620px){.clip-toggle{right:12px; bottom:12px; width:38px; height:38px}}
+
   .spread-shot{
     display:block; width:100%; height:auto; margin:44px 0 0;
     aspect-ratio:1292 / 945; object-fit:cover; background:var(--line);
@@ -303,11 +330,11 @@
     [data-rise].is-in{opacity:1; transform:none}
     [data-rise].is-done{will-change:auto}
 
-    .tile img, .plates img{
+    .tile img, .plates img, .lot-video video{
       transform:scale(1.04);
       transition:transform 1.5s cubic-bezier(.22,.61,.36,1) var(--rise, 0ms);
     }
-    [data-rise].is-in img{transform:none}
+    [data-rise].is-in img, [data-rise].is-in video{transform:none}
 
     /* a lazily fetched image fades up as it decodes, so a tile never pops */
     .gal img, .plates img, .spread-shot{opacity:0; transition-property:transform, opacity}
@@ -582,17 +609,16 @@
     </div>
   </section>
 
-  <div class="gal gal--648-380-380">
-    <div class="tile" data-rise><img src="art/art-process.webp" loading="lazy" alt="A collage in progress on the desk, with cut paper and components"></div>
-    <div class="tile" data-rise><img src="art/art-electronic-collage.webp" loading="lazy" alt="A vibrant collage built from electronic components"></div>
-    <div class="tile" data-rise><img src="art/art-blue-scene.webp" loading="lazy" alt="A collage scene on a blue ground"></div>
-  </div>
+  <figure class="lot-video" data-rise>
+    <video class="lot-clip" data-src="art/tender-tech-behind-the-scenes.mp4"
+           width="1920" height="1080" muted loop playsinline preload="metadata"
+           poster="art/tender-tech-poster.webp" disablepictureinpicture
+           aria-label="Behind the scenes: making collages, cutting and framing work, and showing finished pieces. From the Geek Night talk."></video>
+    <button type="button" class="clip-toggle" hidden aria-label="Pause the behind the scenes clip">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="i-pause" d="M9.5 6v12M14.5 6v12"/><path class="i-play" d="M8.5 5.5l10 6.5-10 6.5z"/></svg>
+    </button>
+  </figure>
 
-  <div class="gal gal--380-380-648">
-    <div class="tile" data-rise><img src="art/art-blue-collage.webp" loading="lazy" alt="A blue collage with cut paper and circuit board"></div>
-    <div class="tile" data-rise><img src="art/art-face-collage.webp" loading="lazy" alt="A collage of a face built from electronics"></div>
-    <div class="tile" data-rise><img src="art/art-with-works.webp" loading="lazy" alt="Irina with several of the finished works"></div>
-  </div>
 
   <!-- AN ARTIST'S SPREAD -->
   <section>
@@ -844,6 +870,58 @@
     addEventListener('scroll', sync, { passive: true });
     addEventListener('resize', sync, { passive: true });
   })();
+</script>
+<script>
+/* The behind the scenes clip. It fetches its source only when it scrolls into
+   view, pauses when it leaves, and carries a pause control because anything that
+   moves by itself for more than five seconds needs one (WCAG 2.2.2). Under
+   reduced motion it does not start, and the control becomes a play button. */
+(function () {
+  var v = document.querySelector('.lot-clip');
+  var btn = document.querySelector('.clip-toggle');
+  if (!v || !btn) return;
+  var still = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var manual = false;   // set once the reader has pressed the button
+
+  function load() {
+    if (!v.getAttribute('src')) v.src = v.getAttribute('data-src');
+  }
+  function state(playing) {
+    btn.setAttribute('aria-pressed', playing ? 'false' : 'true');
+    btn.setAttribute('aria-label', playing
+      ? 'Pause the behind the scenes clip'
+      : 'Play the behind the scenes clip');
+  }
+
+  btn.hidden = false;
+  state(false);
+
+  btn.addEventListener('click', function () {
+    manual = true;
+    load();
+    if (v.paused) { v.play().then(function () { state(true); }, function () {}); }
+    else { v.pause(); state(false); }
+  });
+
+  if (still) return;   /* no autoplay, but the button still works */
+
+  if (!('IntersectionObserver' in window)) {
+    load(); v.play().then(function () { state(true); }, function () {});
+    return;
+  }
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        if (manual && v.paused) return;   /* respect a deliberate pause */
+        load();
+        v.play().then(function () { state(true); }, function () {});
+      } else if (!v.paused) {
+        v.pause();
+        if (!manual) state(false);
+      }
+    });
+  }, { threshold: 0.25 }).observe(v);
+})();
 </script>
 </body>
 </html>
