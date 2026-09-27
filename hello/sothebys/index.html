@@ -107,10 +107,9 @@
   .gal--380-380-648{grid-template-columns:380fr 380fr 648fr}
   .gal--683-747{grid-template-columns:683fr 747fr}
   .gal--469{grid-template-columns:repeat(3, 1fr)}
-  .gal img{
-    display:block; width:100%; height:100%;
-    object-fit:cover; background:var(--line);
-  }
+  .gal .tile{overflow:clip; background:var(--line)}
+  .gal img{display:block; width:100%; height:100%; object-fit:cover}
+  .plates li{overflow:clip}
   .gal + .gal{margin-top:23px}
   .spread-shot{
     display:block; width:100%; height:auto; margin:44px 0 0;
@@ -253,9 +252,43 @@
   }
   .colophon{font-family:var(--sans); font-size:12px; color:var(--ink-soft); margin-top:44px}
 
+  /* ---------- reveal on scroll ----------
+     One transition, a long soft ease, and a small stagger inside any row. The
+     images settle out of a 4% scale, which is what makes it feel unhurried
+     rather than snapped into place. Everything is visible without JavaScript
+     and nothing moves at all under reduced motion. */
   @media (prefers-reduced-motion:no-preference){
-    .reveal{opacity:0; transform:translateY(12px); transition:opacity .7s ease, transform .7s ease}
-    .reveal.in{opacity:1; transform:none}
+    [data-rise]{
+      opacity:0;
+      transform:translateY(20px);
+      transition:
+        opacity .95s cubic-bezier(.22,.61,.36,1) var(--rise, 0ms),
+        transform 1.05s cubic-bezier(.22,.61,.36,1) var(--rise, 0ms);
+      will-change:opacity, transform;
+    }
+    [data-rise].is-in{opacity:1; transform:none}
+    [data-rise].is-done{will-change:auto}
+
+    .tile img, .plates img{
+      transform:scale(1.04);
+      transition:transform 1.5s cubic-bezier(.22,.61,.36,1) var(--rise, 0ms);
+    }
+    [data-rise].is-in img{transform:none}
+
+    /* a lazily fetched image fades up as it decodes, so a tile never pops */
+    .gal img, .plates img, .spread-shot{opacity:0; transition-property:transform, opacity}
+    .gal img.is-loaded, .plates img.is-loaded{opacity:1; transition:transform 1.5s cubic-bezier(.22,.61,.36,1) var(--rise, 0ms), opacity .8s ease}
+    .spread-shot.is-loaded{opacity:1}
+
+    /* the stagger */
+    .plates li:nth-child(2), .gal .tile:nth-child(2), .sale dl > div:nth-child(2){--rise:90ms}
+    .plates li:nth-child(3), .gal .tile:nth-child(3), .sale dl > div:nth-child(3){--rise:180ms}
+    .plates li:nth-child(4), .sale dl > div:nth-child(4){--rise:270ms}
+    .plates li:nth-child(5){--rise:360ms}
+    h1[data-rise]{--rise:80ms}
+    .sothebys-mark[data-rise]{--rise:180ms}
+    .rule-gold-short[data-rise]{--rise:300ms}
+    .lot-body > [data-rise]:nth-child(2){--rise:120ms}
   }
   @media (max-width:1000px){
     .sale dl{grid-template-columns:repeat(2, minmax(0, 1fr)); gap:34px 40px}
@@ -295,25 +328,25 @@
 <div class="wrap">
 
   <header>
-    <p class="addressed">An application for the role of Senior Product Designer</p>
+    <p class="addressed" data-rise>An application for the role of Senior Product Designer</p>
 
-    <h1>Hello</h1>
+    <h1 data-rise>Hello</h1>
 
     <!-- The wordmark is drawn at 571px wide in the Paper file. The SVG declares
          160px, so this needs width rather than max-width, which cannot scale up. -->
-    <img class="sothebys-mark" src="sothebys-logo.svg" alt="Sotheby's, established 1744"
+    <img class="sothebys-mark" data-rise src="sothebys-logo.svg" alt="Sotheby's, established 1744"
          width="160" height="33" onerror="this.remove()">
-    <hr class="rule-gold-short">
+    <hr class="rule-gold-short" data-rise>
 
     <ul class="plates">
-      <li><img src="art/red-lips-bust.webp" width="620" height="752" loading="lazy" alt="Collage of a silver bust on a red circle over blue paper, with a red television, lips and a remote control"></li>
-      <li><img src="art/glass-head.webp" width="775" height="620" loading="lazy" alt="Transparent glass head in profile filled with pink flowers and blue petals"></li>
-      <li><img src="art/dancers-cpu.webp" width="620" height="827" loading="lazy" alt="Collage of 1920s dancers posed on RAM sticks and processors over sheet music, blue paper and coloured circles"></li>
-      <li><img src="art/panther-ram.webp" width="620" height="827" loading="lazy" alt="Collage of a woman's neck and emerald necklace, a gold panther bangle and RAM sticks over torn purple, red and blue paper"></li>
-      <li><img src="art/glass-pour.webp" width="620" height="823" loading="lazy" alt="Iridescent glass pouring a stream of tiny pastel flowers into a second glass"></li>
+      <li data-rise><img src="art/red-lips-bust.webp" width="620" height="752" loading="lazy" alt="Collage of a silver bust on a red circle over blue paper, with a red television, lips and a remote control"></li>
+      <li data-rise><img src="art/glass-head.webp" width="775" height="620" loading="lazy" alt="Transparent glass head in profile filled with pink flowers and blue petals"></li>
+      <li data-rise><img src="art/dancers-cpu.webp" width="620" height="827" loading="lazy" alt="Collage of 1920s dancers posed on RAM sticks and processors over sheet music, blue paper and coloured circles"></li>
+      <li data-rise><img src="art/panther-ram.webp" width="620" height="827" loading="lazy" alt="Collage of a woman's neck and emerald necklace, a gold panther bangle and RAM sticks over torn purple, red and blue paper"></li>
+      <li data-rise><img src="art/glass-pour.webp" width="620" height="823" loading="lazy" alt="Iridescent glass pouring a stream of tiny pastel flowers into a second glass"></li>
     </ul>
 
-    <div class="intro measure">
+    <div class="intro measure" data-rise>
       <p class="lead">
         I'm Irina Csapo, a senior product designer with 15 years behind me. Most of that time has
         gone on the two things this role asks for at once: the experience a client sees, and the
@@ -327,7 +360,7 @@
       </p>
     </div>
 
-    <div class="what measure">
+    <div class="what measure" data-rise>
       <hr class="rule-gold-short">
       <span class="label">What this is</span>
       <p>
@@ -343,19 +376,19 @@
 
     <div class="sale">
       <dl>
-        <div>
+        <div data-rise>
           <dt class="label">Specialisms</dt>
           <dd>Consumer experience<br>Operational tooling<br>Native mobile<br>Design systems</dd>
         </div>
-        <div>
+        <div data-rise>
           <dt class="label">Sectors</dt>
           <dd>E-commerce<br>Fintech and payments<br>Healthtech<br>Connected hardware</dd>
         </div>
-        <div>
+        <div data-rise>
           <dt class="label">Experience</dt>
           <dd>Fifteen years<br>Web &amp; Mobile Apps<br>UX Research<br>Prototypes/Workflows</dd>
         </div>
-        <div>
+        <div data-rise>
           <dt class="label">Available to view</dt>
           <dd>
             <a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a>
@@ -369,21 +402,21 @@
   </header>
 
   <!-- LOT 1 -->
-  <section class="reveal">
-    <div class="lot-head">
+  <section>
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Lot 1</span>
       <h2>Paycada</h2>
       <p class="descriptor">Operational web platform for automated invoice chasing and payments, regulated fintech platform.</p>
     </div>
     <div class="lot-body">
-      <div>
+      <div data-rise>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
           <dd>Consumer &amp; enterprise web app<br>Built in ambiguity<br>Design systems<br>Sole designer, three years</dd>
         </dl>
         <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/paycada-case-study/" target="_blank" rel="noopener">Paycada Case Study</a>
       </div>
-      <div class="prose">
+      <div class="prose" data-rise>
         <span class="label">Results</span>
         <p>A business asking its own customers for money, repeatedly, without damaging the relationship it depends on.</p>
         <p>A shipped product with a design system beneath it: three tiers of tokens, full component state coverage, and an accessibility audit that identified two live contrast failures already in production.</p>
@@ -394,33 +427,33 @@
   </section>
 
   <div class="gal gal--648-380-380">
-    <img src="art/paycada-laptops.webp" loading="lazy" alt="The Paycada platform shown across two laptop screens">
-    <img src="art/paycada-tablet.webp" loading="lazy" alt="A Paycada screen on a tablet against a blue ground">
-    <img src="art/paycada-interface.webp" loading="lazy" alt="The Paycada interface, showing the payables list">
+    <div class="tile" data-rise><img src="art/paycada-laptops.webp" loading="lazy" alt="The Paycada platform shown across two laptop screens"></div>
+    <div class="tile" data-rise><img src="art/paycada-tablet.webp" loading="lazy" alt="A Paycada screen on a tablet against a blue ground"></div>
+    <div class="tile" data-rise><img src="art/paycada-interface.webp" loading="lazy" alt="The Paycada interface, showing the payables list"></div>
   </div>
 
   <div class="gal gal--380-380-648">
-    <img src="art/paycada-dashboard-a.webp" loading="lazy" alt="The Paycada dashboard on a laptop screen">
-    <img src="art/paycada-dashboard-a.webp" loading="lazy" alt="The Paycada dashboard on a laptop screen, second view">
-    <img src="art/paycada-in-use.webp" loading="lazy" alt="Someone using Paycada on a laptop">
+    <div class="tile" data-rise><img src="art/paycada-dashboard-a.webp" loading="lazy" alt="The Paycada dashboard on a laptop screen"></div>
+    <div class="tile" data-rise><img src="art/paycada-dashboard-a.webp" loading="lazy" alt="The Paycada dashboard on a laptop screen, second view"></div>
+    <div class="tile" data-rise><img src="art/paycada-in-use.webp" loading="lazy" alt="Someone using Paycada on a laptop"></div>
   </div>
 
   <!-- LOT 2 -->
-  <section class="reveal">
-    <div class="lot-head">
+  <section>
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Lot 2</span>
       <h2>Veva</h2>
       <p class="descriptor">Mobile native application for electric vehicle charge points, iOS and Android</p>
     </div>
     <div class="lot-body">
-      <div>
+      <div data-rise>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
           <dd>Consumer mobile app<br>Built in systems<br>Multiple users<br>Multiple edge case scenarios</dd>
         </dl>
         <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/veva-case-study/" target="_blank" rel="noopener">Veva Case Study</a>
       </div>
-      <div class="prose">
+      <div class="prose" data-rise>
         <span class="label">Results</span>
         <p>Hardware installed at a customer's home, requiring a single mobile application to serve two users, electrical engineers and home users, with nothing in common.</p>
         <p>The users are guided in the app through a series of steps that help them with crucial settings to configure and test against the charge point they're installing.</p>
@@ -432,32 +465,32 @@
   </section>
 
   <div class="gal gal--683-747">
-    <img src="art/veva-phones.webp" loading="lazy" alt="The Veva app on two phones, showing charging and history">
-    <img src="art/veva-in-car.webp" loading="lazy" alt="Someone in a car using the Veva app">
+    <div class="tile" data-rise><img src="art/veva-phones.webp" loading="lazy" alt="The Veva app on two phones, showing charging and history"></div>
+    <div class="tile" data-rise><img src="art/veva-in-car.webp" loading="lazy" alt="Someone in a car using the Veva app"></div>
   </div>
 
   <div class="gal gal--469">
-    <img src="art/veva-charging-modes.webp" loading="lazy" alt="Veva charging modes on a phone screen">
-    <img src="art/veva-app-interface.webp" loading="lazy" alt="The Veva app interface">
-    <img src="art/veva-app-settings.webp" loading="lazy" alt="Veva app settings, showing the off-peak schedule">
+    <div class="tile" data-rise><img src="art/veva-charging-modes.webp" loading="lazy" alt="Veva charging modes on a phone screen"></div>
+    <div class="tile" data-rise><img src="art/veva-app-interface.webp" loading="lazy" alt="The Veva app interface"></div>
+    <div class="tile" data-rise><img src="art/veva-app-settings.webp" loading="lazy" alt="Veva app settings, showing the off-peak schedule"></div>
   </div>
 
   <!-- LOT 3 -->
-  <section class="reveal">
-    <div class="lot-head">
+  <section>
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Lot 3</span>
       <h2>Omaze UK, New Draw Launch</h2>
       <p class="descriptor">Consumer subscription and PAYG experience, mobile-first, built within Shopify</p>
     </div>
     <div class="lot-body">
-      <div>
+      <div data-rise>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
           <dd>New draw launch<br>Conversion uplift<br>A/B testing<br>Conversion optimisation<br>Behavioural experimentation</dd>
         </dl>
         <a class="lot-cta" href="https://irinacsapo.co.uk/case-studies/omaze-mm-case-study/" target="_blank" rel="noopener">Omaze Case Study</a>
       </div>
-      <div class="prose">
+      <div class="prose" data-rise>
         <span class="label">Results</span>
         <p>Commissioned following a subscription price increase from &pound;10 to &pound;15, which required the business to demonstrate new value to an audience it had just asked for more money.</p>
         <p>Launched at approximately &pound;650,000 per month of revenue against a forecast exceeding &pound;1,000,000.</p>
@@ -468,32 +501,32 @@
   </section>
 
   <div class="gal gal--683-747">
-    <img src="art/omaze-trust.webp" loading="lazy" alt="The Omaze trust signals section as built">
-    <img src="art/omaze-winner.webp" loading="lazy" alt="An Omaze winner with their arms raised">
+    <div class="tile" data-rise><img src="art/omaze-trust.webp" loading="lazy" alt="The Omaze trust signals section as built"></div>
+    <div class="tile" data-rise><img src="art/omaze-winner.webp" loading="lazy" alt="An Omaze winner with their arms raised"></div>
   </div>
 
   <div class="gal gal--469">
-    <img src="art/omaze-hero-a.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, first variant">
-    <img src="art/omaze-hero-b.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, second variant">
-    <img src="art/omaze-hero-c.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, third variant">
+    <div class="tile" data-rise><img src="art/omaze-hero-a.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, first variant"></div>
+    <div class="tile" data-rise><img src="art/omaze-hero-b.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, second variant"></div>
+    <div class="tile" data-rise><img src="art/omaze-hero-c.webp" loading="lazy" alt="The Omaze Monthly Millionaire hero, third variant"></div>
   </div>
 
   <!-- LOT 4 -->
-  <section class="reveal">
-    <div class="lot-head">
+  <section>
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Lot 4</span>
       <h2>Tender Tech</h2>
       <p class="descriptor">Personal art practice, explorations of mixed media, electronic waste and collage, ongoing</p>
     </div>
     <div class="lot-body">
-      <div>
+      <div data-rise>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
           <dd>Mixed media art<br>Analogue collage<br>Found ephemera<br>Interactive digital art</dd>
         </dl>
         <a class="lot-cta" href="https://www.instagram.com/irina_csapo_art/" target="_blank" rel="noopener">Art</a>
       </div>
-      <div class="prose">
+      <div class="prose" data-rise>
         <span class="label">Results</span>
         <p>Included because it explains the other three. I began in print and branding before moving into product, and I have never entirely lost the habit of treating a discarded object as the most interesting thing in the room.</p>
         <p>It is also the honest answer to why this application takes this form rather than the form of a covering letter.</p>
@@ -505,49 +538,49 @@
   </section>
 
   <div class="gal gal--648-380-380">
-    <img src="art/art-process.webp" loading="lazy" alt="A collage in progress on the desk, with cut paper and components">
-    <img src="art/art-electronic-collage.webp" loading="lazy" alt="A vibrant collage built from electronic components">
-    <img src="art/art-blue-scene.webp" loading="lazy" alt="A collage scene on a blue ground">
+    <div class="tile" data-rise><img src="art/art-process.webp" loading="lazy" alt="A collage in progress on the desk, with cut paper and components"></div>
+    <div class="tile" data-rise><img src="art/art-electronic-collage.webp" loading="lazy" alt="A vibrant collage built from electronic components"></div>
+    <div class="tile" data-rise><img src="art/art-blue-scene.webp" loading="lazy" alt="A collage scene on a blue ground"></div>
   </div>
 
   <div class="gal gal--380-380-648">
-    <img src="art/art-blue-collage.webp" loading="lazy" alt="A blue collage with cut paper and circuit board">
-    <img src="art/art-face-collage.webp" loading="lazy" alt="A collage of a face built from electronics">
-    <img src="art/art-with-works.webp" loading="lazy" alt="Irina with several of the finished works">
+    <div class="tile" data-rise><img src="art/art-blue-collage.webp" loading="lazy" alt="A blue collage with cut paper and circuit board"></div>
+    <div class="tile" data-rise><img src="art/art-face-collage.webp" loading="lazy" alt="A collage of a face built from electronics"></div>
+    <div class="tile" data-rise><img src="art/art-with-works.webp" loading="lazy" alt="Irina with several of the finished works"></div>
   </div>
 
   <!-- AN ARTIST'S SPREAD -->
-  <section class="reveal">
-    <div class="lot-head">
+  <section>
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Notes on the form</span>
       <h2>An Artist's Spread</h2>
       <p class="descriptor">I'm building tools for artists so they can present their art in different forms</p>
     </div>
     <div class="lot-body">
-      <div>
+      <div data-rise>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
           <dd>AI coding and prototyping<br>Design &amp; build<br>Found ephemera<br>Interactive digital art</dd>
         </dl>
         <a class="lot-cta" href="https://spread.irina.love" target="_blank" rel="noopener">Spread Love</a>
       </div>
-      <div class="prose">
+      <div class="prose" data-rise>
         <span class="label">Results</span>
         <p>I love building tools and prototypes. The pages below are laid out as a catalogue, which may read as a flourish. It isn't. It's deliberate. I'm currently building a tool that takes a set of images and lets you read them as a book, spread by spread, because I have never found a satisfying way to look at a body of work online and I got tired of waiting for one. It is a work in progress.</p>
       </div>
     </div>
   </section>
 
-  <img class="spread-shot" src="art/spread-book.webp" loading="lazy" alt="The Spread reader open on a red and white book spread">
+  <img class="spread-shot" data-rise src="art/spread-book.webp" loading="lazy" alt="The Spread reader open on a red and white book spread">
 
   <!-- A NOTE ON INSTITUTIONS -->
-  <section class="reveal">
-    <div class="lot-head">
+  <section>
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Notes on the form</span>
       <h2>A Note on Institutions</h2>
       <p class="descriptor">How I would understand working as a Senior Product Designer at Sotheby's</p>
     </div>
-    <div class="prose essay">
+    <div class="prose essay" data-rise>
       <p>
         Sotheby's has been selling things since 1744 and is now also shipping software. Those two
         facts sit in tension, and I suspect the tension is most of the job.
@@ -569,13 +602,13 @@
   </section>
 
   <!-- CONDITION REPORT -->
-  <section class="reveal condition">
-    <div class="lot-head">
+  <section class="condition">
+    <div class="lot-head" data-rise>
       <span class="label lot-no">Notes on the form</span>
       <h2>Offered as seen</h2>
       <p class="descriptor">The following is noted in the interest of transparency and accuracy</p>
     </div>
-    <div class="prose essay">
+    <div class="prose essay" data-rise>
       <h3>No auction house experience</h3>
       <p>
         I know this world as someone who makes and exhibits work within it, not as someone who has
@@ -641,17 +674,41 @@
 </div>
 
 <script>
-(function(){
-  if (window.IntersectionObserver && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+/* Reveal on scroll. Everything is marked data-rise and starts hidden only inside
+   a prefers-reduced-motion: no-preference query, so if this never runs, or the
+   browser has no IntersectionObserver, the page is simply all there. */
+(function () {
+  var rise = [].slice.call(document.querySelectorAll('[data-rise]'));
+  var imgs = [].slice.call(document.querySelectorAll('.gal img, .plates img, .spread-shot'));
+  var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function show(el) { el.classList.add('is-in'); }
+  function loaded(img) { img.classList.add('is-loaded'); }
+
+  if (still || !('IntersectionObserver' in window)) {
+    rise.forEach(show);
+    imgs.forEach(loaded);
+    return;
   }
+
+  /* fade each image up as it decodes, so a lazily fetched tile never pops in */
+  imgs.forEach(function (img) {
+    if (img.complete && img.naturalWidth > 0) loaded(img);
+    else img.addEventListener('load', function () { loaded(img); }, { once: true });
+    img.addEventListener('error', function () { loaded(img); }, { once: true });
+  });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      show(e.target);
+      io.unobserve(e.target);
+      /* drop the compositing hint once the transition has run */
+      setTimeout(function () { e.target.classList.add('is-done'); }, 2600);
+    });
+  }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+
+  rise.forEach(function (el) { io.observe(el); });
 })();
 </script>
 <script>
