@@ -450,15 +450,21 @@
       grid-template-columns:1fr !important;
       aspect-ratio:auto; gap:14px;
     }
-    .gal img{aspect-ratio:16 / 10; height:auto}
+    /* Each image was encoded cropped to exactly the tile it is drawn in, so its
+       own ratio is the right one. Forcing a shared 16:10 here and letting
+       object-fit crop the difference was cutting 41% off the upright ones. */
+    .gal img{aspect-ratio:auto; height:auto}
     .gal + .gal{margin-top:14px}
   }
   @media (max-width:760px){
     .lot-body{grid-template-columns:1fr; gap:28px}
     header{padding:40px 0 0}
     section{padding:42px 0}
-    .plates{grid-template-columns:repeat(2, 1fr); gap:18px; margin-top:44px}
-    .plates li:nth-child(n) img{aspect-ratio:4 / 3}
+    /* One column rather than two: the four plates are different shapes, and side
+       by side at their own ratios the rows go ragged and the captions stop
+       lining up. Stacked, each keeps its full frame. */
+    .plates{grid-template-columns:1fr; gap:26px; margin-top:44px}
+    .plates li:nth-child(n) img{aspect-ratio:auto}
     .plates figcaption{font-size:14px; line-height:1.5}
     .intro{margin-top:48px}
     .intro .lead{margin-bottom:32px}
@@ -468,7 +474,6 @@
     .sale dd{font-size:16px; line-height:1.8}
   }
   @media (max-width:520px){
-    .plates{grid-template-columns:1fr; gap:22px}
     .rule-gold-short{margin-top:26px}
   }
 </style>
