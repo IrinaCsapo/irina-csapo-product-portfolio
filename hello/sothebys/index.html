@@ -11,6 +11,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="preload" href="../../assets/fonts/albert-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<!-- The Spread reader's own stylesheet. Every variable in it is scoped to
+     .spread and it shares no class name with this page, so it is safe here. -->
+<link rel="stylesheet" href="https://spread.irina.love/spread.css">
 <style>
   /* Albert Sans, self-hosted with the rest of the site. */
   @font-face{
@@ -139,10 +142,16 @@
   @media (prefers-reduced-motion:reduce){.clip-toggle{transition:none}}
   @media (max-width:620px){.clip-toggle{right:12px; bottom:12px; width:38px; height:38px}}
 
+  .spread-embed{margin:44px 0 0; padding:0}
+  .spread-embed .spread{width:100%}
   .spread-shot{
-    display:block; width:100%; height:auto; margin:44px 0 0;
+    display:block; width:100%; height:auto;
     aspect-ratio:1292 / 945; object-fit:cover; background:var(--line);
   }
+  /* once the reader has mounted, the screenshot of it steps aside. .spread is
+     never hidden: it measures its own width on mount to decide between a one
+     and a two page spread, and a hidden element measures zero. */
+  .spread-embed.is-live .spread-shot{display:none}
 
   /* ---------- reading column ---------- */
   .measure{max-width:var(--measure); margin:0 auto; text-align:left}
@@ -651,7 +660,11 @@
     </div>
   </section>
 
-  <img class="spread-shot" data-rise src="art/spread-book.webp" loading="lazy" alt="The Spread reader open on a red and white book spread">
+  <figure class="spread-embed" data-rise>
+    <div class="spread" data-book="https://spread.irina.love/book.json"></div>
+    <img class="spread-shot" src="art/spread-book.webp" width="1938" height="1418" loading="lazy"
+         alt="The Spread reader open on a red and white book spread">
+  </figure>
 
   <!-- A NOTE ON TOOLS -->
   <section>
@@ -955,6 +968,52 @@
 
     if (io) io.observe(v); else sync();
   });
+})();
+</script>
+<script>
+/* The Spread reader. Its two scripts load once the rest of the page has
+   finished, so they stay off the critical path without depending on a scroll
+   trigger to fire. spread.js calls its own auto() when the document is already
+   parsed, so loading it late is fine.
+
+   The screenshot in the markup is the fallback, and it is only hidden once the
+   reader has actually put something on the page. A blocked script, an
+   unreachable host or no JavaScript at all leaves the picture rather than a
+   hole, and .spread is never display:none, because it measures its own width on
+   mount to choose between a one and a two page spread. */
+(function () {
+  var fig = document.querySelector('.spread-embed');
+  var mount = fig && fig.querySelector('.spread');
+  if (!fig || !mount) return;
+
+  function script(src) {
+    return new Promise(function (resolve, reject) {
+      var el = document.createElement('script');
+      el.src = src;
+      el.onload = resolve;
+      el.onerror = reject;
+      document.body.appendChild(el);
+    });
+  }
+
+  function watch() {
+    var tries = 0;
+    (function poll() {
+      if (mount.children.length) { fig.classList.add('is-live'); return; }
+      if (++tries > 50) return;            /* ~10s, then leave the screenshot up */
+      setTimeout(poll, 200);
+    })();
+  }
+
+  function start() {
+    script('https://spread.irina.love/vendor/page-flip.browser.js')
+      .then(function () { return script('https://spread.irina.love/spread.js'); })
+      .then(watch)
+      .catch(function () {});              /* the screenshot is already there */
+  }
+
+  if (document.readyState === 'complete') start();
+  else addEventListener('load', start, { once: true });
 })();
 </script>
 </body>
