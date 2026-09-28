@@ -458,11 +458,11 @@
 <div class="topbar">
   <div class="wrap topbar-inner">
     <nav class="topbar-links" aria-label="Irina Csapo elsewhere">
-      <a href="https://irinacsapo.co.uk">Product portfolio</a>
-      <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf">Download CV</a>
+      <a href="https://irinacsapo.co.uk" target="_blank" rel="noopener">Product portfolio</a>
+      <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf" target="_blank" rel="noopener">Download CV</a>
       <a href="mailto:irina.csapo@gmail.com"><span class="on-wide">irina.csapo@gmail.com</span><span class="on-narrow">Email</span></a>
     </nav>
-    <p class="topbar-meta" id="topbar-meta">September 2026 &middot; London</p>
+    <p class="topbar-meta" id="topbar-meta">September 2026</p>
   </div>
 </div>
 
@@ -552,10 +552,10 @@
         <div data-rise>
           <dt class="label">Available to view</dt>
           <dd>
-            <a href="https://irinacsapo.co.uk">irinacsapo.co.uk</a>
-            <a href="https://irina.love">irina.love</a>
-            <a href="https://www.instagram.com/irina_csapo_art/">@irina_csapo_art</a>
-            <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf">Download CV</a>
+            <a href="https://irinacsapo.co.uk" target="_blank" rel="noopener">irinacsapo.co.uk</a>
+            <a href="https://irina.love" target="_blank" rel="noopener">irina.love</a>
+            <a href="https://www.instagram.com/irina_csapo_art/" target="_blank" rel="noopener">@irina_csapo_art</a>
+            <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf" target="_blank" rel="noopener">Download CV</a>
           </dd>
         </div>
       </dl>
@@ -888,8 +888,8 @@
       <a href="tel:+447599840486">07599 840486</a>
     </p>
     <div class="footer-links">
-      <a href="https://irinacsapo.co.uk">Portfolio</a>
-      <a href="https://irina.love">Built work</a>
+      <a href="https://irinacsapo.co.uk" target="_blank" rel="noopener">Portfolio</a>
+      <a href="https://irina.love" target="_blank" rel="noopener">Built work</a>
     </div>
     <p class="colophon">
       Designed and built for this application.
@@ -1140,22 +1140,25 @@
 /* The date in the strip. Set once on load rather than ticking: a clock that
    updates itself is auto-updating content, which then wants a pause control
    (WCAG 2.2.2), and a snapshot is just as accurate for the length of a read.
-   The markup already carries "September 2026 · London", so this only ever
-   makes it more precise, and nothing is lost without JavaScript. */
+   The markup already carries "September 2026", so this only ever makes it more
+   precise, and nothing is lost without JavaScript.
+
+   No timezone is pinned, so the clock reads in whatever zone the reader is in
+   and matches the one on their own device. Fixing it to London would have shown
+   a New York reader a time five hours off their own with nothing to explain it. */
 (function () {
   var el = document.getElementById('topbar-meta');
   if (!el) return;
   try {
     var now = new Date();
-    var zone = 'Europe/London';
     var narrow = window.innerWidth < 620;
     var date = now.toLocaleDateString('en-GB', narrow
-      ? { day: 'numeric', month: 'long', year: 'numeric', timeZone: zone }
-      : { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: zone });
+      ? { day: 'numeric', month: 'long', year: 'numeric' }
+      : { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
     var time = now.toLocaleTimeString('en-GB', {
-      hour: '2-digit', minute: '2-digit', hour12: false, timeZone: zone
+      hour: '2-digit', minute: '2-digit', hour12: false
     });
-    el.textContent = date + ' · ' + time + (narrow ? ' London' : ' in London');
+    el.textContent = date + ' · ' + time;
   } catch (e) { /* the static date stays */ }
 })();
 </script>
