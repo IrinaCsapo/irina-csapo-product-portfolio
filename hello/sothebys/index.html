@@ -63,10 +63,44 @@
   a{color:var(--blue); text-underline-offset:3px; text-decoration-thickness:1px}
   a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
 
+  /* ---------- masthead strip ----------
+     A utility bar, deliberately quiet: 13px sans on the page's own hairline,
+     with the links left and the date right, the way a catalogue puts its
+     imprint above the title. */
+  .topbar{border-bottom:1px solid var(--line)}
+  .topbar-inner{
+    display:flex; flex-wrap:wrap; align-items:baseline;
+    justify-content:space-between; gap:10px 28px;
+    padding-top:13px; padding-bottom:13px;
+  }
+  .topbar-links{display:flex; flex-wrap:wrap; gap:22px}
+  .topbar a{
+    font-family:var(--sans); font-size:13px; letter-spacing:normal;
+    color:var(--ink); text-decoration:none;
+    border-bottom:1px solid var(--gold); padding-bottom:2px;
+  }
+  .topbar a:hover{color:var(--gold-ink); border-bottom-color:var(--gold-ink)}
+  .topbar a:focus-visible{outline:2px solid var(--blue); outline-offset:3px}
+  .topbar-meta{
+    font-family:var(--sans); font-size:13px; letter-spacing:normal;
+    color:var(--ink-soft); margin:0; font-variant-numeric:tabular-nums;
+  }
+  .topbar .on-narrow{display:none}
+  @media (max-width:620px){
+    /* the full address and the weekday together push this to three rows on a
+       phone, which is no longer a thin strip */
+    .topbar-inner{justify-content:flex-start; gap:6px 16px; padding-top:11px; padding-bottom:11px}
+    .topbar-links{gap:16px}
+    .topbar a, .topbar-meta{font-size:12px}
+    .topbar .on-wide{display:none}
+    .topbar .on-narrow{display:inline}
+  }
+  @media print{.topbar{display:none}}
+
   /* ---------- masthead ----------
      Ported from the Paper file. Sizes are the drawn values; each display size
      is clamped so it holds together below the 1796px the design was drawn at. */
-  header{padding:84px 0 0; text-align:center}
+  header{padding:62px 0 0; text-align:center}
 
   .addressed{
     font-family:var(--sans); font-size:13px; font-weight:600;
@@ -401,7 +435,7 @@
   }
   @media (max-width:760px){
     .lot-body{grid-template-columns:1fr; gap:28px}
-    header{padding:52px 0 0}
+    header{padding:40px 0 0}
     section{padding:42px 0}
     .plates{grid-template-columns:repeat(2, 1fr); gap:18px; margin-top:44px}
     .plates li:nth-child(n) img{aspect-ratio:4 / 3}
@@ -420,6 +454,17 @@
 </style>
 </head>
 <body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <nav class="topbar-links" aria-label="Irina Csapo elsewhere">
+      <a href="https://irinacsapo.co.uk">Product portfolio</a>
+      <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf">Download CV</a>
+      <a href="mailto:irina.csapo@gmail.com"><span class="on-wide">irina.csapo@gmail.com</span><span class="on-narrow">Email</span></a>
+    </nav>
+    <p class="topbar-meta" id="topbar-meta">September 2026 &middot; London</p>
+  </div>
+</div>
 
 <div class="wrap">
 
@@ -1089,6 +1134,29 @@
   function backstop() { setTimeout(start, 20000); }
   if (document.readyState === 'complete') backstop();
   else addEventListener('load', backstop, { once: true });
+})();
+</script>
+<script>
+/* The date in the strip. Set once on load rather than ticking: a clock that
+   updates itself is auto-updating content, which then wants a pause control
+   (WCAG 2.2.2), and a snapshot is just as accurate for the length of a read.
+   The markup already carries "September 2026 · London", so this only ever
+   makes it more precise, and nothing is lost without JavaScript. */
+(function () {
+  var el = document.getElementById('topbar-meta');
+  if (!el) return;
+  try {
+    var now = new Date();
+    var zone = 'Europe/London';
+    var narrow = window.innerWidth < 620;
+    var date = now.toLocaleDateString('en-GB', narrow
+      ? { day: 'numeric', month: 'long', year: 'numeric', timeZone: zone }
+      : { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: zone });
+    var time = now.toLocaleTimeString('en-GB', {
+      hour: '2-digit', minute: '2-digit', hour12: false, timeZone: zone
+    });
+    el.textContent = date + ' · ' + time + (narrow ? ' London' : ' in London');
+  } catch (e) { /* the static date stays */ }
 })();
 </script>
 </body>
