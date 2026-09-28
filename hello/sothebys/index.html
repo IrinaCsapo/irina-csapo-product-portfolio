@@ -1038,15 +1038,53 @@
     })();
   }
 
+  var started = false;
   function start() {
+    if (started) return;
+    started = true;
     script('https://spread.irina.love/vendor/page-flip.browser.js')
       .then(function () { return script('https://spread.irina.love/spread.js'); })
       .then(watch)
       .catch(function () {});              /* the screenshot is already there */
   }
 
-  if (document.readyState === 'complete') start();
-  else addEventListener('load', start, { once: true });
+  /* The book pulls 7.2 MB of artwork, so this waits until the section is within
+     a screen or two rather than loading it for every visitor. Two independent
+     triggers, either of which is enough, because each has failed on its own in
+     testing: an IntersectionObserver with a wide margin, and a plain scroll and
+     resize check. start() is guarded, so both firing is harmless. check() also
+     runs once at the outset, for a window tall enough to have the section in
+     view already. */
+  function near() {
+    var r = fig.getBoundingClientRect();
+    return r.top < innerHeight * 2 && r.bottom > -innerHeight;
+  }
+  function check() {
+    if (!near()) return;
+    removeEventListener('scroll', check);
+    removeEventListener('resize', check);
+    start();
+  }
+  addEventListener('scroll', check, { passive: true });
+  addEventListener('resize', check, { passive: true });
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { io.disconnect(); start(); }
+      });
+    }, { rootMargin: '900px 0px' });
+    io.observe(fig);
+  }
+
+  check();
+
+  /* A backstop. If neither trigger fires, twenty seconds after load the reader
+     appears anyway rather than being left as a screenshot for good. In a real
+     browser one of the triggers wins long before this. */
+  function backstop() { setTimeout(start, 20000); }
+  if (document.readyState === 'complete') backstop();
+  else addEventListener('load', backstop, { once: true });
 })();
 </script>
 </body>
