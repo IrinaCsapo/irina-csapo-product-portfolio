@@ -108,7 +108,8 @@
   .gal--683-747{grid-template-columns:683fr 747fr}
   .gal--469{grid-template-columns:repeat(3, 1fr)}
   .gal .tile{overflow:clip; background:var(--line)}
-  .gal img{display:block; width:100%; height:100%; object-fit:cover}
+  .gal .tile--clip{position:relative}
+  .gal img, .gal .tile video{display:block; width:100%; height:100%; object-fit:cover}
   .plates li{overflow:clip}
   .gal + .gal{margin-top:23px}
   /* ---------- the behind the scenes clip ---------- */
@@ -330,7 +331,7 @@
     [data-rise].is-in{opacity:1; transform:none}
     [data-rise].is-done{will-change:auto}
 
-    .tile img, .plates img, .lot-video video{
+    .tile img, .plates img, .lot-video video, .tile video{
       transform:scale(1.04);
       transition:transform 1.5s cubic-bezier(.22,.61,.36,1) var(--rise, 0ms);
     }
@@ -574,7 +575,15 @@
 
   <div class="gal gal--683-747">
     <div class="tile" data-rise><img src="art/omaze-trust.webp" loading="lazy" alt="The Omaze trust signals section as built"></div>
-    <div class="tile" data-rise><img src="art/omaze-winner.webp" loading="lazy" alt="An Omaze winner with their arms raised"></div>
+    <div class="tile tile--clip" data-rise>
+      <video class="lot-clip" data-src="art/omaze-hero.mp4" width="1120" height="608"
+             muted loop playsinline preload="metadata" poster="art/omaze-winner.webp"
+             disablepictureinpicture
+             aria-label="Omaze winner reaction footage, the looping hero that was tested on the Monthly Millionaire page."></video>
+      <button type="button" class="clip-toggle" hidden aria-label="Pause the winner reaction clip">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="i-pause" d="M9.5 6v12M14.5 6v12"/><path class="i-play" d="M8.5 5.5l10 6.5-10 6.5z"/></svg>
+      </button>
+    </div>
   </div>
 
   <div class="gal gal--469">
@@ -872,55 +881,80 @@
   })();
 </script>
 <script>
-/* The behind the scenes clip. It fetches its source only when it scrolls into
-   view, pauses when it leaves, and carries a pause control because anything that
-   moves by itself for more than five seconds needs one (WCAG 2.2.2). Under
-   reduced motion it does not start, and the control becomes a play button. */
+/* The clips: the Omaze winner reaction and the behind the scenes grid. Each one
+   fetches its source only when it scrolls into view and pauses when it leaves,
+   and each carries a pause control, because anything that moves by itself for
+   more than five seconds needs a way to stop it (WCAG 2.2.2). Under reduced
+   motion nothing starts and the control becomes a play button instead.
+
+   The intent lives in two flags rather than in the order the events happen to
+   arrive. Assigning src resets the element, so a play() in the same tick gets
+   aborted by the load that follows; sync() is therefore called again on
+   loadeddata and canplay, and it re-reads the flags rather than trusting a
+   decision made earlier. */
 (function () {
-  var v = document.querySelector('.lot-clip');
-  var btn = document.querySelector('.clip-toggle');
-  if (!v || !btn) return;
   var still = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-  var manual = false;   // set once the reader has pressed the button
+  var clips = [].slice.call(document.querySelectorAll('.lot-clip'));
+  if (!clips.length) return;
 
-  function load() {
-    if (!v.getAttribute('src')) v.src = v.getAttribute('data-src');
-  }
-  function state(playing) {
-    btn.setAttribute('aria-pressed', playing ? 'false' : 'true');
-    btn.setAttribute('aria-label', playing
-      ? 'Pause the behind the scenes clip'
-      : 'Play the behind the scenes clip');
-  }
-
-  btn.hidden = false;
-  state(false);
-
-  btn.addEventListener('click', function () {
-    manual = true;
-    load();
-    if (v.paused) { v.play().then(function () { state(true); }, function () {}); }
-    else { v.pause(); state(false); }
-  });
-
-  if (still) return;   /* no autoplay, but the button still works */
-
-  if (!('IntersectionObserver' in window)) {
-    load(); v.play().then(function () { state(true); }, function () {});
-    return;
-  }
-  new IntersectionObserver(function (entries) {
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        if (manual && v.paused) return;   /* respect a deliberate pause */
-        load();
-        v.play().then(function () { state(true); }, function () {});
+      if (e.target.__clip) e.target.__clip.seen(e.isIntersecting);
+    });
+  }, { threshold: 0.25 }) : null;
+
+  clips.forEach(function (v) {
+    var btn = v.parentNode.querySelector('.clip-toggle');
+    if (!btn) return;
+
+    var visible = !io;          /* without an observer, treat it as on screen */
+    var held = false;           /* the reader pressed pause */
+    var quiet = still;          /* per clip: pressing play here must not start the other one */
+    var label = (btn.getAttribute('aria-label') || 'the clip').replace(/^(Pause|Play) /, '');
+
+    function state(playing) {
+      btn.setAttribute('aria-pressed', playing ? 'false' : 'true');
+      btn.setAttribute('aria-label', (playing ? 'Pause' : 'Play') + ' ' + label);
+    }
+    function wanted() { return visible && !held && !quiet; }
+    function sync() {
+      if (wanted()) {
+        if (!v.getAttribute('src')) v.src = v.getAttribute('data-src');
+        /* Chrome also pauses audio-less video whenever the tab is hidden, so a
+           rejection here is normal and the next sync picks it up again. */
+        if (v.paused) v.play().catch(function () {});
       } else if (!v.paused) {
         v.pause();
-        if (!manual) state(false);
       }
+    }
+
+    btn.hidden = false;
+    state(false);
+
+    v.addEventListener('loadeddata', sync);
+    v.addEventListener('canplay', sync);
+    v.addEventListener('play', function () { state(true); });
+    v.addEventListener('pause', function () { state(false); });
+
+    btn.addEventListener('click', function () {
+      if (v.paused) { held = false; quiet = false; visible = true; }
+      else { held = true; }
+      sync();
     });
-  }, { threshold: 0.25 }).observe(v);
+
+    /* Two delayed retries while it is still on screen. sync() re-reads the flags
+       every time, so a retry can never override a deliberate pause; it only
+       recovers from a play() that lost a race with its own load. */
+    v.__clip = {
+      seen: function (isVisible) {
+        visible = isVisible;
+        sync();
+        if (isVisible) { setTimeout(sync, 300); setTimeout(sync, 1200); }
+      }
+    };
+
+    if (io) io.observe(v); else sync();
+  });
 })();
 </script>
 </body>
