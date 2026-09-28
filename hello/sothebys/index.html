@@ -87,16 +87,28 @@
     border:0; margin:35px auto 0;
   }
 
-  /* ---------- plate row ---------- */
+  /* ---------- plate row ----------
+     Four tiles at the drawn widths, all 335 tall. The fr units carry the
+     proportions, and the per tile aspect ratios make the four heights match at
+     any width. */
   .plates{
-    display:grid; grid-template-columns:repeat(5, 1fr); gap:23px;
+    display:grid; grid-template-columns:364fr 376fr 384fr 260fr; gap:23px;
     margin:64px 0 0; padding:0; list-style:none;
   }
   .plates li{margin:0}
-  .plates--divider{margin:34px 0 20px}
+  .plates figure{margin:0}
+  .plates .shot{display:block; overflow:clip}
   .plates img{
-    display:block; width:100%; height:auto; aspect-ratio:272 / 335;
+    display:block; width:100%; height:auto;
     object-fit:cover; background:var(--line);
+  }
+  .plates li:nth-child(1) img{aspect-ratio:364 / 335}
+  .plates li:nth-child(2) img{aspect-ratio:376 / 335}
+  .plates li:nth-child(3) img{aspect-ratio:384 / 335}
+  .plates li:nth-child(4) img{aspect-ratio:260 / 335}
+  .plates figcaption{
+    font-family:var(--serif); font-size:15px; line-height:1.867;
+    letter-spacing:normal; color:var(--ink); margin-top:6px;
   }
 
   /* ---------- project galleries ----------
@@ -113,7 +125,6 @@
   .gal .tile{overflow:clip; background:var(--line)}
   .gal .tile--clip{position:relative}
   .gal img, .gal .tile video{display:block; width:100%; height:100%; object-fit:cover}
-  .plates li{overflow:clip}
   .gal + .gal{margin-top:23px}
   /* ---------- the behind the scenes clip ---------- */
   .lot-video{position:relative; margin:34px 0 0; overflow:clip}
@@ -358,7 +369,7 @@
     .tools-grid li:nth-child(3){--rise:180ms}
     .plates li:nth-child(4), .sale dl > div:nth-child(4),
     .tools-grid li:nth-child(4){--rise:60ms}
-    .plates li:nth-child(5), .tools-grid li:nth-child(5){--rise:150ms}
+    .tools-grid li:nth-child(5){--rise:150ms}
     .tools-grid li:nth-child(6){--rise:240ms}
     .tools-grid li:nth-child(7){--rise:120ms}
     h1[data-rise]{--rise:80ms}
@@ -391,7 +402,9 @@
     .lot-body{grid-template-columns:1fr; gap:28px}
     header{padding:52px 0 0}
     section{padding:42px 0}
-    .plates{grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:44px}
+    .plates{grid-template-columns:repeat(2, 1fr); gap:18px; margin-top:44px}
+    .plates li:nth-child(n) img{aspect-ratio:4 / 3}
+    .plates figcaption{font-size:14px; line-height:1.5}
     .intro{margin-top:48px}
     .intro .lead{margin-bottom:32px}
     .what{margin-top:56px}
@@ -400,7 +413,7 @@
     .sale dd{font-size:16px; line-height:1.8}
   }
   @media (max-width:520px){
-    .plates{grid-template-columns:repeat(2, 1fr)}
+    .plates{grid-template-columns:1fr; gap:22px}
     .rule-gold-short{margin-top:26px}
   }
 </style>
@@ -421,19 +434,39 @@
     <hr class="rule-gold-short" data-rise>
 
     <ul class="plates">
-      <li data-rise><img src="art/plate-irina-wall.webp" width="544" height="670" loading="lazy" alt="Irina in a polka dot coat against a pink and blue painted wall"></li>
-      <li data-rise><img src="art/plate-dancers.webp" width="544" height="670" loading="lazy" alt="Collage of 1920s dancers over sheet music, with a CD and cut coloured shapes"></li>
-      <li data-rise><img src="art/plate-doppel-effect.webp" width="544" height="670" loading="lazy" alt="The Doppel Effect, a framed collage of circuit boards, a phone screen, red lips and a drawn eye"></li>
-      <li data-rise><img src="art/plate-silver-bust.webp" width="544" height="670" loading="lazy" alt="A silver classical bust against a red circle, with red lips and black and white stripes"></li>
-      <li data-rise><img src="art/plate-talk.webp" width="544" height="670" loading="lazy" alt="Irina giving a talk, with one of her collages on the screen behind her"></li>
+      <li data-rise>
+        <figure>
+          <span class="shot"><img src="art/hero-veva.webp" width="728" height="670" loading="lazy" alt="The Veva app on three phones, showing boost override, charging and solar charging"></span>
+          <figcaption>Veva, EV charging companion</figcaption>
+        </figure>
+      </li>
+      <li data-rise>
+        <figure>
+          <span class="shot"><img src="art/hero-paycada.webp" width="752" height="670" loading="lazy" alt="The Paycada platform: the payables dashboard, amount collected and upcoming chase actions"></span>
+          <figcaption>Paycada, invoice financing for SMEs</figcaption>
+        </figure>
+      </li>
+      <li data-rise>
+        <figure>
+          <span class="shot"><img src="art/hero-omaze.webp" width="768" height="670" loading="lazy" alt="The Omaze Monthly Millionaire subscription card, offering the first month at ten pounds"></span>
+          <figcaption>Subscription card for Omaze, Monthly Millionaire</figcaption>
+        </figure>
+      </li>
+      <li data-rise>
+        <figure>
+          <span class="shot"><img src="art/hero-irina.webp" width="520" height="670" loading="lazy" alt="Irina in a polka dot coat against a pink and blue painted wall"></span>
+          <figcaption>Irina Csapo, Shoreditch, UK</figcaption>
+        </figure>
+      </li>
     </ul>
 
     <div class="intro measure" data-rise>
       <p class="lead">
-        I'm Irina Csapo, a senior product designer with 15 years behind me. Most of that time has
-        gone on the two things this role asks for at once: the experience a client sees, and the
-        tooling the people inside the business use to make it happen. Regulated fintech, e-commerce,
-        healthcare, and hardware that sits in people's homes.
+        I'm Irina Csapo, a senior product designer, multidisciplinary artist and creative
+        technologist with 15 years of industry experience behind me. Most of that time has gone on
+        the two things this role asks for at once: the experience a client sees, and the tooling the
+        people inside the business use to make it happen. Regulated fintech, e-commerce, healthcare,
+        and hardware that sits in people's homes.
       </p>
       <p>
         I am also a practising artist but this isn't the reason to hire me. It is one of the reasons
