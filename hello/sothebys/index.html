@@ -245,9 +245,10 @@
     border-left:2px solid var(--gold); padding-left:14px; margin-top:28px;
   }
 
-  /* ---------- a note on tools ---------- */
-  .tools{max-width:var(--col); margin-inline:auto; border-top:1px solid var(--gold); padding-top:30px}
-  .tools-head .label{display:block; margin:0 0 28px}
+  /* ---------- a note on tools ----------
+     The gold rule and the label now come from .lot-head, like every other
+     section, so this block carries neither. */
+  .tools{max-width:var(--col); margin-inline:auto}
   .tools-lead{
     font-family:var(--serif); font-size:clamp(1.15rem, 1.78vw, 25px);
     line-height:1.4; margin:0; max-width:735px;
@@ -471,7 +472,7 @@
       <p>
         I am also a practising artist but this isn't the reason to hire me. It is one of the reasons
         that makes me want to work at Sotheby's, to be closer to the art world and also, the reason
-        I am trying to reach to you like this rather than just applying quietly through a form.
+        I am trying to reach you like this rather than just applying quietly through a form.
       </p>
     </div>
 
@@ -479,7 +480,7 @@
       <hr class="rule-gold-short">
       <span class="label">What this is</span>
       <p>
-        Four pieces of my work I mapped to your job description. Each is described the way you would
+        Four pieces of work, mapped to your job description. Each is described the way you would
         describe an art object: what it is, where it came from, the condition it was found in, and
         what it achieved.
       </p>
@@ -655,7 +656,7 @@
         <p>It is also the honest answer to why this application takes this form rather than the form of a covering letter.</p>
         <p>Circuit boards, memory modules, ribbon cables and Raspberry Pi circuit integration, recovered from disposal and reused in my practice.</p>
         <p>Bucharest Collage Festival. Talk delivered at MK Geek Night, &ldquo;Tender Tech: Joy, E-Waste and the Art of Delightful Making&rdquo;.</p>
-        <p>Not necessarily a qualification, but offered here as a flavour of my design practice.</p>
+        <p>Not offered as a qualification. Offered as context for the other three.</p>
       </div>
     </div>
   </section>
@@ -674,15 +675,15 @@
   <!-- AN ARTIST'S SPREAD -->
   <section>
     <div class="lot-head" data-rise>
-      <span class="label lot-no">Notes on the form</span>
-      <h2>An Artist's Spread</h2>
+      <span class="label lot-no">Work in progress</span>
+      <h2>An artist's spread</h2>
       <p class="descriptor">I'm building tools for artists so they can present their art in different forms</p>
     </div>
     <div class="lot-body">
       <div data-rise>
         <dl class="facts">
           <dt class="label">Specialisms</dt>
-          <dd>AI coding and prototyping<br>Design &amp; build<br>Found ephemera<br>Interactive digital art</dd>
+          <dd>Self-initiated<br>Design and build<br>Front end, in progress<br>Tools for artists</dd>
         </dl>
         <a class="lot-cta" href="https://spread.irina.love" target="_blank" rel="noopener">Spread Love</a>
       </div>
@@ -701,9 +702,12 @@
 
   <!-- A NOTE ON TOOLS -->
   <section>
+    <div class="lot-head" data-rise>
+      <span class="label lot-no">Materials</span>
+      <h2>A note on tools</h2>
+    </div>
     <div class="tools">
       <div class="tools-head" data-rise>
-        <span class="label">A note on tools</span>
         <p class="tools-lead">
           A catalogue ought to list its materials, so here are mine. Figma for layout, colour,
           imagery and the systems that hold them together. Recently Paper, which designs straight
@@ -761,8 +765,8 @@
   <!-- A NOTE ON INSTITUTIONS -->
   <section>
     <div class="lot-head" data-rise>
-      <span class="label lot-no">Notes on the form</span>
-      <h2>A Note on Institutions</h2>
+      <span class="label lot-no">Catalogue note</span>
+      <h2>A note on institutions</h2>
       <p class="descriptor">How I would understand working as a Senior Product Designer at Sotheby's</p>
     </div>
     <div class="prose essay" data-rise>
@@ -789,7 +793,7 @@
   <!-- CONDITION REPORT -->
   <section class="condition">
     <div class="lot-head" data-rise>
-      <span class="label lot-no">Notes on the form</span>
+      <span class="label lot-no">Condition report</span>
       <h2>Offered as seen</h2>
       <p class="descriptor">The following is noted in the interest of transparency and accuracy</p>
     </div>
