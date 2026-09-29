@@ -8,11 +8,32 @@
   --line:#e6e6ee;
   --pink:#ff0091;
   --pink-ink:#c2006e;          /* 4.6:1 on white, for pink used as text */
-  --display:"Libre Caslon Display","Libre Caslon Text",Georgia,serif;
+  --display:"LT Remark","Libre Caslon Display",Georgia,serif;
   --sans:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --gut:clamp(18px,4vw,56px);
 }
 
+@font-face{
+  font-family:"LT Remark";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(../fonts/lt-remark-regular.woff2) format("woff2");
+}
+@font-face{
+  font-family:"LT Remark";
+  font-style:italic;
+  font-weight:400;
+  font-display:swap;
+  src:url(../fonts/lt-remark-italic.woff2) format("woff2");
+}
+@font-face{
+  font-family:"LT Remark";
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url(../fonts/lt-remark-bold.woff2) format("woff2");
+}
 @font-face{
   font-family:"Albert Sans";
   font-style:normal;
@@ -232,10 +253,10 @@ img{display:block;max-width:100%;height:auto}
   .about-cols{grid-template-columns:471px minmax(0,713px);gap:11px}
 }
 
-/* ---------- pink band ---------- */
+/* ---------- the closing band ---------- */
 .thanks{
   margin-top:clamp(70px,10vw,150px);
-  background:linear-gradient(100deg,#ff0091,#ff3ba9);
+  background:var(--ink);
   color:#fff;text-align:center;padding:clamp(44px,7vw,84px) 0;
 }
 .thanks h2{
@@ -261,3 +282,25 @@ img{display:block;max-width:100%;height:auto}
 }
 .sitefoot .social a:hover{background:var(--pink)}
 .sitefoot .colophon{margin:clamp(26px,4vw,44px) 0 0;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+
+/* ---------- the six-tile grid ----------
+   As it was before: six photographs, three across, each linking to its
+   project. No titles, which is what the design shows. */
+.tiles{
+  list-style:none;padding:0;
+  margin:clamp(52px,8vw,110px) auto 0;
+  max-width:var(--col);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(14px,2vw,26px);
+}
+.tiles li{margin:0}
+.tiles a{display:block;overflow:clip}
+.tiles img{
+  width:100%;height:100%;aspect-ratio:3 / 4;object-fit:cover;
+  background:#f2f2f6;transition:opacity .3s ease;
+}
+.tiles a:hover img{opacity:.85}
+.tiles a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (max-width:760px){
+  .tiles{grid-template-columns:repeat(2,1fr)}
+}
