@@ -171,3 +171,93 @@ img{display:block;max-width:100%;height:auto}
   }
   [data-rise].is-in{opacity:1;transform:none}
 }
+
+/* ============================================================
+   Landing page, from the Paper design. Ink is #0E0054 there
+   rather than #000645; 18.31:1 on white either way.
+   ============================================================ */
+:root{--ink:#0E0054;--col:1200px}
+
+.centre{text-align:center}
+.name--hero{
+  font-size:clamp(3.2rem,14.8vw,256px);
+  line-height:1.2;letter-spacing:.03em;
+  text-align:center;margin:.1em 0 0;
+}
+.standfirst--hero{
+  font-size:clamp(1rem,1.4vw,24px);line-height:1.25;
+  color:var(--ink);text-align:center;
+  max-width:42ch;margin:clamp(34px,5vw,74px) auto 0;
+}
+
+.band{max-width:var(--col);margin-inline:auto}
+.triptych{margin:clamp(44px,6vw,86px) auto 0}
+.triptych img{width:100%}
+
+/* the pull quote */
+.pull{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.35rem,2.1vw,30px);line-height:1.2;
+  text-align:center;color:var(--ink);
+  max-width:24ch;margin:clamp(52px,8vw,120px) auto 0;
+}
+
+/* ---------- about ---------- */
+.about{max-width:var(--col);margin:clamp(70px,10vw,150px) auto 0;border-top:1px solid var(--ink);padding-top:30px}
+.about .label{
+  display:block;font-size:18px;font-weight:700;letter-spacing:normal;
+  text-transform:uppercase;color:var(--ink);margin:0 0 30px;
+}
+.about h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.4rem,5.5vw,80px);line-height:1.2;letter-spacing:.02em;
+  margin:0 0 22px;
+}
+.about .role{
+  font-family:var(--display);font-size:clamp(1.15rem,1.8vw,25px);line-height:1.4;
+  letter-spacing:.02em;margin:0;max-width:42ch;
+}
+.about-cols{display:grid;gap:clamp(30px,4vw,56px);margin:clamp(40px,5vw,72px) 0 0}
+.about-cols h3{
+  font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:normal;
+  margin:0 0 6px;color:var(--ink);
+}
+.about-cols .studies p{font-size:16px;line-height:1.75;margin:0;color:var(--ink)}
+.about-cols .journey p{
+  font-family:var(--display);font-size:clamp(1.1rem,1.75vw,26px);line-height:1.23;
+  letter-spacing:.02em;margin:0 0 20px;text-wrap:pretty;color:var(--ink);
+}
+.about-cols .journey p:last-child{margin-bottom:0}
+@media (min-width:900px){
+  .about-cols{grid-template-columns:471px minmax(0,713px);gap:11px}
+}
+
+/* ---------- pink band ---------- */
+.thanks{
+  margin-top:clamp(70px,10vw,150px);
+  background:linear-gradient(100deg,#ff0091,#ff3ba9);
+  color:#fff;text-align:center;padding:clamp(44px,7vw,84px) 0;
+}
+.thanks h2{
+  font-family:var(--sans);font-weight:700;
+  font-size:clamp(1.5rem,3vw,40px);line-height:1.2;margin:0 0 18px;
+}
+.thanks p{font-size:clamp(1rem,1.3vw,18px);line-height:1.5;margin:0 auto;max-width:56ch}
+.thanks a{color:#fff;font-weight:700;text-underline-offset:3px}
+.thanks a:hover{text-decoration-thickness:2px}
+
+/* ---------- site footer ---------- */
+.sitefoot{border-top:0;padding:clamp(34px,5vw,54px) 0 44px}
+.sitefoot-row{display:flex;flex-wrap:wrap;align-items:center;gap:18px 34px}
+.sitefoot .mark{font-weight:700;font-size:18px;color:var(--ink);text-decoration:none}
+.sitefoot nav{display:flex;flex-wrap:wrap;gap:22px}
+.sitefoot nav a{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none}
+.sitefoot nav a:hover{color:var(--pink-ink)}
+.sitefoot .social{margin-left:auto;display:flex;gap:10px}
+.sitefoot .social a{
+  width:38px;height:38px;border-radius:50%;background:#b8bcc9;
+  display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;
+  text-decoration:none;letter-spacing:.02em;
+}
+.sitefoot .social a:hover{background:var(--pink)}
+.sitefoot .colophon{margin:clamp(26px,4vw,44px) 0 0;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
