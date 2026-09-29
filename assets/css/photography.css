@@ -83,6 +83,29 @@ img{display:block;max-width:100%;height:auto}
 .sections a:hover .word{color:var(--pink-ink)}
 .sections a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
 
+/* ---------- the work, on the landing page ----------
+   Cover, then the title beneath it, as drawn. Alternate columns drop so the
+   page reads as a cascade rather than a table, and every cover keeps its own
+   proportions: these are photographs, so nothing here crops them. */
+.work{list-style:none;margin:clamp(52px,8vw,110px) 0 0;padding:0;display:grid;gap:clamp(44px,6vw,96px)}
+.work a{display:block;color:var(--ink);text-decoration:none}
+.work img{width:100%}
+.work h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.8rem,3.6vw,3.1rem);line-height:1.1;margin:20px 0 0;
+}
+.work .tags{
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);margin:10px 0 0;
+}
+.work .blurb{font-size:16px;color:var(--muted);margin:10px 0 0;max-width:46ch}
+.work a:hover h2{color:var(--pink-ink)}
+.work a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
+@media (min-width:880px){
+  .work{grid-template-columns:repeat(2,1fr);gap:clamp(56px,6vw,110px) clamp(40px,5vw,84px)}
+  .work li:nth-child(even){margin-top:clamp(56px,10vw,170px)}
+}
+
 /* ---------- project list inside a section ---------- */
 .eyebrow{
   font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
