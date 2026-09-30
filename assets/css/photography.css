@@ -215,7 +215,7 @@ img{display:block;max-width:100%;height:auto}
 }
 
 .band,.col{max-width:var(--col);margin-inline:auto}
-.triptych{margin:clamp(44px,6vw,86px) auto 0}
+.triptych{margin:calc(clamp(44px,6vw,86px) + 15px) auto 0}
 .triptych img{width:100%}
 
 /* the pull quote */
@@ -223,7 +223,7 @@ img{display:block;max-width:100%;height:auto}
   font-family:var(--display);font-weight:400;
   font-size:clamp(1.35rem,2.1vw,30px);line-height:1.2;
   text-align:center;color:var(--ink);
-  max-width:24ch;margin:clamp(52px,8vw,120px) auto 0;
+  max-width:584px;margin:clamp(52px,8vw,120px) auto 0;
 }
 
 /* ---------- about ---------- */
