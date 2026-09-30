@@ -106,29 +106,6 @@ img{display:block;max-width:100%;height:auto}
 .sections a:hover .word{color:var(--pink-ink)}
 .sections a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
 
-/* ---------- the work, on the landing page ----------
-   Cover, then the title beneath it, as drawn. Alternate columns drop so the
-   page reads as a cascade rather than a table, and every cover keeps its own
-   proportions: these are photographs, so nothing here crops them. */
-.work{list-style:none;margin:clamp(52px,8vw,110px) 0 0;padding:0;display:grid;gap:clamp(44px,6vw,96px)}
-.work a{display:block;color:var(--ink);text-decoration:none}
-.work img{width:100%}
-.work h2{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(1.8rem,3.6vw,3.1rem);line-height:1.1;margin:20px 0 0;
-}
-.work .tags{
-  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);margin:10px 0 0;
-}
-.work .blurb{font-size:16px;color:var(--muted);margin:10px 0 0;max-width:46ch}
-.work a:hover h2{color:var(--pink-ink)}
-.work a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
-@media (min-width:880px){
-  .work{grid-template-columns:repeat(2,1fr);gap:clamp(56px,6vw,110px) clamp(40px,5vw,84px)}
-  .work li:nth-child(even){margin-top:clamp(56px,10vw,170px)}
-}
-
 /* ---------- project list inside a section ---------- */
 .eyebrow{
   font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
@@ -149,36 +126,8 @@ img{display:block;max-width:100%;height:auto}
   .projects li:nth-child(even){margin-top:clamp(40px,8vw,140px)}
 }
 
-/* ---------- project page ---------- */
-.lede{max-width:46ch;margin:clamp(30px,4vw,54px) 0 0}
-.lede p{margin:0 0 18px;font-size:clamp(1rem,1.35vw,18px)}
-.lede p:last-child{margin-bottom:0}
+/* ---------- section pages ---------- */
 .meta{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
-
-/* The cascade. The reference layout this follows is built on portrait frames
-   only; these photographs are a mix, and most of the Iran series is landscape,
-   so each figure keeps its own shape and only its width and indent vary. No
-   negative margins between figures: heights differ, so overlap could not be
-   predicted. */
-.cascade{margin:clamp(56px,9vw,132px) 0 0}
-.cascade figure{margin:0 0 clamp(52px,8vw,124px)}
-.cascade figure:last-child{margin-bottom:0}
-.cascade img{width:100%;background:#f2f2f6}
-.cascade figcaption{
-  font-size:13px;color:var(--muted);margin-top:12px;letter-spacing:.02em;
-}
-
-@media (min-width:760px){
-  /* a repeating rhythm of six: wide left, small inset, right-hand pair, and a
-     couple that run off the edge, which is what gives it the collage feel */
-  .cascade figure{width:var(--w,48%);margin-left:var(--x,0)}
-  .cascade figure:nth-child(6n+1){--w:46%;--x:6%}
-  .cascade figure:nth-child(6n+2){--w:26%;--x:60%;margin-top:calc(-1 * clamp(20px,4vw,70px))}
-  .cascade figure:nth-child(6n+3){--w:58%;--x:calc(-1 * var(--gut))}
-  .cascade figure:nth-child(6n+4){--w:30%;--x:64%}
-  .cascade figure:nth-child(6n+5){--w:38%;--x:16%}
-  .cascade figure:nth-child(6n+6){--w:54%;--x:44%;margin-right:calc(-1 * var(--gut))}
-}
 
 /* ---------- footer ---------- */
 .foot{border-top:1px solid var(--line);margin-top:clamp(70px,10vw,150px);padding:34px 0 60px}
@@ -407,19 +356,25 @@ img{display:block;max-width:100%;height:auto}
 .homeward a:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
 /* ============================================================
-   Meanwhile, in Iran, from the Paper artboard. A uniform two-column
-   grid: 594px tiles in a 1200px column, and every photograph in the
-   series is 900x600, so 3:2 crops nothing at any width.
+   The two-column series grids, from the Paper artboards. Both sit in
+   the 1200px column; each modifier carries its own tile proportion and
+   gutters, which are the ones she drew. In both cases the proportion is
+   the photographs' own, so nothing is cropped at any width.
    ============================================================ */
 
 .grid2{
   max-width:var(--col);margin:clamp(38px,3.2vw,54px) auto 0;
   display:grid;grid-template-columns:1fr 1fr;
-  column-gap:12px;row-gap:13px;
+  column-gap:var(--gx);row-gap:var(--gy);
 }
+/* Meanwhile, in Iran: 594px tiles, every photograph 900x600 */
+.grid2--landscape{--gx:12px;--gy:13px;--tile:3 / 2}
+/* Headshots: 592px tiles, every photograph 750x1090 */
+.grid2--upright{--gx:16px;--gy:16px;--tile:750 / 1090}
+
 .grid2 figure{margin:0;min-width:0;overflow:clip}
 .grid2 img{
-  width:100%;height:auto;aspect-ratio:3 / 2;object-fit:cover;
+  width:100%;height:auto;aspect-ratio:var(--tile);object-fit:cover;
   background:#f2f2f6;
 }
 @media (max-width:700px){
