@@ -171,11 +171,6 @@ img{display:block;max-width:100%;height:auto}
   line-height:1.2;letter-spacing:.03em;
   text-align:center;margin:.1em 0 0;
 }
-.standfirst--hero{
-  font-size:clamp(1rem,1.4vw,24px);line-height:1.25;
-  color:var(--ink);text-align:center;
-  max-width:42ch;margin:clamp(28px,3.4vw,56px) auto 0;
-}
 
 .band,.col{max-width:var(--col);margin-inline:auto}
 .triptych{margin:calc(clamp(44px,6vw,86px) + 15px) auto 0}
