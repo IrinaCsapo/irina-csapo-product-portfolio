@@ -2,10 +2,13 @@
    site match: the same pill, the same big centred name, the same pull quote,
    the same about block, band and footer, the same reveal.
 
-   Two deliberate differences. The display face is Playfair Display rather
-   than LT Remark, because the art section asked for it. And the tiles show
-   each work whole — a collage cannot be cropped to fit a cell, so the image
-   sits inside a uniform cell rather than filling it.
+   One deliberate difference: the tiles show each work whole. A collage
+   cannot be cropped to fit a cell, so the image sits inside a uniform cell
+   rather than filling it.
+
+   Playfair Display stays registered below but is not the display face; the
+   --display token is LT Remark, as on the photography pages. An unused
+   @font-face costs no request, so switching back is one token.
 
    Self-contained, like the photography stylesheet: it does not load the
    Webflow CSS, so nothing here can be moved by a change elsewhere. That does
@@ -18,12 +21,33 @@
   --line:#e6e6ee;
   --pink:#ff0091;
   --pink-ink:#c2006e;        /* 4.6:1 on white, for pink used as text */
-  --display:"Playfair Display",Georgia,"Times New Roman",serif;
+  --display:"LT Remark","Playfair Display",Georgia,serif;
   --sans:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --gut:clamp(18px,4vw,56px);
   --col:1200px;
 }
 
+@font-face{
+  font-family:"LT Remark";
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(../fonts/lt-remark-regular.woff2) format("woff2");
+}
+@font-face{
+  font-family:"LT Remark";
+  font-style:italic;
+  font-weight:400;
+  font-display:swap;
+  src:url(../fonts/lt-remark-italic.woff2) format("woff2");
+}
+@font-face{
+  font-family:"LT Remark";
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url(../fonts/lt-remark-bold.woff2) format("woff2");
+}
 @font-face{
   font-family:"Playfair Display";
   font-style:normal;
@@ -80,9 +104,9 @@ img{display:block;max-width:100%;height:auto}
 
 /* ---------- the name ---------- */
 .name--hero{
-  font-family:var(--display);font-weight:500;
+  font-family:var(--display);font-weight:400;
   font-size:clamp(3.2rem,14.8vw,256px);
-  line-height:1.2;letter-spacing:.01em;
+  line-height:1.2;letter-spacing:.03em;
   text-align:center;margin:.1em 0 0;
 }
 
@@ -115,7 +139,7 @@ img{display:block;max-width:100%;height:auto}
 .works .label{display:block;text-align:center;margin:clamp(12px,1.2vw,18px) 0 0}
 .works .t{
   display:block;
-  font-family:var(--display);font-weight:500;
+  font-family:var(--display);font-weight:400;
   font-size:clamp(1.05rem,1.35vw,21px);line-height:1.25;
 }
 .works .m{
@@ -140,13 +164,13 @@ img{display:block;max-width:100%;height:auto}
   text-transform:uppercase;color:var(--ink);margin:0 0 30px;
 }
 .about h2{
-  font-family:var(--display);font-weight:500;
-  font-size:clamp(2.4rem,5.5vw,80px);line-height:1.2;letter-spacing:.01em;
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(2.4rem,5.5vw,80px);line-height:1.2;letter-spacing:.02em;
   margin:0 0 22px;
 }
 .about .role{
   font-family:var(--display);font-size:clamp(1.15rem,1.8vw,25px);line-height:1.4;
-  letter-spacing:.01em;margin:0;max-width:42ch;
+  letter-spacing:.02em;margin:0;max-width:42ch;
 }
 .about-cols{display:grid;gap:clamp(30px,4vw,56px);margin:clamp(40px,5vw,72px) 0 0}
 .about-cols h3{
@@ -158,7 +182,7 @@ img{display:block;max-width:100%;height:auto}
 .about-cols .facts a{color:var(--pink-ink)}
 .about-cols .practice p{
   font-family:var(--display);font-size:clamp(1.1rem,1.75vw,26px);line-height:1.23;
-  letter-spacing:.01em;margin:0 0 20px;text-wrap:pretty;color:var(--ink);
+  letter-spacing:.02em;margin:0 0 20px;text-wrap:pretty;color:var(--ink);
 }
 .about-cols .practice p:last-child{margin-bottom:0}
 @media (min-width:900px){
@@ -174,7 +198,7 @@ img{display:block;max-width:100%;height:auto}
 }
 .work-title{margin:0}
 .work-title h1{
-  font-family:var(--display);font-weight:500;
+  font-family:var(--display);font-weight:400;
   font-size:clamp(2.2rem,4.4vw,76px);line-height:1.08;letter-spacing:.01em;
   margin:0;
 }
@@ -219,7 +243,7 @@ img{display:block;max-width:100%;height:auto}
 .work-onward .lbl{display:block;font-size:16px;line-height:20px;color:var(--muted)}
 .work-onward .to{
   display:block;margin-top:5px;
-  font-family:var(--display);font-weight:500;font-size:clamp(1.1rem,1.4vw,22px);line-height:1.25;
+  font-family:var(--display);font-weight:400;font-size:clamp(1.1rem,1.4vw,22px);line-height:1.25;
 }
 .work-onward a:hover .to{color:var(--pink-ink)}
 .work-onward a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
