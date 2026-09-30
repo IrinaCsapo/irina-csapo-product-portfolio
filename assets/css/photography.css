@@ -88,23 +88,37 @@ img{display:block;max-width:100%;height:auto}
   margin:22px 0 0;max-width:34ch;
 }
 
-/* ---------- sections list ---------- */
-.sections{list-style:none;margin:clamp(48px,7vw,104px) 0 0;padding:0}
-.sections li{border-top:1px solid var(--line)}
-.sections li:last-child{border-bottom:1px solid var(--line)}
+/* ---------- the three sections, across the top of the landing page ----------
+   A centred row of three doors. Each one is also the only route to its
+   section page, so this is navigation before it is decoration. */
+.sections{
+  list-style:none;padding:0;
+  margin:clamp(30px,2.6vw,42px) auto 0;
+  max-width:var(--col);
+  display:flex;justify-content:center;
+  gap:clamp(26px,5vw,96px);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.sections li{margin:0}
 .sections a{
-  display:flex;align-items:baseline;gap:clamp(14px,2vw,32px);
-  padding:clamp(20px,3vw,34px) 0;
-  color:var(--ink);text-decoration:none;
+  display:block;padding:clamp(14px,1.3vw,22px) 4px;
+  color:var(--ink);text-decoration:none;text-align:center;
 }
 .sections .word{
+  display:block;
   font-family:var(--display);font-weight:400;
-  font-size:clamp(2rem,6vw,4.6rem);line-height:1;letter-spacing:-.01em;
+  font-size:clamp(1.5rem,2.3vw,40px);line-height:1.1;letter-spacing:-.01em;
 }
-.sections .count{font-size:13px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.sections .go{margin-left:auto;font-size:14px;color:var(--muted)}
+.sections .count{
+  display:block;margin-top:4px;
+  font-size:13px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+}
 .sections a:hover .word{color:var(--pink-ink)}
 .sections a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
+@media (max-width:620px){
+  .sections{flex-direction:column;gap:0}
+  .sections li+li{border-top:1px solid var(--line)}
+}
 
 /* ---------- project list inside a section ---------- */
 .eyebrow{
@@ -160,7 +174,7 @@ img{display:block;max-width:100%;height:auto}
 .standfirst--hero{
   font-size:clamp(1rem,1.4vw,24px);line-height:1.25;
   color:var(--ink);text-align:center;
-  max-width:42ch;margin:clamp(34px,5vw,74px) auto 0;
+  max-width:42ch;margin:clamp(28px,3.4vw,56px) auto 0;
 }
 
 .band,.col{max-width:var(--col);margin-inline:auto}
@@ -172,7 +186,7 @@ img{display:block;max-width:100%;height:auto}
   font-family:var(--display);font-weight:400;
   font-size:clamp(1.35rem,2.1vw,30px);line-height:1.2;
   text-align:center;color:var(--ink);
-  max-width:584px;margin:clamp(52px,8vw,120px) auto 0;
+  max-width:584px;margin:clamp(38px,3.4vw,56px) auto 0;
 }
 
 /* ---------- about ---------- */
