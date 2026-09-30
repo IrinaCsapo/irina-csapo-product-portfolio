@@ -1,15 +1,23 @@
-/* The art section. Self-contained, like the photography stylesheet: it does
-   not load the Webflow CSS, so nothing here can be moved from elsewhere.
+/* The art section, built on the photography template so the two rooms of the
+   site match: the same pill, the same big centred name, the same pull quote,
+   the same about block, band and footer, the same reveal.
 
-   The work is saturated collage, so the page carries no colour of its own —
-   white ground, near-black type, grey for the catalogue lines. Every accent
-   on these pages comes out of the artwork. */
+   Two deliberate differences. The display face is Playfair Display rather
+   than LT Remark, because the art section asked for it. And the tiles show
+   each work whole — a collage cannot be cropped to fit a cell, so the image
+   sits inside a uniform cell rather than filling it.
+
+   Self-contained, like the photography stylesheet: it does not load the
+   Webflow CSS, so nothing here can be moved by a change elsewhere. That does
+   mean the shared furniture is spelled out in both files. */
 
 :root{
   --paper:#ffffff;
-  --ink:#111111;               /* 18.88:1 on white */
-  --quiet:#6b6b6b;             /* 5.28:1 on white, for the catalogue lines */
-  --line:#e3e3e3;
+  --ink:#0E0054;             /* 18.31:1 on white */
+  --muted:#3a406a;           /* 9.9:1 on white */
+  --line:#e6e6ee;
+  --pink:#ff0091;
+  --pink-ink:#c2006e;        /* 4.6:1 on white, for pink used as text */
   --display:"Playfair Display",Georgia,"Times New Roman",serif;
   --sans:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --gut:clamp(18px,4vw,56px);
@@ -56,7 +64,6 @@ img{display:block;max-width:100%;height:auto}
 .skip:focus{left:0}
 
 .shell{max-width:1560px;margin:0 auto;padding:0 var(--gut)}
-.col{max-width:var(--col);margin-inline:auto}
 
 /* ---------- top bar ---------- */
 .bar{padding:26px 0 0}
@@ -66,76 +73,96 @@ img{display:block;max-width:100%;height:auto}
   color:var(--ink);text-decoration:none;
   border:1px solid var(--line);border-radius:999px;
   padding:11px 22px;
-  transition:border-color .2s ease;
+  transition:border-color .2s ease,color .2s ease;
 }
-.back:hover{border-color:var(--ink)}
-.back:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.back:hover{border-color:var(--pink);color:var(--pink-ink)}
+.back:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
-/* ---------- the masthead ---------- */
-.masthead{text-align:center;margin:clamp(46px,7vw,110px) 0 0}
-.name{
+/* ---------- the name ---------- */
+.name--hero{
   font-family:var(--display);font-weight:500;
-  font-size:clamp(2.6rem,6vw,104px);line-height:1.05;letter-spacing:-.01em;
-  margin:0;
-}
-.intro{
-  font-size:clamp(1rem,1.15vw,19px);line-height:1.55;
-  color:var(--quiet);
-  max-width:52ch;margin:clamp(24px,2.4vw,38px) auto 0;
+  font-size:clamp(3.2rem,14.8vw,256px);
+  line-height:1.2;letter-spacing:.01em;
+  text-align:center;margin:.1em 0 0;
 }
 
-/* ---------- the works, down the page ----------
-   A centred column. Widths alternate a little so five portrait sheets in a
-   row don't read as a contact sheet, and each piece sits slightly off centre
-   in the direction of its neighbour's gap. */
-.pieces{
+/* ---------- the pull quote ---------- */
+.pull{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.35rem,2.1vw,30px);line-height:1.2;
+  text-align:center;color:var(--ink);
+  max-width:584px;margin:clamp(38px,3.4vw,56px) auto 0;
+}
+
+/* ---------- the works, three across ----------
+   The photography tiles fill their cell with object-fit:cover, which is
+   right for photographs and wrong here: these are A3 sheets photographed
+   with their own margins, and cropping one would cut into the work. The
+   cell keeps the grid tidy; the work sits inside it whole. */
+.works{
   list-style:none;padding:0;
-  margin:clamp(70px,9vw,150px) auto 0;
+  margin:clamp(52px,8vw,110px) auto 0;
   max-width:var(--col);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(24px,3vw,44px) clamp(14px,2vw,26px);
 }
-.pieces li{
-  position:relative;
-  margin:0 auto clamp(80px,10vw,170px);
+.works li{margin:0}
+.works a{display:block;color:var(--ink);text-decoration:none}
+.works img{
+  width:100%;aspect-ratio:3 / 4;object-fit:contain;
+  transition:opacity .3s ease;
 }
-.pieces li:last-child{margin-bottom:0}
-.pieces a{display:block;color:var(--ink);text-decoration:none}
-.pieces img{width:100%;background:#f4f4f4}
-.pieces .label{text-align:center;margin:clamp(16px,1.5vw,24px) 0 0}
-.pieces .t{
+.works .label{display:block;text-align:center;margin:clamp(12px,1.2vw,18px) 0 0}
+.works .t{
   display:block;
   font-family:var(--display);font-weight:500;
-  font-size:clamp(1.15rem,1.45vw,23px);line-height:1.25;
+  font-size:clamp(1.05rem,1.35vw,21px);line-height:1.25;
 }
-.pieces .m{
-  display:block;margin-top:7px;
-  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--quiet);
+.works .m{
+  display:block;margin-top:6px;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
 }
-.pieces a:hover img{opacity:.92}
-.pieces a img{transition:opacity .35s ease}
-.pieces a:focus-visible{outline:2px solid var(--ink);outline-offset:6px}
-
-/* Position classes rather than nth-child, because the statement splits the
-   column into two lists and the rhythm has to carry across the break. */
-@media (min-width:860px){
-  .pieces li{width:var(--w,620px);left:var(--x,0)}
-  .pieces .p1{--w:660px;--x:-4%}
-  .pieces .p2{--w:520px;--x:9%}
-  .pieces .p3{--w:600px;--x:-7%}
-  .pieces .p4{--w:520px;--x:6%}
-  .pieces .p5{--w:640px;--x:-2%}
+.works a:hover img{opacity:.85}
+.works a:hover .t{color:var(--pink-ink)}
+.works a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+@media (max-width:860px){
+  .works{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .works{grid-template-columns:1fr}
+  .works img{aspect-ratio:auto}
 }
 
-/* ---------- the statement, set among the work ---------- */
-.statement{
-  max-width:44ch;margin:clamp(70px,9vw,150px) auto;
-  font-size:clamp(1rem,1.1vw,18px);line-height:1.7;color:var(--ink);
+/* ---------- about ---------- */
+.about{max-width:var(--col);margin:clamp(70px,10vw,150px) auto 0;border-top:1px solid var(--ink);padding-top:30px}
+.about .label{
+  display:block;font-size:18px;font-weight:700;letter-spacing:normal;
+  text-transform:uppercase;color:var(--ink);margin:0 0 30px;
 }
-.statement p{margin:0 0 18px}
-.statement p:last-child{margin-bottom:0}
-.statement + .pieces{margin-top:0}
-.statement .lede{
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(1.2rem,1.6vw,26px);line-height:1.35;
+.about h2{
+  font-family:var(--display);font-weight:500;
+  font-size:clamp(2.4rem,5.5vw,80px);line-height:1.2;letter-spacing:.01em;
+  margin:0 0 22px;
+}
+.about .role{
+  font-family:var(--display);font-size:clamp(1.15rem,1.8vw,25px);line-height:1.4;
+  letter-spacing:.01em;margin:0;max-width:42ch;
+}
+.about-cols{display:grid;gap:clamp(30px,4vw,56px);margin:clamp(40px,5vw,72px) 0 0}
+.about-cols h3{
+  font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:normal;
+  margin:0 0 6px;color:var(--ink);
+}
+.about-cols .facts p{font-size:16px;line-height:1.75;margin:0 0 14px;color:var(--ink)}
+.about-cols .facts p:last-child{margin-bottom:0}
+.about-cols .facts a{color:var(--pink-ink)}
+.about-cols .practice p{
+  font-family:var(--display);font-size:clamp(1.1rem,1.75vw,26px);line-height:1.23;
+  letter-spacing:.01em;margin:0 0 20px;text-wrap:pretty;color:var(--ink);
+}
+.about-cols .practice p:last-child{margin-bottom:0}
+@media (min-width:900px){
+  .about-cols{grid-template-columns:471px minmax(0,713px);gap:11px}
 }
 
 /* ============================================================
@@ -148,27 +175,23 @@ img{display:block;max-width:100%;height:auto}
 .work-title{margin:0}
 .work-title h1{
   font-family:var(--display);font-weight:500;
-  font-size:clamp(2.2rem,4.4vw,76px);line-height:1.05;letter-spacing:-.015em;
+  font-size:clamp(2.2rem,4.4vw,76px);line-height:1.08;letter-spacing:.01em;
   margin:0;
 }
 .work-title .eyebrow{
   display:block;margin:0 0 clamp(14px,1.4vw,22px);
-  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--quiet);
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
 }
 .work-figure{margin:0}
-.work-figure img{width:100%;background:#f4f4f4}
-.work-meta{margin:0}
+.work-figure img{width:100%}
 .work-meta dl{margin:0;display:grid;gap:18px}
 .work-meta dt{
-  font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--quiet);
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
   margin:0 0 4px;
 }
 .work-meta dd{margin:0;font-size:16px;line-height:1.5;max-width:40ch}
-.work-enquire{
-  margin:clamp(30px,3vw,46px) 0 0;
-  font-size:15px;color:var(--quiet);
-}
-.work-enquire a{color:var(--ink);text-underline-offset:3px}
+.work-enquire{margin:clamp(30px,3vw,46px) 0 0;font-size:15px;color:var(--muted)}
+.work-enquire a{color:var(--pink-ink);text-underline-offset:3px}
 
 @media (min-width:900px){
   .work{
@@ -186,70 +209,68 @@ img{display:block;max-width:100%;height:auto}
   .work-onward{grid-column:1;grid-row:3;align-self:end;width:100%}
 }
 
-/* ---------- the other works, at the foot of a work page ---------- */
+/* ---------- the other works ---------- */
 .work-onward{
   margin:clamp(40px,4vw,64px) 0 0;
-  border-top:1px solid var(--line);padding-top:22px;
+  border-top:2px solid var(--line);padding-top:22px;
   display:flex;gap:28px;flex-wrap:wrap;
 }
 .work-onward a{color:var(--ink);text-decoration:none;display:block}
-.work-onward .lbl{
-  display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--quiet);
-}
+.work-onward .lbl{display:block;font-size:16px;line-height:20px;color:var(--muted)}
 .work-onward .to{
   display:block;margin-top:5px;
   font-family:var(--display);font-weight:500;font-size:clamp(1.1rem,1.4vw,22px);line-height:1.25;
 }
-.work-onward a:hover .to{text-decoration:underline;text-underline-offset:4px}
-.work-onward a:focus-visible{outline:2px solid var(--ink);outline-offset:4px}
+.work-onward a:hover .to{color:var(--pink-ink)}
+.work-onward a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
 
-/* ---------- the pill, and the footer ---------- */
-.homeward{max-width:var(--col);margin:clamp(60px,6vw,100px) auto 0;text-align:center}
+/* ---------- the pill ---------- */
+.homeward{max-width:var(--col);margin:clamp(52px,4.6vw,80px) auto 0;text-align:center}
 .homeward a{
   display:inline-flex;align-items:center;justify-content:center;
-  min-width:250px;min-height:62px;padding:0 28px;
+  min-width:250px;min-height:66px;padding:0 28px;
   border:1px solid var(--ink);border-radius:999px;
-  font-size:16px;color:var(--ink);text-decoration:none;
+  font-size:16px;line-height:20px;color:var(--ink);text-decoration:none;
   transition:background-color .2s ease,color .2s ease;
 }
 .homeward a:hover{background:var(--ink);color:#fff}
-.homeward a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.homeward a:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
+/* ---------- the closing band ---------- */
 .thanks{
   margin-top:clamp(70px,10vw,150px);
-  background:var(--ink);color:#fff;text-align:center;
-  padding:clamp(44px,7vw,84px) 0;
+  background:var(--ink);
+  color:#fff;text-align:center;padding:clamp(44px,7vw,84px) 0;
 }
 .thanks h2{
-  font-family:var(--display);font-weight:500;
+  font-family:var(--sans);font-weight:700;
   font-size:clamp(1.5rem,3vw,40px);line-height:1.2;margin:0 0 18px;
 }
-.thanks p{font-size:clamp(1rem,1.3vw,18px);line-height:1.55;margin:0 auto;max-width:56ch}
-.thanks a{color:#fff;font-weight:600;text-underline-offset:3px}
+.thanks p{font-size:clamp(1rem,1.3vw,18px);line-height:1.5;margin:0 auto;max-width:56ch}
+.thanks a{color:#fff;font-weight:700;text-underline-offset:3px}
+.thanks a:hover{text-decoration-thickness:2px}
 
-.sitefoot{padding:clamp(34px,5vw,54px) 0 44px}
+/* ---------- site footer ---------- */
+.sitefoot{border-top:0;padding:clamp(34px,5vw,54px) 0 44px}
 .sitefoot-row{display:flex;flex-wrap:wrap;align-items:center;gap:18px 34px}
-.sitefoot .mark{font-family:var(--display);font-weight:500;font-size:20px;color:var(--ink);text-decoration:none}
+.sitefoot .mark{font-weight:700;font-size:18px;color:var(--ink);text-decoration:none}
 .sitefoot nav{display:flex;flex-wrap:wrap;gap:22px}
 .sitefoot nav a{font-size:15px;font-weight:500;color:var(--ink);text-decoration:none}
-.sitefoot nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.sitefoot nav a:hover{color:var(--pink-ink)}
 .sitefoot .social{margin-left:auto;display:flex;gap:10px}
 .sitefoot .social a{
-  width:38px;height:38px;border-radius:50%;background:#e9e9e9;
-  display:grid;place-items:center;color:var(--ink);font-size:11px;font-weight:700;
+  width:38px;height:38px;border-radius:50%;background:#b8bcc9;
+  display:grid;place-items:center;color:#fff;font-size:11px;font-weight:700;
   text-decoration:none;letter-spacing:.02em;
 }
-.sitefoot .social a:hover{background:var(--ink);color:#fff}
-.sitefoot .colophon{
-  margin:clamp(26px,4vw,44px) 0 0;padding-top:22px;
-  border-top:1px solid var(--line);font-size:14px;color:var(--quiet);
-}
+.sitefoot .social a:hover{background:var(--pink)}
+.sitefoot .colophon{margin:clamp(26px,4vw,44px) 0 0;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
 
 /* ---------- the movement ----------
    Gated on .js, set by the snippet in each page's head: only script adds
-   .is-in, so without the gate a visitor with JavaScript off would get a page
-   of invisible content. Slower and further than the photography pages —
-   she asked for a gentle slide. */
+   .is-in, so without the gate a visitor with JavaScript off would get a
+   page of invisible content. Slower and further than the photography
+   pages, because she asked for a gentle slide. */
 @media (prefers-reduced-motion:no-preference){
   .js [data-rise]{
     opacity:0;transform:translateY(44px);
