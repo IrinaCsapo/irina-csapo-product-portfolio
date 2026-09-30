@@ -21,6 +21,7 @@
   --line:#e6e6ee;
   --pink:#ff0091;
   --pink-ink:#c2006e;        /* 4.6:1 on white, for pink used as text */
+  --hot:#FD0793;             /* the headline pink she drew; 3.73:1, large text only */
   --display:"LT Remark","Playfair Display",Georgia,serif;
   --sans:"Albert Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --gut:clamp(18px,4vw,56px);
@@ -102,59 +103,71 @@ img{display:block;max-width:100%;height:auto}
 .back:hover{border-color:var(--pink);color:var(--pink-ink)}
 .back:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
-/* ---------- the name ---------- */
-.name--hero{
+/* ---------- the headline ----------
+   She drew it at 240px in a 1728 frame with the text 1716 wide, so it runs
+   full bleed rather than inside the 1200 column. 13.45vw lands at 232px
+   there rather than 240: at 240 the line is wider than the frame once there
+   is any gutter at all, and sizing it off the viewport keeps it filling the
+   width at every size instead of only at hers. The pink is hers — 3.73:1 on
+   white, which clears AA for large text and would fail for anything
+   smaller. */
+.hero{padding:0 16px;margin:clamp(40px,5.6vw,96px) 0 0}
+.hero-title{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(3.2rem,14.8vw,256px);
-  line-height:1.2;letter-spacing:.03em;
-  text-align:center;margin:.1em 0 0;
+  font-size:clamp(2.2rem,13.45vw,240px);line-height:1.2;letter-spacing:.03em;
+  color:var(--hot);text-align:center;margin:0;
 }
 
-/* ---------- the pull quote ---------- */
-.pull{
+/* ---------- the introduction, and the two ways to reach her ---------- */
+.lede{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(1.35rem,2.1vw,30px);line-height:1.2;
-  text-align:center;color:var(--ink);
-  max-width:584px;margin:clamp(38px,3.4vw,56px) auto 0;
+  font-size:clamp(1.15rem,1.74vw,30px);line-height:1.2;
+  color:var(--ink);text-align:center;
+  max-width:664px;margin:clamp(52px,7.6vw,132px) auto 0;
 }
+.hello{
+  display:flex;justify-content:center;gap:clamp(18px,2vw,34px);
+  margin:clamp(20px,1.4vw,24px) 0 0;
+}
+.hello a{
+  font-size:18px;line-height:22px;font-weight:700;
+  color:var(--ink);text-underline-offset:4px;
+}
+.hello a:hover{color:var(--pink-ink)}
+.hello a:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
-/* ---------- the works, three across ----------
-   The photography tiles fill their cell with object-fit:cover, which is
-   right for photographs and wrong here: these are A3 sheets photographed
-   with their own margins, and cropping one would cut into the work. The
-   cell keeps the grid tidy; the work sits inside it whole. */
+/* ---------- the works, two across ----------
+   472px tiles with a 72px gutter, as drawn, and each tile is pre-cropped to
+   her framing rather than cropped here — five of the eight are offset clips
+   on the artboard, not plain fits. */
 .works{
   list-style:none;padding:0;
-  margin:clamp(52px,8vw,110px) auto 0;
-  max-width:var(--col);
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(24px,3vw,44px) clamp(14px,2vw,26px);
+  margin:clamp(52px,5.5vw,95px) auto 0;
+  max-width:1016px;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  column-gap:clamp(20px,4.2vw,72px);row-gap:clamp(34px,2.7vw,46px);
 }
 .works li{margin:0}
 .works a{display:block;color:var(--ink);text-decoration:none}
 .works img{
-  width:100%;aspect-ratio:3 / 4;object-fit:contain;
-  transition:opacity .3s ease;
+  width:100%;aspect-ratio:472 / 649;object-fit:cover;
+  background:#f2f2f6;transition:opacity .3s ease;
 }
-.works .label{display:block;text-align:center;margin:clamp(12px,1.2vw,18px) 0 0}
+.works .label{display:block;text-align:center;margin:16px 0 0}
 .works .t{
   display:block;
-  font-family:var(--display);font-weight:400;
-  font-size:clamp(1.05rem,1.35vw,21px);line-height:1.25;
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(1.05rem,1.16vw,20px);line-height:1.2;
 }
 .works .m{
-  display:block;margin-top:6px;
-  font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  display:block;margin-top:2px;
+  font-weight:300;font-size:clamp(.9rem,.93vw,16px);line-height:1.25;color:var(--ink);
 }
 .works a:hover img{opacity:.85}
 .works a:hover .t{color:var(--pink-ink)}
 .works a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-@media (max-width:860px){
-  .works{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:560px){
+@media (max-width:620px){
   .works{grid-template-columns:1fr}
-  .works img{aspect-ratio:auto}
 }
 
 /* ---------- about ---------- */
@@ -187,6 +200,34 @@ img{display:block;max-width:100%;height:auto}
 .about-cols .practice p:last-child{margin-bottom:0}
 @media (min-width:900px){
   .about-cols{grid-template-columns:471px minmax(0,713px);gap:11px}
+}
+
+/* ---------- selected details ----------
+   The artboard fills this block with a screenshot of page 9 of her PDF, so
+   the arrangement here is built from the detail photographs that exist
+   rather than traced off the picture. Widths alternate, as they do there. */
+.details{max-width:var(--col);margin:clamp(70px,7vw,120px) auto 0}
+.details h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.8rem,3.2vw,46px);line-height:1.2;letter-spacing:.02em;
+  margin:0 0 clamp(28px,3vw,50px);
+}
+.details ul{
+  list-style:none;padding:0;margin:0;
+  display:grid;gap:clamp(18px,2.4vw,34px);
+}
+.details li{margin:0;position:relative}
+.details img{width:100%;background:#f2f2f6}
+.details figcaption{
+  margin-top:10px;font-size:13px;line-height:1.5;color:var(--muted);
+}
+.details figure{margin:0}
+@media (min-width:820px){
+  .details ul{grid-template-columns:repeat(6,1fr);align-items:start}
+  .details li:nth-child(1){grid-column:1 / span 3}
+  .details li:nth-child(2){grid-column:4 / span 3;top:clamp(24px,3vw,54px)}
+  .details li:nth-child(3){grid-column:2 / span 2}
+  .details li:nth-child(4){grid-column:4 / span 3;top:clamp(24px,3vw,54px)}
 }
 
 /* ============================================================
