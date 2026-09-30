@@ -405,3 +405,45 @@ img{display:block;max-width:100%;height:auto}
 }
 .homeward a:hover{background:var(--ink);color:#fff}
 .homeward a:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+
+/* ============================================================
+   Meanwhile, in Iran, from the Paper artboard. A uniform two-column
+   grid: 594px tiles in a 1200px column, and every photograph in the
+   series is 900x600, so 3:2 crops nothing at any width.
+   ============================================================ */
+
+.grid2{
+  max-width:var(--col);margin:clamp(38px,3.2vw,54px) auto 0;
+  display:grid;grid-template-columns:1fr 1fr;
+  column-gap:12px;row-gap:13px;
+}
+.grid2 figure{margin:0;min-width:0;overflow:clip}
+.grid2 img{
+  width:100%;height:auto;aspect-ratio:3 / 2;object-fit:cover;
+  background:#f2f2f6;
+}
+@media (max-width:700px){
+  .grid2{grid-template-columns:1fr}
+}
+
+/* ---------- the credits block under a series ---------- */
+.credits{
+  max-width:var(--col);margin:clamp(34px,2.6vw,44px) auto 0;
+  border-top:1px solid var(--ink);padding-top:40px;
+}
+.credits h2{
+  font-size:18px;line-height:22px;font-weight:700;
+  text-transform:uppercase;letter-spacing:normal;
+  margin:0 0 4px;color:var(--ink);
+}
+.credits-cols{display:grid;gap:clamp(30px,4vw,44px)}
+.credits .where p{font-size:16px;line-height:22px;letter-spacing:.02em;margin:0}
+.credits .story p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.1rem,1.51vw,26px);line-height:1.23;letter-spacing:.02em;
+  margin:0 0 20px;text-wrap:pretty;
+}
+.credits .story p:last-child{margin-bottom:0}
+@media (min-width:900px){
+  .credits-cols{grid-template-columns:471px minmax(0,713px);gap:11px}
+}
