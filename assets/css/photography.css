@@ -180,6 +180,10 @@ img{display:block;max-width:100%;height:auto}
 .band,.col{max-width:var(--col);margin-inline:auto}
 .triptych{margin:calc(clamp(44px,6vw,86px) + 15px) auto 0}
 .triptych img{width:100%}
+.triptych figcaption{
+  margin-top:14px;text-align:center;
+  font-size:13px;line-height:1.5;color:var(--muted);   /* 9.9:1 on white */
+}
 
 /* the pull quote */
 .pull{
