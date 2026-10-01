@@ -76,6 +76,17 @@ img{display:block;max-width:100%;height:auto}
 .back:hover{border-color:var(--pink);color:var(--pink-ink)}
 .back:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 
+/* ---------- the hero, from the Paper design ----------
+   Her name small above the section's own name, then the quote. 38px and
+   256px at the artboard's 1728, which is 2.2vw and 14.8vw. */
+.who{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.2rem,2.2vw,38px);line-height:1.21;
+  text-align:center;color:var(--ink);
+  max-width:584px;margin:clamp(30px,2.4vw,42px) auto 0;
+}
+.who + .name--hero{margin-top:0}
+
 /* ---------- the name ---------- */
 .name{
   font-family:var(--display);font-weight:400;
@@ -108,10 +119,6 @@ img{display:block;max-width:100%;height:auto}
   display:block;
   font-family:var(--display);font-weight:400;
   font-size:clamp(1.5rem,2.3vw,40px);line-height:1.1;letter-spacing:-.01em;
-}
-.sections .count{
-  display:block;margin-top:4px;
-  font-size:13px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
 }
 .sections a:hover .word{color:var(--pink-ink)}
 .sections a:focus-visible{outline:2px solid var(--pink);outline-offset:4px}
