@@ -163,6 +163,10 @@ img{display:block;max-width:100%;height:auto}
   display:block;margin-top:2px;
   font-weight:300;font-size:clamp(.9rem,.93vw,16px);line-height:1.25;color:var(--ink);
 }
+.works .d{
+  display:block;margin-top:4px;
+  font-weight:300;font-size:clamp(.85rem,.87vw,15px);line-height:1.25;color:var(--muted);
+}
 .works a:hover img{opacity:.85}
 .works a:hover .t{color:var(--pink-ink)}
 .works a:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
