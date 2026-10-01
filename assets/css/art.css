@@ -111,7 +111,15 @@ img{display:block;max-width:100%;height:auto}
    width at every size instead of only at hers. The pink is hers — 3.73:1 on
    white, which clears AA for large text and would fail for anything
    smaller. */
-.hero{padding:0 16px;margin:clamp(40px,5.6vw,96px) 0 0}
+.hero{padding:0 16px;margin:clamp(30px,2.4vw,42px) 0 0}
+/* her name above the section's own, as on the photography page */
+.who{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.2rem,2.2vw,38px);line-height:1.21;
+  text-align:center;color:var(--ink);
+  max-width:584px;margin:0 auto;
+}
+.who + .hero-title{margin-top:0}
 .hero-title{
   font-family:var(--display);font-weight:400;
   font-size:clamp(2.2rem,13.45vw,240px);line-height:1.2;letter-spacing:.03em;
