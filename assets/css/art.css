@@ -92,6 +92,15 @@ img{display:block;max-width:100%;height:auto}
 
 /* ---------- top bar ---------- */
 .bar{padding:26px 0 0}
+.bar .shell{display:flex;align-items:center;gap:clamp(14px,1.6vw,28px);flex-wrap:wrap}
+.bar-link{
+  font-size:14px;font-weight:500;color:var(--ink);
+  text-decoration:none;text-underline-offset:4px;
+  padding:12px 0;                /* 46px tall, so the touch target matches the pill */
+}
+.bar-link:hover{color:var(--pink-ink);text-decoration:underline}
+.bar-link[aria-current="page"]{text-decoration:underline;text-decoration-thickness:2px}
+.bar-link:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
 .back{
   display:inline-block;
   font-size:14px;font-weight:500;
@@ -131,7 +140,7 @@ img{display:block;max-width:100%;height:auto}
   font-family:var(--display);font-weight:400;
   font-size:clamp(1.15rem,1.74vw,30px);line-height:1.2;
   color:var(--ink);text-align:center;
-  max-width:664px;margin:clamp(52px,7.6vw,132px) auto 0;
+  max-width:664px;margin:clamp(38px,3.4vw,56px) auto 0;   /* the photography page's gap */
 }
 .hello{
   display:flex;justify-content:center;gap:clamp(18px,2vw,34px);
