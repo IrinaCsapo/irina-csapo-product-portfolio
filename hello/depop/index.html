@@ -45,6 +45,12 @@
     --magenta: #C34BC8;
     --depop-red: #E20020;   /* the wordmark's own red, used only on the rule beneath it */
     --maxw: 1080px;
+    /* One reading column for the whole page. The prose sat at 44rem inside
+       cards that ran the full 1028, which left a ragged 260px of white down
+       the right of every card; the quote above them ran wider still. The card
+       is the measure now, and nothing inside it sets its own width. */
+    --measure: 44rem;                      /* 704px, about 80 characters at 17px */
+    --text-col: calc(44rem + 64px);        /* the measure plus the card's padding */
   }
 
   * { box-sizing: border-box; }
@@ -237,7 +243,7 @@
   }
 
   .lede {
-    max-width: 40rem;
+    max-width: var(--measure);
     margin: 0 auto;
     font-size: 19px;
     color: var(--ink-soft);
@@ -275,8 +281,8 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-bottom: 18px;
-    max-width: none;
+    margin: 0 auto 18px;
+    max-width: var(--text-col);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: .16em;
@@ -287,7 +293,8 @@
   .num i { flex: 1; height: 1px; background: var(--line); font-style: normal; }
 
   .jd {
-    margin: 0 0 26px;
+    margin: 0 auto 26px;
+    max-width: var(--text-col);
     padding: 0 0 0 20px;
     border-left: 3px solid var(--pink);
     font-size: clamp(1.3rem, 2.6vw, 1.75rem);
@@ -317,11 +324,13 @@
   }
   h3:first-child { margin-top: 0; }
 
-  p { margin: 0 0 16px; max-width: 44rem; }
+  p { margin: 0 0 16px; }
   p:last-child { margin-bottom: 0; }
   em { font-style: italic; }
 
   .card {
+    max-width: var(--text-col);
+    margin-inline: auto;
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 18px;
@@ -353,14 +362,13 @@
     margin: 24px 0;
     padding: 4px 0 4px 20px;
     border-left: 3px solid var(--violet);
-    max-width: 40rem;
     font-size: 19px;
     font-weight: 500;
     color: var(--ink);
   }
 
   ul.plain { margin: 0; padding-left: 20px; }
-  ul.plain li { margin-bottom: 10px; max-width: 44rem; }
+  ul.plain li { margin-bottom: 10px; }
   ul.plain li:last-child { margin-bottom: 0; }
 
   .kit { display: flex; flex-wrap: wrap; gap: 9px; margin: 20px 0 0; padding: 0; list-style: none; }
@@ -372,6 +380,50 @@
     padding: 6px 13px;
     color: var(--ink-soft);
     background: var(--card);
+  }
+
+  /* ---------- section galleries ----------
+     Wider than the reading column, as on the Sotheby's page. Every source is
+     the same height, so a row's fr values are just the images' own widths and
+     the tiles come out level without anything being cropped. */
+  .gal {
+    display: grid;
+    gap: 18px;
+    margin: 26px auto 0;
+    max-width: 100%;
+    align-items: start;
+  }
+  .gal img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    background: var(--line);
+  }
+  .gal + .gal { margin-top: 18px; }
+  .gal--omaze     { grid-template-columns: 704fr 704fr 704fr; }
+  .gal--trust     { grid-template-columns: 1025fr 1120fr; }
+  .gal--veva      { grid-template-columns: 1025fr 1120fr; }
+  .gal--paycada   { grid-template-columns: 972fr 570fr 570fr; }
+  .gal--one       { grid-template-columns: 1fr; }
+  @media (max-width: 760px) {
+    .gal { grid-template-columns: 1fr !important; gap: 14px; }
+  }
+
+  /* A slot waiting for a picture. Dashed rather than a grey block, and it says
+     what belongs there, so it reads as unfinished rather than as a broken
+     image. */
+  .gal .slot {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 704 / 607;
+    padding: 20px;
+    border: 2px dashed var(--line);
+    border-radius: 10px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: center;
   }
 
   .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
@@ -573,6 +625,12 @@
           cancellation and retention flow reduced subscriber cancellations by 9.5% in three months.
         </p>
       </div>
+
+      <div class="gal gal--omaze">
+        <img src="art/omaze-a.webp" width="704" height="607" loading="lazy" alt="A Trustpilot score of 4.6 over a winner’s quote, placed above the fold"/>
+        <img src="art/omaze-b.webp" width="704" height="607" loading="lazy" alt="The Omaze subscription card, anchored on entries rather than price"/>
+        <img src="art/omaze-c.webp" width="704" height="607" loading="lazy" alt="A winner reacting on stage, from the footage used as the page hero"/>
+      </div>
     </div>
   </section>
 
@@ -610,6 +668,12 @@
           price and shipping is a long form standing between a new seller and any reward at all, at
           the exact moment they least believe the effort will pay off.
         </p>
+      </div>
+
+      <div class="gal gal--omaze">
+        <p class="slot">Fertifa onboarding: the conditional eligibility flow</p>
+        <p class="slot">Fertifa: the dual email verification step</p>
+        <p class="slot">Fertifa: the dashboard after onboarding</p>
       </div>
     </div>
   </section>
@@ -663,6 +727,12 @@
           ones who reach a first sale behave differently in that window.
         </p>
       </div>
+
+      <div class="gal gal--omaze">
+        <p class="slot">WeGlow: the medal set, active and inactive states</p>
+        <p class="slot">WeGlow: the Awards tab in full</p>
+        <p class="slot">WeGlow: progress photos assembling into a collage</p>
+      </div>
     </div>
   </section>
 
@@ -692,6 +762,11 @@
           unreliable, the cost lands on the platform rather than on either of them. That is the kind
           of trade I would want to make deliberately, with Trust and Data in the room.
         </p>
+      </div>
+
+      <div class="gal gal--trust">
+        <img src="art/omaze-trust.webp" width="1025" height="608" loading="lazy" alt="The Omaze trust signals section as built"/>
+        <img src="art/omaze-winner.webp" width="1120" height="608" loading="lazy" alt="Winner reaction footage running as the hero of the Omaze draw page"/>
       </div>
     </div>
   </section>
@@ -730,6 +805,16 @@
           I built the design system from scratch. Three tiers of tokens, full component state coverage,
           and an accessibility audit that found two live contrast failures already in production.
         </p>
+      </div>
+
+      <div class="gal gal--veva">
+        <img src="art/veva-phones.webp" width="1025" height="608" loading="lazy" alt="The Veva app on two phones, showing charging and history"/>
+        <img src="art/veva-in-car.webp" width="1120" height="608" loading="lazy" alt="Someone in a car using the Veva app"/>
+      </div>
+      <div class="gal gal--paycada">
+        <img src="art/paycada-laptops.webp" width="972" height="608" loading="lazy" alt="The Paycada platform across two laptop screens, with the onboarding checklist and payment details"/>
+        <img src="art/paycada-tablet.webp" width="570" height="608" loading="lazy" alt="Paycada's guide, The ultimate guide to getting paid on time, on a tablet"/>
+        <img src="art/paycada-interface.webp" width="570" height="608" loading="lazy" alt="The Paycada customers list with amount collected and the payables overview"/>
       </div>
     </div>
   </section>
@@ -771,6 +856,10 @@
           <li>Lovable</li><li>v0</li><li>Rive</li><li>Jitter</li><li>GitHub</li>
         </ul>
       </div>
+
+      <div class="gal gal--one">
+        <img src="art/vera-hero.webp" width="1600" height="840" loading="lazy" alt="Vera: score the claim, not the influencer. The app on a phone, with a link field, trending creators and recently checked products"/>
+      </div>
     </div>
   </section>
 
@@ -797,6 +886,12 @@
           should find their area in better shape and still recognisable, with the reasoning written
           down rather than carried in my head. I would treat that as part of the brief.
         </p>
+      </div>
+
+      <div class="gal gal--omaze">
+        <p class="slot">Fertifa: what shipped between April and June 2026</p>
+        <p class="slot">A short engagement, written down</p>
+        <p class="slot">Handover notes for the person coming back</p>
       </div>
     </div>
   </section>
