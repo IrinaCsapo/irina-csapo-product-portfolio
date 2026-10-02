@@ -44,7 +44,7 @@
     --violet: #7B5CFA;
     --magenta: #C34BC8;
     --depop-red: #E20020;   /* the wordmark's own red, used only on the rule beneath it */
-    --maxw: 1080px;
+    --maxw: 1509px;                        /* the galleries run to 1453 inside the 28px gutters, as on the Sotheby’s page */
     /* One reading column for the whole page. The prose sat at 44rem inside
        cards that ran the full 1028, which left a ragged 260px of white down
        the right of every card; the quote above them ran wider still. The card
@@ -82,7 +82,7 @@
       radial-gradient(52rem 40rem at 102% 82%, rgba(232, 48, 138, .11),  transparent 60%);
   }
 
-  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 26px; }
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
 
   a { color: var(--pink); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -388,7 +388,7 @@
      the tiles come out level without anything being cropped. */
   .gal {
     display: grid;
-    gap: 18px;
+    gap: 23px;
     margin: 26px auto 0;
     max-width: 100%;
     align-items: start;
@@ -400,7 +400,7 @@
     border-radius: 10px;
     background: var(--line);
   }
-  .gal + .gal { margin-top: 18px; }
+  .gal + .gal { margin-top: 23px; }
   .gal--omaze     { grid-template-columns: 704fr 704fr 704fr; }
   .gal--trust     { grid-template-columns: 1025fr 1120fr; }
   .gal--veva      { grid-template-columns: 1025fr 1120fr; }
