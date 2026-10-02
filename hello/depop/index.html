@@ -367,6 +367,13 @@
     color: var(--ink);
   }
 
+  /* The closing line of a card, set off from the argument above it. */
+  .takeaway {
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+
   ul.plain { margin: 0; padding-left: 20px; }
   ul.plain li { margin-bottom: 10px; }
   ul.plain li:last-child { margin-bottom: 0; }
@@ -381,50 +388,58 @@
     color: var(--ink-soft);
     background: var(--card);
   }
+  /* The named tools carry what each is for, so the chip grows a second line. */
+  .kit--rich li { border-radius: 14px; padding: 10px 16px; font-weight: 600; color: var(--ink); }
+  .kit--rich li a { display: block; color: inherit; text-decoration: none; }
+  .kit--rich li small { display: block; margin-top: 2px; font-size: 12.5px; font-weight: 400; color: var(--ink-soft); }
+  .kit--rich li:hover { border-color: var(--pink); }
+  .kit--rich li a:focus-visible { outline: 2px solid var(--violet); outline-offset: 4px; border-radius: 4px; }
 
   /* ---------- section galleries ----------
-     Wider than the reading column, as on the Sotheby's page. Every source is
-     the same height, so a row's fr values are just the images' own widths and
-     the tiles come out level without anything being cropped. */
+     The Sotheby's page's model, which is what her rows are drawn for: each row
+     is 1453 x 405 with 23px gutters and tiles at set widths, and the fr units
+     carry those widths to any size. The images she assembled crop 0.6 to 7.3%
+     against their tiles, which is her own framing; the ones carried over from
+     the other pages were authored for these exact widths and crop 0 to 0.2%. */
   .gal {
     display: grid;
     gap: 23px;
     margin: 26px auto 0;
-    max-width: 100%;
-    align-items: start;
+    aspect-ratio: 1453 / 405;
   }
-  .gal img {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    background: var(--line);
-  }
+  .gal > * { overflow: clip; border-radius: 10px; background: var(--line); }
+  .gal img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .gal + .gal { margin-top: 23px; }
-  .gal--omaze     { grid-template-columns: 704fr 704fr 704fr; }
-  .gal--trust     { grid-template-columns: 1025fr 1120fr; }
-  .gal--veva      { grid-template-columns: 1025fr 1120fr; }
-  .gal--paycada   { grid-template-columns: 972fr 570fr 570fr; }
-  .gal--one       { grid-template-columns: 1fr; }
+  .gal--683-747     { grid-template-columns: 683fr 747fr; }
+  .gal--469         { grid-template-columns: repeat(3, 1fr); }
+  .gal--648-380-380 { grid-template-columns: 648fr 380fr 380fr; }
+  /* A single plate keeps its own proportion: forced into a 1453 x 405 row it
+     would lose almost half its height. */
+  .gal--full { aspect-ratio: auto; grid-template-columns: 1fr; }
+  .gal--full img { height: auto; }
+
+  /* One column on a phone, each at its own proportion, so nothing is cropped
+     at the size where the detail matters most. */
   @media (max-width: 760px) {
-    .gal { grid-template-columns: 1fr !important; gap: 14px; }
+    .gal { grid-template-columns: 1fr !important; aspect-ratio: auto; gap: 14px; }
+    .gal img { height: auto; }
   }
 
   /* A slot waiting for a picture. Dashed rather than a grey block, and it says
-     what belongs there, so it reads as unfinished rather than as a broken
-     image. */
+     what belongs there, so it reads as unfinished rather than as broken. */
   .gal .slot {
     display: grid;
     place-items: center;
-    aspect-ratio: 704 / 607;
+    margin: 0;
     padding: 20px;
     border: 2px dashed var(--line);
-    border-radius: 10px;
+    background: transparent;
     color: var(--ink-soft);
     font-size: 13px;
     line-height: 1.4;
     text-align: center;
   }
+  @media (max-width: 760px) { .gal .slot { aspect-ratio: 469 / 405; } }
 
   .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
 
@@ -626,7 +641,7 @@
         </p>
       </div>
 
-      <div class="gal gal--omaze">
+      <div class="gal gal--469">
         <img src="art/omaze-a.webp" width="704" height="607" loading="lazy" alt="A Trustpilot score of 4.6 over a winner’s quote, placed above the fold"/>
         <img src="art/omaze-b.webp" width="704" height="607" loading="lazy" alt="The Omaze subscription card, anchored on entries rather than price"/>
         <img src="art/omaze-c.webp" width="704" height="607" loading="lazy" alt="A winner reacting on stage, from the footage used as the page hero"/>
@@ -670,7 +685,7 @@
         </p>
       </div>
 
-      <div class="gal gal--omaze">
+      <div class="gal gal--469">
         <p class="slot">Fertifa onboarding: the conditional eligibility flow</p>
         <p class="slot">Fertifa: the dual email verification step</p>
         <p class="slot">Fertifa: the dashboard after onboarding</p>
@@ -728,10 +743,14 @@
         </p>
       </div>
 
-      <div class="gal gal--omaze">
-        <p class="slot">WeGlow: the medal set, active and inactive states</p>
-        <p class="slot">WeGlow: the Awards tab in full</p>
-        <p class="slot">WeGlow: progress photos assembling into a collage</p>
+      <div class="gal gal--683-747">
+        <img src="art/weglow-streaks.webp" width="1500" height="850" loading="lazy" alt="WeGlow streak and milestone screens on five phones: two week, four week and nine week workout streaks"/>
+        <img src="art/checkin-onboarding.webp" width="1500" height="850" loading="lazy" alt="The check-in app on five phones: onboarding, a completed check-in, the activity grid and insights"/>
+      </div>
+      <div class="gal gal--469">
+        <img src="art/weglow-journey.webp" width="1174" height="1020" loading="lazy" alt="WeGlow's Journey: the daily streak, highlights and awards, and the progress photo collage"/>
+        <img src="art/weglow-milestone.webp" width="1174" height="1020" loading="lazy" alt="A WeGlow milestone screen: all time workouts completed, one hundred and thirty five"/>
+        <img src="art/checkin-streaks.webp" width="1174" height="1020" loading="lazy" alt="The check-in app's streaks: a twenty-one day streak, and the week's check-ins"/>
       </div>
     </div>
   </section>
@@ -764,7 +783,7 @@
         </p>
       </div>
 
-      <div class="gal gal--trust">
+      <div class="gal gal--683-747">
         <img src="art/omaze-trust.webp" width="1025" height="608" loading="lazy" alt="The Omaze trust signals section as built"/>
         <img src="art/omaze-winner.webp" width="1120" height="608" loading="lazy" alt="Winner reaction footage running as the hero of the Omaze draw page"/>
       </div>
@@ -807,11 +826,16 @@
         </p>
       </div>
 
-      <div class="gal gal--veva">
-        <img src="art/veva-phones.webp" width="1025" height="608" loading="lazy" alt="The Veva app on two phones, showing charging and history"/>
-        <img src="art/veva-in-car.webp" width="1120" height="608" loading="lazy" alt="Someone in a car using the Veva app"/>
+      <div class="gal gal--683-747">
+        <img src="art/veva-screens.webp" width="800" height="453" loading="lazy" alt="The Veva app on five phones: not connected, charge point added, charging, usage history and the off-peak schedule"/>
+        <img src="art/weglow-streaks.webp" width="1500" height="850" loading="lazy" alt="WeGlow on five phones, the same streak and milestone screens shipped to iOS and Android"/>
       </div>
-      <div class="gal gal--paycada">
+      <div class="gal gal--469">
+        <img src="art/veva-charging-modes.webp" width="1174" height="940" loading="lazy" alt="Veva charging modes and conditions: not connected, standby and charging"/>
+        <img src="art/weglow-photos-tab.webp" width="1174" height="940" loading="lazy" alt="WeGlow's Photos tab, with progress photos assembling into collages"/>
+        <img src="art/weglow-awards-tab.webp" width="1174" height="940" loading="lazy" alt="WeGlow's Awards tab: workout days, workouts completed and weekly streaks"/>
+      </div>
+      <div class="gal gal--648-380-380">
         <img src="art/paycada-laptops.webp" width="972" height="608" loading="lazy" alt="The Paycada platform across two laptop screens, with the onboarding checklist and payment details"/>
         <img src="art/paycada-tablet.webp" width="570" height="608" loading="lazy" alt="Paycada's guide, The ultimate guide to getting paid on time, on a tablet"/>
         <img src="art/paycada-interface.webp" width="570" height="608" loading="lazy" alt="The Paycada customers list with amount collected and the payables overview"/>
@@ -851,14 +875,42 @@
           I can debug it without the assistant in the room, and I can explain every decision in it.
           I would not claim to be an engineer who would own production architecture.
         </p>
-        <ul class="kit">
-          <li>Figma</li><li>Paper</li><li>Claude Code</li><li>Figma Make</li>
-          <li>Lovable</li><li>v0</li><li>Rive</li><li>Jitter</li><li>GitHub</li>
-        </ul>
       </div>
 
-      <div class="gal gal--one">
+      <div class="gal gal--full">
         <img src="art/vera-hero.webp" width="1600" height="840" loading="lazy" alt="Vera: score the claim, not the influencer. The app on a phone, with a link field, trending creators and recently checked products"/>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============ DESIGN TOOLS ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>07</b> <i></i> Design tools</p>
+      <h2 class="jd">The tools, and the order I use them in
+        <cite>How I work</cite></h2>
+
+      <div class="card">
+        <p>
+          Figma for layout, colour, imagery and the systems. I've recently started using Paper,
+          because it designs straight into code for the web. Then into Claude Code to build it.
+        </p>
+        <ul class="kit kit--rich">
+          <li><a href="https://www.figma.com/" target="_blank" rel="noopener">Figma<small>design, systems, prototypes</small></a></li>
+          <li><a href="https://www.figma.com/make/" target="_blank" rel="noopener">Figma Make<small>prompt to prototype</small></a></li>
+          <li><a href="https://paper.design/" target="_blank" rel="noopener">Paper<small>new tool, design for agents</small></a></li>
+          <li><a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code<small>daily, build and iterate</small></a></li>
+          <li><a href="https://lovable.dev/" target="_blank" rel="noopener">Lovable<small>fast throwaway directions</small></a></li>
+          <li><a href="https://v0.app/" target="_blank" rel="noopener">v0<small>quick interface directions</small></a></li>
+          <li><a href="https://rive.app/" target="_blank" rel="noopener">Rive<small>interactive motion, animated assets</small></a></li>
+          <li><a href="https://jitter.video/" target="_blank" rel="noopener">Jitter<small>motion design on the web</small></a></li>
+          <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub<small>version, deploy, ship</small></a></li>
+        </ul>
+        <p class="takeaway">
+          The tools matter less than the order. I've worked with more new tools this year than in
+          any year before it, and I like finding the right one for the problem in front of me.
+        </p>
       </div>
     </div>
   </section>
@@ -866,7 +918,7 @@
   <!-- ============ 7. FIXED TERM ============ -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>07</b> <i></i> A fixed term</p>
+      <p class="num"><b>08</b> <i></i> A fixed term</p>
       <h2 class="jd">&ldquo;Able to hit the ground running and deliver impact within a fixed-term engagement.&rdquo;
         <cite>Depop, New Seller Experience</cite></h2>
 
@@ -888,7 +940,7 @@
         </p>
       </div>
 
-      <div class="gal gal--omaze">
+      <div class="gal gal--469">
         <p class="slot">Fertifa: what shipped between April and June 2026</p>
         <p class="slot">A short engagement, written down</p>
         <p class="slot">Handover notes for the person coming back</p>
@@ -899,7 +951,7 @@
   <!-- ============ HONEST ============ -->
   <section class="reveal honest">
     <div class="wrap">
-      <p class="num"><b>08</b> <i></i> Offered up front</p>
+      <p class="num"><b>09</b> <i></i> Offered up front</p>
       <h2 class="jd">What I don't have
         <cite>Offered up front</cite></h2>
 
@@ -934,7 +986,7 @@
   <!-- ============ FIRST MOVES ============ -->
   <section class="reveal">
     <div class="wrap">
-      <p class="num"><b>09</b> <i></i> Before designing anything</p>
+      <p class="num"><b>10</b> <i></i> Before designing anything</p>
       <h2 class="jd">What I'd want in the first fortnight
         <cite>Before designing anything</cite></h2>
 
