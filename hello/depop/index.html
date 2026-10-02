@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Irina Csapo — for Depop, New Seller Experience</title>
+<meta name="description" content="Product Designer, New Seller Experience. An application built for Depop."/>
+<meta name="robots" content="noindex, nofollow"/>
+<!-- Analytics only. The rest of the site also loads recorder.js for session
+     replay and heatmaps; that is left off here deliberately, because the
+     people reading this page are named rather than anonymous. -->
+<script defer src="https://irina-umami.vercel.app/script.js" data-website-id="30698fde-08a5-4b2d-aa88-848e842806e2"></script>
+<link rel="shortcut icon" href="../../assets/images/5eb585a77fc0256e26aa1c03_favicon_32x32px_v3.png" type="image/x-icon"/>
+<script>document.documentElement.className+=" js"</script>
+<link rel="preload" href="../../assets/fonts/poppins-400.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="../../assets/fonts/poppins-700.woff2" as="font" type="font/woff2" crossorigin/>
+<style>
+  /* Poppins, self-hosted with the rest of the site rather than fetched from a
+     font CDN: four weights, latin subset, 28KB for the set. */
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 400; font-display: swap;
+    src: url(../../assets/fonts/poppins-400.woff2) format("woff2"); }
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 500; font-display: swap;
+    src: url(../../assets/fonts/poppins-500.woff2) format("woff2"); }
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 600; font-display: swap;
+    src: url(../../assets/fonts/poppins-600.woff2) format("woff2"); }
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 700; font-display: swap;
+    src: url(../../assets/fonts/poppins-700.woff2) format("woff2"); }
+
+  /* Measured on --paper #FDFDFF, which is what body text actually sits on:
+       --ink 16.74:1   --ink-soft 7.73:1   --pink 5.78:1
+     and the display-only stops, each of which clears 3:1 but not 4.5:1:
+       --pink-vivid 3.96:1   --violet 4.35:1   --magenta 4.01:1
+     So --pink carries every link and every piece of small text, and the
+     brighter three appear only inside the headline gradients. */
+  :root {
+    --font: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --ink: #0E1450;
+    --ink-soft: #4A5070;
+    --paper: #FDFDFF;
+    --card: #FFFFFF;
+    --line: #E4E6F2;
+    --pink: #C2185B;
+    --pink-vivid: #E8308A;
+    --violet: #7B5CFA;
+    --magenta: #C34BC8;
+    --maxw: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Her four blooms, moved off the body onto a fixed layer of their own.
+     background-attachment:fixed is the other way to pin them and it repaints
+     on every scroll frame, and iOS Safari ignores it outright. */
+  .blooms {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(60rem 40rem at 8% -6%,   rgba(245, 200, 70, .16),  transparent 60%),
+      radial-gradient(55rem 38rem at 95% 0%,   rgba(232, 48, 138, .14),  transparent 62%),
+      radial-gradient(48rem 42rem at -8% 42%,  rgba(123, 92, 250, .13),  transparent 60%),
+      radial-gradient(52rem 40rem at 102% 82%, rgba(232, 48, 138, .11),  transparent 60%);
+  }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 26px; }
+
+  a { color: var(--pink); text-decoration: underline; text-underline-offset: 3px; }
+
+  :focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 4px; }
+
+  .skip {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--card);
+    color: var(--ink);
+    padding: 12px 18px;
+    border-radius: 0 0 12px 0;
+    font-weight: 700;
+  }
+  .skip:focus { left: 0; z-index: 10; }
+
+  /* ---------- masthead strip ----------
+     The same arrangement as the Ping and Sotheby's pages, in this page's own
+     register: links in ink over a pink rule, the date in the soft tone. */
+  .topbar { border-bottom: 1px solid var(--line); }
+  .topbar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px 28px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  .topbar-links { display: flex; flex-wrap: wrap; gap: 22px; }
+  .topbar a {
+    font-size: 13px;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--pink);
+    padding-bottom: 2px;
+  }
+  .topbar a:hover { color: var(--pink); }
+  .topbar a:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+  .topbar-meta {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .topbar .on-narrow { display: none; }
+  @media (max-width: 620px) {
+    .topbar-inner { justify-content: flex-start; gap: 6px 16px; padding-top: 11px; padding-bottom: 11px; }
+    .topbar-links { gap: 16px; }
+    .topbar a, .topbar-meta { font-size: 12px; }
+    .topbar .on-wide { display: none; }
+    .topbar .on-narrow { display: inline; }
+  }
+  @media print { .topbar { display: none; } }
+
+  /* ---------- hero ---------- */
+  header.hero { padding: 92px 0 62px; text-align: center; }
+
+  .eyebrow {
+    max-width: none;
+    margin: 0 0 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  h1 {
+    margin: 0 0 30px;
+    font-size: clamp(2.5rem, 6.2vw, 4.4rem);
+    line-height: 1.06;
+    font-weight: 700;
+    letter-spacing: -.025em;
+    color: var(--ink);
+  }
+
+  /* Gradient words, with a solid fallback underneath for anything that cannot
+     clip a background to text. */
+  .g, .g2 {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: .04em;
+  }
+  .g  { background-image: linear-gradient(92deg, var(--pink-vivid), var(--violet)); }
+  .g2 { background-image: linear-gradient(92deg, var(--violet), var(--magenta)); }
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .g  { color: var(--pink);   -webkit-text-fill-color: var(--pink); }
+    .g2 { color: var(--violet); -webkit-text-fill-color: var(--violet); }
+  }
+
+  .lede {
+    max-width: 40rem;
+    margin: 0 auto;
+    font-size: 19px;
+    color: var(--ink-soft);
+    text-align: left;
+  }
+  .lede p { margin: 0 0 16px; max-width: none; }
+  .lede p:last-child { margin-bottom: 0; }
+
+  .hero-actions {
+    margin: 34px 0 0;
+    max-width: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border: 1px solid var(--pink);
+    border-radius: 999px;
+    background: var(--pink);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .btn--ghost { background: transparent; color: var(--pink); }
+  .btn:hover { opacity: .85; }
+
+  /* ---------- sections ---------- */
+  section { padding: 46px 0; }
+
+  .num {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    max-width: none;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .num b { color: var(--pink); }
+  .num i { flex: 1; height: 1px; background: var(--line); font-style: normal; }
+
+  .jd {
+    margin: 0 0 26px;
+    padding: 0 0 0 20px;
+    border-left: 3px solid var(--pink);
+    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: -.012em;
+    color: var(--ink);
+  }
+  .jd cite {
+    display: block;
+    margin-top: 12px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  h3 {
+    margin: 26px 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  h3:first-child { margin-top: 0; }
+
+  p { margin: 0 0 16px; max-width: 44rem; }
+  p:last-child { margin-bottom: 0; }
+  em { font-style: italic; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 30px 32px;
+    box-shadow: 0 14px 34px rgba(14, 20, 80, .05);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin: 26px 0 4px;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+  }
+  .stats li { margin: 0; }
+  .stats b {
+    display: block;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.02em;
+    color: var(--ink);
+  }
+  .stats span { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
+
+  .pull {
+    margin: 24px 0;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--violet);
+    max-width: 40rem;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  ul.plain { margin: 0; padding-left: 20px; }
+  ul.plain li { margin-bottom: 10px; max-width: 44rem; }
+  ul.plain li:last-child { margin-bottom: 0; }
+
+  .kit { display: flex; flex-wrap: wrap; gap: 9px; margin: 20px 0 0; padding: 0; list-style: none; }
+  .kit li {
+    margin: 0;
+    font-size: 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 13px;
+    color: var(--ink-soft);
+    background: var(--card);
+  }
+
+  .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
+
+  /* ---------- the honest section ---------- */
+  .honest .card { background: transparent; border-style: dashed; box-shadow: none; }
+  .honest h3 { color: var(--ink); font-size: 16px; letter-spacing: 0; text-transform: none; font-weight: 600; }
+
+  /* ---------- jump buttons ---------- */
+  .jump {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .jump-btn {
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(14, 20, 80, .06);
+    transition: border-color .2s ease, color .2s ease, opacity .2s ease;
+  }
+  .jump-btn svg {
+    width: 20px; height: 20px;
+    fill: none; stroke: currentColor;
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  }
+  .jump-btn:hover { border-color: var(--pink); color: var(--pink); }
+  .jump-btn:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+  .jump-btn:disabled { opacity: .28; cursor: default; box-shadow: none; }
+  @media (max-width: 600px) {
+    .jump { right: 14px; bottom: 14px; gap: 10px; }
+    .jump-btn { width: 44px; height: 44px; }
+    .jump-btn svg { width: 18px; height: 18px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .jump-btn { transition: none; } }
+  @media print { .jump { display: none; } }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 40px;
+    padding: 56px 0 76px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    background: rgba(255, 255, 255, .6);
+  }
+  footer .name { font-size: 22px; font-weight: 600; margin: 0 auto 6px; color: var(--ink); }
+  footer .meta { font-size: 14.5px; color: var(--ink-soft); margin: 0 auto 20px; }
+  .foot-links {
+    display: flex; gap: 22px; justify-content: center; flex-wrap: wrap;
+    font-size: 15px; margin: 0 0 22px; max-width: none;
+  }
+  footer .note { font-size: 13px; color: var(--ink-soft); max-width: 32rem; margin: 0 auto; }
+
+  /* ---------- reveal ----------
+     Gated on .js, which the snippet in the head sets. Only script adds .in, so
+     without the gate a reader with JavaScript off would get a blank page. */
+  .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .card { padding: 24px 22px; }
+    header.hero { padding: 64px 0 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="blooms" aria-hidden="true"></div>
+
+<a class="skip" href="#start">Skip to content</a>
+
+<!-- After the skip link on purpose: the skip link has to stay the first thing a
+     keyboard reaches, or it cannot do its job. -->
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <nav class="topbar-links" aria-label="Irina Csapo elsewhere">
+      <a href="https://irinacsapo.co.uk" target="_blank" rel="noopener">Product portfolio</a>
+      <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf" target="_blank" rel="noopener">Download CV</a>
+      <a href="mailto:irina.csapo@gmail.com?subject=Product%20Designer%2C%20New%20Seller%20Experience"><span class="on-wide">irina.csapo@gmail.com</span><span class="on-narrow">Email</span></a>
+    </nav>
+    <p class="topbar-meta" id="topbar-meta">October 2026</p>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">For Depop &middot; Product Designer, New Seller Experience</p>
+    <h1>Help them <span class="g">list</span> it,<br/>then help them <span class="g2">sell</span> it.</h1>
+    <div class="lede">
+      <p>
+        I'm Irina Csapo, a product designer with fifteen years across consumer e-commerce,
+        regulated fintech, healthtech and connected hardware. This page is only about your role.
+      </p>
+      <p>
+        Six things your job description asks for, each answered with a decision I actually made
+        rather than a claim about myself. Then a section on what I don't have, because a
+        twelve month contract is too short for either of us to find that out in month three.
+      </p>
+    </div>
+    <p class="hero-actions">
+      <a class="btn" href="https://irinacsapo.co.uk" target="_blank" rel="noopener">Portfolio</a>
+      <a class="btn btn--ghost" href="https://irina.love" target="_blank" rel="noopener">Things I've built</a>
+      <a class="btn btn--ghost" href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf" target="_blank" rel="noopener">CV</a>
+    </p>
+  </div>
+</header>
+
+<hr class="rule"/>
+
+<main id="start">
+
+  <!-- ============ 1. THE FUNNEL ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>01</b> <i></i> The funnel</p>
+      <h2 class="jd">&ldquo;A number of new listers never make a sale in their first six months.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          At Omaze I led the design of the Monthly Millionaire draw. It launched at roughly
+          &pound;650,000 a month against a forecast above &pound;1,000,000, so the brief was a funnel
+          that was underperforming and nobody agreed on why.
+        </p>
+        <p>
+          The thing that unblocked it was not a design idea. Funnel data showed mobile users were
+          interacting almost entirely with the bottom half of the screen, and internal data showed
+          a customer base skewing 45 and over. Once those two facts were on the table, the team
+          stopped arguing about layout and started rebuilding around thumb-reachable actions and
+          larger type. Opinion became a measurement problem.
+        </p>
+        <p>
+          Then three experiments, deliberately one at a time. Third-party trust signals above the
+          fold. Winner reaction footage as a looping hero. Reframing the subscription as the better
+          value, anchored on entries rather than price. That last one carried real cannibalisation
+          risk, so we measured both sides of it rather than only the number we wanted to go up.
+        </p>
+
+        <ul class="stats">
+          <li><b>+7.3%</b><span>Trust signals above the fold</span></li>
+          <li><b>+4.8%</b><span>Winner footage as hero</span></li>
+          <li><b>+8.5%</b><span>Value reframe, no cannibalisation</span></li>
+          <li><b>35%</b><span>Overall conversion uplift</span></li>
+        </ul>
+
+        <p style="margin-top:22px">
+          &pound;1.5m in a single month, sustained above &pound;1m thereafter. Solo designer, working
+          with two engineers, two product managers, growth and CRM.
+        </p>
+        <p>
+          Separately at Omaze: checkout bolt-ons lifted attachment rate by 27%, and a redesigned
+          cancellation and retention flow reduced subscriber cancellations by 9.5% in three months.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. SIMPLICITY ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>02</b> <i></i> Simplicity</p>
+      <h2 class="jd">&ldquo;Champion simplicity for new users: one key action at a time, step-by-step flows over long forms.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          At Fertifa, a reproductive and employee health benefits provider, I designed onboarding
+          across variable benefit packages: conditional flows that surfaced only the entitlements a
+          person was actually eligible for, dual email verification balancing healthcare compliance
+          against friction, and a dashboard whose content changed based on what someone had told us.
+        </p>
+        <p>
+          The decision I would bring to this role came from a disagreement. The team wanted a
+          free-text box at the end of onboarding, asking people to describe what they needed.
+        </p>
+        <div class="pull">
+          A free-text field at the end of onboarding is work at exactly the moment you are trying to
+          reduce work, and it assumes an articulacy people don't have yet.
+        </div>
+        <p>
+          Someone three screens into a flow has not yet formed the sentence you are asking them to
+          write. I proposed example questions they could recognise rather than compose, plus a direct
+          route to booking, and moved the free text to the booking point, where the person has already
+          decided and now has something specific to say. That argument is the same one your guiding
+          principle makes: simplify, one step at a time, powerful features only once someone is ready.
+        </p>
+        <p>
+          It applies directly to a first listing. Photos, title, brand, category, size, condition,
+          price and shipping is a long form standing between a new seller and any reward at all, at
+          the exact moment they least believe the effort will pay off.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. MOTIVATIONAL DESIGN ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>03</b> <i></i> Motivational design</p>
+      <h2 class="jd">&ldquo;Apply motivational and behavioural design: targets, progress, streaks, milestones.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          I have built this. On WeGlow, a fitness app and community that is around 90% women, I
+          redesigned My Journey, the part of the product where someone sees their own progress. It
+          was the section the team described as underdeveloped, which is usually a sign that nobody
+          had decided what it was for. Sole designer, with a product manager and two mobile engineers,
+          shipped to iOS and Android.
+        </p>
+
+        <h3>What I designed</h3>
+        <p>
+          Daily and weekly streaks, modelled on Duolingo's. A medal system covering 115 achievements,
+          each drawn in an active and an inactive state, so 230 designs in total. Progress photos that
+          assemble into a collage over time. Personal bests, workout history, exercise minutes and
+          energy burned. All of it organised into four tabs: Progress, Photos, Activity and Awards.
+          I also extended the palette beyond the orange and grey the app had, so the new sections read
+          as distinct without breaking the existing product.
+        </p>
+
+        <h3>What I learned from it</h3>
+        <p>
+          Having built streaks, I am more careful about them than I was before. A streak makes a
+          person's consistency visible, which is powerful, and it also manufactures an obligation.
+          The moment it breaks, it can become a reason to leave rather than a reason to come back.
+        </p>
+        <p>
+          The 115 medals were the counterweight. Spreading achievement across many different things,
+          at many levels of difficulty, meant progress was never one fragile number that a bad week
+          could reset. That is the part I would bring here rather than the streak itself.
+        </p>
+        <div class="pull">
+          A new seller's first week is mostly waiting. The design question is what the product says
+          to someone during the gap between listing and selling, because that gap is where they decide
+          whether this is for them.
+        </div>
+        <p>
+          That last line is a hypothesis, not a finding. WeGlow has no published metrics, so I would
+          treat what I learned there as instinct to be corrected. The first thing I would want is the
+          data on what new listers actually do in the days after their first listing, and whether the
+          ones who reach a first sale behave differently in that window.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. TRUST SIGNALS ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>04</b> <i></i> Trust signals</p>
+      <h2 class="jd">&ldquo;Trust signals that make new sellers more appealing to buyers.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          I have measured this. Moving third-party trust signals above the fold at Omaze returned
+          7.3% on its own, on a product where the purchase was small and the brand was already known.
+          Buying secondhand clothes from a stranger is a considerably harder ask.
+        </p>
+        <p>
+          The interesting part of your version is the cold start. A new seller has no reviews, no
+          sales history and no follower count, which means the usual trust signals are exactly the
+          ones they cannot produce. So the design question is what someone can earn or display
+          <em>before</em> their first transaction, and whether any of it is credible to a buyer who
+          knows it costs nothing to generate.
+        </p>
+        <p>
+          It is also a two-sided decision rather than a seller feature. Every signal you give a new
+          seller is a claim you are making to a buyer on their behalf, and if it turns out to be
+          unreliable, the cost lands on the platform rather than on either of them. That is the kind
+          of trade I would want to make deliberately, with Trust and Data in the room.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. iOS, WEB, ANDROID ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>05</b> <i></i> iOS, web and Android</p>
+      <h2 class="jd">&ldquo;Experience designing user experiences for iOS, Web and Android.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          Veva is a native app controlling home EV charge points, shipped to iOS and Android. One
+          system, two user types with nothing in common: the electrical engineer installing the
+          hardware, and the person who lives with it afterwards.
+        </p>
+        <p>
+          I designed the installer's flow first, because it is the gate. If the installation does not
+          complete, the homeowner never has a product at all. That included an installation flow that
+          completes without the home network, since the moment of setup is precisely when the wifi is
+          least likely to cooperate.
+        </p>
+        <p>
+          Eleven conditional charging states, animated in Rive and delivered to both platforms. You
+          cannot judge eleven states in a static file. You have to watch them move and decide what
+          each transition is telling someone about a system they cannot see.
+        </p>
+        <p>
+          WeGlow, above, is the second: iOS and Android again, and a different kind of mobile problem,
+          where the work was 230 pieces of iconography holding together as one system rather than
+          eleven states moving correctly.
+        </p>
+        <p>
+          On the web side: three years as the designer on Paycada, a regulated fintech platform, where
+          I built the design system from scratch. Three tiers of tokens, full component state coverage,
+          and an accessibility audit that found two live contrast failures already in production.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. AI ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>06</b> <i></i> AI and prototyping</p>
+      <h2 class="jd">&ldquo;Proficiency in AI tools. Effective prototyping skills: Figma, Figma Make, Claude, Cursor.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          I design, build and ship my own products. Four live this year at
+          <a href="https://irina.love" target="_blank" rel="noopener">irina.love</a>, built with Claude Code. This page is one of them.
+        </p>
+        <p>
+          The most relevant is Vera, built in two days at the ZOE Women in Tech Hackathon, where I led
+          product design and engineering. It checks wellness and supplement claims against
+          peer-reviewed evidence. The design work was not the interface, it was deciding how the
+          product behaves when the model is unsure.
+        </p>
+        <div class="pull">
+          If the system cannot verify a field, it comes back blank rather than inventing one. People
+          don't need a system to always be right. They need to be able to tell when it isn't.
+        </div>
+        <p>
+          Cosmic Pets is a live consumer AI app with real users: upload a photo of your pet, get a
+          collage portrait in one of six styles, each derived from analogue collages I made by hand
+          first and then automated.
+        </p>
+        <p>
+          On how I work: I direct and review rather than write from scratch. I understand what I ship,
+          I can debug it without the assistant in the room, and I can explain every decision in it.
+          I would not claim to be an engineer who would own production architecture.
+        </p>
+        <ul class="kit">
+          <li>Figma</li><li>Paper</li><li>Claude Code</li><li>Figma Make</li>
+          <li>Lovable</li><li>v0</li><li>Rive</li><li>Jitter</li><li>GitHub</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. FIXED TERM ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>07</b> <i></i> A fixed term</p>
+      <h2 class="jd">&ldquo;Able to hit the ground running and deliver impact within a fixed-term engagement.&rdquo;
+        <cite>Depop, New Seller Experience</cite></h2>
+
+      <div class="card">
+        <p>
+          I am available immediately, which for a maternity cover is not a small thing.
+        </p>
+        <p>
+          My most recent role at Fertifa ran from April to June 2026, and the onboarding, eligibility
+          logic and dashboard work above is what came out of it. Short engagements have a particular
+          shape: you do not get a discovery quarter, so you earn the right to make decisions by
+          shipping something small and correct early, and you spend your first fortnight finding out
+          which questions the team has already answered rather than re-asking them.
+        </p>
+        <p>
+          There is also a specific obligation in covering someone's leave. The person coming back
+          should find their area in better shape and still recognisable, with the reasoning written
+          down rather than carried in my head. I would treat that as part of the brief.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HONEST ============ -->
+  <section class="reveal honest">
+    <div class="wrap">
+      <p class="num"><b>08</b> <i></i> Offered up front</p>
+      <h2 class="jd">What I don't have
+        <cite>Offered up front</cite></h2>
+
+      <div class="card">
+        <h3>Two-sided marketplace</h3>
+        <p>
+          My e-commerce experience is one seller and many buyers. Omaze, Paycada and Fertifa are all
+          single-sided. I have not worked on supply and demand in the same product, where improving
+          one side can quietly damage the other, and where a feature for sellers is also a promise
+          made to buyers. I understand that in principle and I have not lived it.
+        </p>
+
+        <h3>Gamification measured, rather than shipped</h3>
+        <p>
+          I designed WeGlow's streaks and medal system end to end, but there are no published metrics
+          on how it performed. So I know how to build these patterns and I cannot yet tell you, from
+          my own work, which ones moved a number. I would want that corrected by your data quickly
+          rather than slowly.
+        </p>
+
+        <h3>Qualitative research</h3>
+        <p>
+          Most of mine has been behavioural and quantitative, alongside usability and prototype
+          testing. I have not personally led an end-to-end research programme with primary interviews
+          at its centre. It is the thing I am most actively closing, and with a Research function in
+          the team I would want to start by sitting with specialists rather than with a plan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FIRST MOVES ============ -->
+  <section class="reveal">
+    <div class="wrap">
+      <p class="num"><b>09</b> <i></i> Before designing anything</p>
+      <h2 class="jd">What I'd want in the first fortnight
+        <cite>Before designing anything</cite></h2>
+
+      <div class="card">
+        <ul class="plain">
+          <li>
+            The drop-off shape of the listing flow. Not that people leave, but exactly where, and
+            whether the field they stop on is the same one for everybody.
+          </li>
+          <li>
+            What the sellers who reach a first sale did differently in their first week from the ones
+            who didn't. If there is a behaviour that predicts it, that is the thing to design toward.
+          </li>
+          <li>
+            To watch five people list an item for the first time, without helping them.
+          </li>
+          <li>
+            Which decisions this team has already made and rejected, so I argue about something new
+            rather than re-running a conversation they finished last quarter.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="name">Irina Csapo</p>
+    <p class="meta">Product Designer &middot; Milton Keynes, UK &middot; Available now</p>
+    <p class="foot-links">
+      <a href="https://irinacsapo.co.uk" target="_blank" rel="noopener">Portfolio</a>
+      <a href="https://irina.love" target="_blank" rel="noopener">Built work</a>
+      <a href="mailto:irina.csapo@gmail.com?subject=Product%20Designer%2C%20New%20Seller%20Experience">irina.csapo@gmail.com</a>
+      <a href="tel:+447599840486">07599 840486</a>
+    </p>
+    <p class="note">Designed and built for this application.</p>
+  </div>
+</footer>
+
+<div class="jump">
+  <button type="button" class="jump-btn" id="jumpBottom" aria-label="Scroll to the bottom of the page">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4.5v15M5.5 13l6.5 6.5L18.5 13"/></svg>
+  </button>
+  <button type="button" class="jump-btn" id="jumpTop" aria-label="Back to the top of the page">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19.5v-15M5.5 11 12 4.5 18.5 11"/></svg>
+  </button>
+</div>
+
+<script>
+  /* Gentle reveal on scroll, skipped entirely for reduced motion. */
+  (function () {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+<script>
+  /* Jump to the top or the bottom. Each button switches itself off when there is
+     nothing left in that direction, so neither is ever a dead control. */
+  (function () {
+    var btnTop = document.getElementById('jumpTop');
+    var btnBottom = document.getElementById('jumpBottom');
+    if (!btnTop || !btnBottom) return;
+    function reduce() {
+      return !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    function go(y) {
+      try {
+        window.scrollTo({ top: y, behavior: reduce() ? 'auto' : 'smooth' });
+      } catch (e) {
+        window.scrollTo(0, y);
+      }
+    }
+    btnTop.addEventListener('click', function () { go(0); });
+    btnBottom.addEventListener('click', function () { go(document.documentElement.scrollHeight); });
+    function sync() {
+      var y = window.scrollY || document.documentElement.scrollTop || 0;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      btnTop.disabled = y < 40;
+      btnBottom.disabled = y > max - 40;
+    }
+    sync();
+    addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync, { passive: true });
+  })();
+</script>
+<script>
+  /* The date in the strip. Set once on load rather than ticking: a clock that
+     updates itself is auto-updating content, which then wants a pause control
+     (WCAG 2.2.2), and a snapshot is just as accurate for the length of a read.
+     No timezone is pinned, so it reads in the reader's own zone. The markup
+     already carries "October 2026", so this only ever makes it more precise. */
+  (function () {
+    var el = document.getElementById('topbar-meta');
+    if (!el) return;
+    try {
+      var now = new Date();
+      var narrow = window.innerWidth < 620;
+      var date = now.toLocaleDateString('en-GB', narrow
+        ? { day: 'numeric', month: 'long', year: 'numeric' }
+        : { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      var time = now.toLocaleTimeString('en-GB', {
+        hour: '2-digit', minute: '2-digit', hour12: false
+      });
+      el.textContent = date + ' · ' + time;
+    } catch (e) { /* the static date stays */ }
+  })();
+</script>
+</body>
+</html>
