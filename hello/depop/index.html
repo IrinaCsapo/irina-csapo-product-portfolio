@@ -43,6 +43,7 @@
     --pink-vivid: #E8308A;
     --violet: #7B5CFA;
     --magenta: #C34BC8;
+    --depop-red: #E20020;   /* the wordmark's own red, used only on the rule beneath it */
     --maxw: 1080px;
   }
 
@@ -133,12 +134,16 @@
   }
   @media print { .topbar { display: none; } }
 
-  /* ---------- hero ---------- */
-  header.hero { padding: 92px 0 62px; text-align: center; }
+  /* ---------- hero ----------
+     The Sotheby's page's masthead, in this page's register: the line of
+     address, "Hello", the wordmark, a short rule in the brand's own red, then
+     the plate row. The headline stays the h1 — on the Sotheby's page "Hello"
+     is the h1, which is why its link preview read only "Hello". */
+  header.hero { padding: 72px 0 62px; text-align: center; }
 
   .eyebrow {
     max-width: none;
-    margin: 0 0 20px;
+    margin: 0 0 44px;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: .18em;
@@ -146,8 +151,68 @@
     color: var(--ink-soft);
   }
 
+  .hello {
+    margin: 0 auto;
+    max-width: none;
+    font-size: clamp(2.4rem, 4.4vw, 64px);
+    line-height: 1.22;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* The supplied SVG declares 1376px and carries a 1920x890 transparent rect
+     around a glyph only 1376 x 354 of it. The viewBox is tightened to the
+     glyph, so this width is the wordmark's own width rather than its padding. */
+  .depop-mark {
+    display: block;
+    width: min(420px, 74vw);
+    height: auto;
+    margin: 16px auto 0;
+  }
+
+  .rule-short {
+    width: 160px;
+    height: 4px;
+    background: var(--depop-red);
+    border: 0;
+    margin: 35px auto 0;
+  }
+
+  /* ---------- plate row ----------
+     Four tiles, all the same height. The fr units carry the proportions and
+     the per-tile aspect ratios keep the four heights equal at any width. */
+  .plates {
+    display: grid;
+    grid-template-columns: 386fr 386fr 384fr 260fr;
+    gap: 23px;
+    margin: 56px 0 0;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
+  .plates li { margin: 0; }
+  .plates figure { margin: 0; }
+  .plates .shot { display: block; overflow: clip; border-radius: 10px; }
+  .plates img { display: block; width: 100%; height: auto; object-fit: cover; background: var(--line); }
+  .plates li:nth-child(1) img { aspect-ratio: 386 / 335; }
+  .plates li:nth-child(2) img { aspect-ratio: 386 / 335; }
+  .plates li:nth-child(3) img { aspect-ratio: 384 / 335; }
+  .plates li:nth-child(4) img { aspect-ratio: 260 / 335; }
+  .plates figcaption {
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  /* Two across on a phone, each at its own proportion. Forcing the fourth to
+     the landscape ratio would cut a third off a portrait photograph. */
+  @media (max-width: 760px) {
+    .plates { grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+    .plates img { aspect-ratio: auto; }
+  }
+
   h1 {
-    margin: 0 0 30px;
+    margin: 56px 0 30px;
     font-size: clamp(2.5rem, 6.2vw, 4.4rem);
     line-height: 1.06;
     font-weight: 700;
@@ -408,7 +473,39 @@
 
 <header class="hero">
   <div class="wrap">
-    <p class="eyebrow">For Depop &middot; Product Designer, New Seller Experience</p>
+    <p class="eyebrow">An application for the role of Product Designer, New Seller Experience</p>
+
+    <p class="hello">Hello</p>
+    <img class="depop-mark" src="depop-logo.svg" width="1376" height="354" alt="Depop"/>
+    <hr class="rule-short"/>
+
+    <ul class="plates">
+      <li>
+        <figure>
+          <span class="shot"><img src="art/hero-weglow.webp" width="772" height="671" loading="lazy" alt="The WeGlow app on three phones: a two week streak, the Journey tab with daily streak and awards, and progress photos"/></span>
+          <figcaption>WeGlow, streaks, medals and progress photos</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <span class="shot"><img src="art/hero-checkin.webp" width="772" height="671" loading="lazy" alt="A daily check-in app on three phones: activity and mood tracking, a twenty-one day streak, and the week's check-ins"/></span>
+          <figcaption>Daily check-ins and streaks, habit tracking</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <span class="shot"><img src="art/hero-omaze.webp" width="768" height="670" loading="lazy" alt="The Omaze Monthly Millionaire subscription card, offering the first month at ten pounds"/></span>
+          <figcaption>Subscription card for Omaze, Monthly Millionaire</figcaption>
+        </figure>
+      </li>
+      <li>
+        <figure>
+          <span class="shot"><img src="art/hero-irina.webp" width="520" height="670" loading="lazy" alt="Irina in a polka dot coat against a pink and blue painted wall"/></span>
+          <figcaption>Irina Csapo, Shoreditch, UK</figcaption>
+        </figure>
+      </li>
+    </ul>
+
     <h1>Help them <span class="g">list</span> it,<br/>then help them <span class="g2">sell</span> it.</h1>
     <div class="lede">
       <p>
