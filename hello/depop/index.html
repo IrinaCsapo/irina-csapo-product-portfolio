@@ -424,22 +424,6 @@
     .gal img { height: auto; }
   }
 
-  /* A slot waiting for a picture. Dashed rather than a grey block, and it says
-     what belongs there, so it reads as unfinished rather than as broken. */
-  .gal .slot {
-    display: grid;
-    place-items: center;
-    margin: 0;
-    padding: 20px;
-    border: 2px dashed var(--line);
-    background: transparent;
-    color: var(--ink-soft);
-    font-size: 13px;
-    line-height: 1.4;
-    text-align: center;
-  }
-  @media (max-width: 760px) { .gal .slot { aspect-ratio: 469 / 405; } }
-
   .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
 
   /* ---------- the honest section ---------- */
@@ -684,11 +668,6 @@
         </p>
       </div>
 
-      <div class="gal gal--469">
-        <p class="slot">Fertifa onboarding: the conditional eligibility flow</p>
-        <p class="slot">Fertifa: the dual email verification step</p>
-        <p class="slot">Fertifa: the dashboard after onboarding</p>
-      </div>
     </div>
   </section>
 
@@ -934,11 +913,6 @@
         </p>
       </div>
 
-      <div class="gal gal--469">
-        <p class="slot">Fertifa: what shipped between April and June 2026</p>
-        <p class="slot">A short engagement, written down</p>
-        <p class="slot">Handover notes for the person coming back</p>
-      </div>
     </div>
   </section>
 
