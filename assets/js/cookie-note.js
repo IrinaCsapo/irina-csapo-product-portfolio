@@ -1,7 +1,10 @@
-/* A friendly no-cookies note, bottom left. Dismissing it stores a single
-   "dismissed" flag in localStorage (no cookie, no identifier) so it doesn't
-   reappear on every page. Markup and styles live here so each page only
-   needs this one script tag. */
+/* A friendly no-cookies note, bottom left. The claim is literally true: the
+   site sets no cookies at all. Umami, the analytics, is cookieless by
+   design, and nothing else on the page sets one either.
+
+   Dismissing this note stores a single "dismissed" flag in localStorage (no
+   cookie, no identifier) so it doesn't reappear on every page. Markup and
+   styles live here so each page only needs this one script tag. */
 (function () {
   var KEY = 'cookie-note-dismissed';
   try { if (localStorage.getItem(KEY)) return; } catch (e) { /* storage blocked: still show */ }
@@ -32,9 +35,10 @@
   note.setAttribute('role', 'region');
   note.setAttribute('aria-label', 'Cookie notice');
   note.innerHTML =
-    '<p><strong>No cookies here.</strong> I actually don’t store any cookies, so I won’t be ' +
-    'following you around. That’s a promise.</p>' +
-    '<button type="button">Crumbs, thanks!</button>';
+    '<p><strong>No cookies here.</strong> I use privacy-friendly analytics to see which pages ' +
+    'get read, but nothing that identifies you, and I won’t be following you around. ' +
+    'That’s a promise.</p>' +
+    '<button type="button">Thanks for letting me know</button>';
   document.body.appendChild(note);
 
   requestAnimationFrame(function () {
