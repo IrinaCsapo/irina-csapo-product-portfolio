@@ -1,0 +1,220 @@
+/* Capabilities strip: a row of cards on the Product Design landing page
+   (index.html) that travels right to left under the hero.
+
+   Two rules shape everything here:
+
+   1. The animation only runs when JS is present (the `.js` class set in the
+      head). WCAG 2.2.2 asks for a way to stop any motion that runs longer
+      than five seconds, and the pause button needs JS, so without it the
+      strip is a plain scrollable row instead.
+   2. The twelve cards are written twice. The second set is aria-hidden, and
+      hidden outright when motion is reduced, so a screen reader and a still
+      page both see twelve. */
+
+.cap {
+  width: 100%;
+  padding: 72px 0 80px;
+  background-image: linear-gradient(180deg, #f7f6ff 0%, #fff 100%);
+  overflow: hidden;
+}
+
+.cap-intro {
+  max-width: 860px;
+  margin: 0 auto 38px;
+  padding: 0 24px;
+  text-align: center;
+  font-family: var(--font-family);
+}
+
+.cap-intro h2 {
+  margin: 0 0 10px;
+  font-family: var(--font-family);
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--midnight-blue);
+}
+
+.cap-intro p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.45;
+  font-weight: 400;
+  /* Explicit: Webflow's global `p` rule paints with var(--dark), which is
+     transparent in this stylesheet. */
+  color: var(--grey-1);
+}
+
+.cap-intro a {
+  color: var(--midnight-blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--deep-pink);
+}
+
+.cap-intro a:hover { color: var(--deep-pink); }
+.cap-intro a:focus-visible { outline: 2px solid var(--royal-blue-accs); outline-offset: 3px; }
+
+/* ---------- the moving row ---------- */
+
+.cap-view {
+  /* Scrollable in its own right, so the cards are reachable by drag, by
+     trackpad and by the arrow keys once focused, not only by waiting. */
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  /* The row runs the full width of the page and fades out at both ends
+     rather than being cut off square. */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent);
+}
+
+.cap-view::-webkit-scrollbar { display: none; }
+.cap-view:focus-visible { outline: 2px solid var(--royal-blue-accs); outline-offset: -2px; }
+
+.cap-track {
+  --cap-gap: 20px;
+  --cap-card: 302px;
+  display: flex;
+  gap: var(--cap-gap);
+  width: max-content;
+  margin: 0;
+  padding: 4px 24px;
+  list-style: none;
+}
+
+@keyframes cap-scroll {
+  from { transform: translateX(0); }
+  /* Exactly one set of twelve cards and their gaps. A percentage would be
+     measured against the track's border box, which includes its padding,
+     and the row would drift by that much on every lap. */
+  to   { transform: translateX(calc(-12 * (var(--cap-card) + var(--cap-gap)))); }
+}
+
+.js .cap-track {
+  animation: cap-scroll var(--cap-speed, 68s) linear infinite;
+}
+
+/* Stop for anyone reading, pointing at, or tabbing into the row. */
+.js .cap-view:hover .cap-track,
+.js .cap-view:focus-within .cap-track,
+.js .cap.is-paused .cap-track { animation-play-state: paused; }
+
+/* ---------- a card ---------- */
+
+.cap-card {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  width: var(--cap-card);
+  padding: 24px 24px 26px;
+  border: 1px solid var(--grey-5);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 6, 69, .04), 0 8px 20px rgba(0, 6, 69, .05);
+  font-family: var(--font-family);
+}
+
+.cap-card svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 20px;
+  fill: none;
+  stroke: var(--royal-blue-accs);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cap-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-family);
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--midnight-blue);
+}
+
+.cap-card p {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--grey-1);
+}
+
+/* ---------- pause ---------- */
+
+.cap-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  padding: 0 24px;
+}
+
+.cap-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  /* 44px tall, so it is a comfortable target on a phone. */
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--grey-4);
+  border-radius: 999px;
+  background: #fff;
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--grey-1);
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.cap-toggle:hover { border-color: var(--royal-blue-accs); color: var(--midnight-blue); }
+.cap-toggle:focus-visible { outline: 2px solid var(--royal-blue-accs); outline-offset: 3px; }
+.cap-toggle[hidden] { display: none; }
+
+.cap-toggle svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+  stroke: none;
+}
+
+.cap-toggle .cap-icon-play { display: none; }
+.cap.is-paused .cap-toggle .cap-icon-play { display: block; }
+.cap.is-paused .cap-toggle .cap-icon-pause { display: none; }
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .js .cap-track { animation: none; }
+  /* Nothing moves, so the copy should not be doubled and there is nothing
+     left for the button to stop. */
+  .cap-card[aria-hidden="true"] { display: none; }
+  .cap-controls { display: none; }
+  .cap-view { scrollbar-width: thin; }
+  .cap-view::-webkit-scrollbar { display: block; height: 8px; }
+}
+
+/* Same for a page with no JS: a still row, no dead button. */
+html:not(.js) .cap-card[aria-hidden="true"] { display: none; }
+html:not(.js) .cap-controls { display: none; }
+
+@media screen and (max-width: 767px) {
+  .cap { padding: 52px 0 58px; }
+  .cap-intro { margin-bottom: 28px; }
+  .cap-intro h2 { font-size: 28px; }
+  .cap-intro p { font-size: 17px; }
+  .cap-track { --cap-gap: 14px; --cap-card: 258px; padding: 4px 18px; }
+  .cap-card { padding: 20px 20px 22px; border-radius: 14px; }
+  .cap-card svg { margin-bottom: 16px; }
+  .cap-card h3 { font-size: 17px; }
+  .cap-card p { font-size: 14.5px; }
+  .cap-view {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+  }
+}
