@@ -1,50 +1,63 @@
-/* Capabilities strip: a row of cards that travels right to left, sitting
-   inside the hero of the Product Design landing page (index.html) under the
-   testimonial. This file is only linked from that page, so the one rule
-   below that touches a shared Webflow class affects nothing else.
+/* Capabilities strip: a row of cards that travels right to left, sitting in
+   the hero under the page's intro. Used on the Product Design landing page
+   (index.html, twelve cards) and on AI Projects (eight). This file is only
+   linked from those two, so the rules below that touch shared Webflow
+   classes reach nothing else.
 
-   The twelve cards are written twice. The second set is aria-hidden, so a
-   screen reader is read twelve, and it is hidden outright when motion is
-   reduced, which leaves a still row of twelve. */
+   The cards are written twice. The second set is aria-hidden, so a screen
+   reader is read one set, and it is hidden outright when motion is reduced,
+   which leaves a still row of one set. */
 
-/* The hero is a fixed 120vh with overflow hidden. The strip is new content
-   inside it, so on a short window the row would have been cut off at the
-   bottom edge rather than pushing the hero taller. */
+/* ---------- making room in the hero ---------- */
+
+/* Both heroes were a fixed height with overflow hidden. The strip is new
+   content inside them, so on a short window the row would have been cut off
+   at the bottom edge rather than pushing the hero taller. Below 768 the AI
+   hero is already height:auto, so only the fixed case is restated. */
 .section---hero---product {
   height: auto;
   min-height: 120vh;
 }
 
-/* Below 1440 this carries a 220px bottom margin, which existed to push the
-   "Case Studies" label and the scroll button down to the foot of the hero.
-   Both are gone, and an adjoining sibling margin collapses to the larger of
-   the two, so it would have swallowed the strip's own spacing and opened a
-   220px hole under the testimonial. */
+@media screen and (min-width: 768px) {
+  .section---hero---webflow {
+    height: auto;
+    min-height: 120vh;
+  }
+}
+
+/* Below 1440 this carries a bottom margin of 220px, growing to 300px on a
+   phone, which existed to push the small label and the scroll button down to
+   the foot of the hero. Both are gone from both pages, and an adjoining
+   sibling margin collapses to the larger of the two, so it would have
+   swallowed the strip's own spacing and opened a hole under the intro. */
 .hero-container { margin-bottom: 0; }
 
-/* Above the hero text there was 130px of clear air under the fixed 70px
-   nav. Tightening it lifts the whole hero, and the strip with it. The
-   stylesheet steps this value down at each breakpoint and the phone sizes
-   are already tight against the nav, so those are mirrored here unchanged
-   rather than flattened by an unqualified rule. */
+/* Above the hero text there was 130px of clear air under the fixed 70px nav.
+   Tightening it lifts the whole hero, and the strip with it. The stylesheet
+   steps this value down at each breakpoint and the phone sizes are already
+   tight against the nav, so those are mirrored here unchanged rather than
+   flattened by an unqualified rule. */
 .hero-container { margin-top: 120px; }
 @media screen and (max-width: 991px) { .hero-container { margin-top: 110px; } }
 @media screen and (max-width: 767px) { .hero-container { margin-top: 70px; } }
 @media screen and (max-width: 479px) { .hero-container { margin-top: 100px; } }
 
+/* ---------- the strip ---------- */
+
 .cap {
-  /* A block child of the hero, after the column that holds the testimonial.
-     Not inside that column: it centres its flex children and takes margins
-     into account doing so, which halved this breakout. Here the containing
-     block is the hero's content box, so the margin lands the row at the
-     window's edge. */
+  /* A block child of the hero, after the column that holds the intro. Not
+     inside that column: it centres its flex children and takes margins into
+     account doing so, which halved this breakout. Here the containing block
+     is the hero's content box, so the margin lands the row at the window's
+     edge. */
   width: 100vw;
   margin-left: calc(50% - 50vw);
   margin-top: 28px;
-  /* The hero is content-driven now, so without this the row would end
-     flush against its bottom edge. */
+  /* The hero is content-driven now, so without this the row would end flush
+     against its bottom edge. */
   margin-bottom: 56px;
-  /* Above the hero's decorative circles and rays, which are positioned and
+  /* Above the heroes' decorative circles and rays, which are positioned and
      would otherwise paint over a static sibling. */
   position: relative;
   z-index: 2;
@@ -77,8 +90,6 @@
 .cap-intro a:hover { color: var(--deep-pink); }
 .cap-intro a:focus-visible { outline: 2px solid var(--royal-blue-accs); outline-offset: 3px; }
 
-/* ---------- the moving row ---------- */
-
 .cap-view {
   /* Scrollable in its own right, so the cards are reachable by drag, by
      trackpad and by the arrow keys once focused, not only by waiting. */
@@ -96,6 +107,8 @@
 .cap-track {
   --cap-gap: 20px;
   --cap-card: 302px;
+  /* How many cards in one set, which is the distance the loop travels. */
+  --cap-count: 12;
   display: flex;
   gap: var(--cap-gap);
   width: max-content;
@@ -107,15 +120,22 @@
 
 @keyframes cap-scroll {
   from { transform: translateX(0); }
-  /* Exactly one set of twelve cards and their gaps. A percentage would be
-     measured against the track's border box, which includes its padding,
-     and the row would drift by that much on every lap. */
-  to   { transform: translateX(calc(-12 * (var(--cap-card) + var(--cap-gap)))); }
+  /* Exactly one set of cards and their gaps. A percentage would be measured
+     against the track's border box, which includes its padding, and the row
+     would drift by that much on every lap. */
+  to   { transform: translateX(calc(-1 * var(--cap-count) * (var(--cap-card) + var(--cap-gap)))); }
 }
 
 /* Stop for anyone reading, pointing at, or tabbing into the row. */
 .cap-view:hover .cap-track,
 .cap-view:focus-within .cap-track { animation-play-state: paused; }
+
+/* AI Projects runs eight cards rather than twelve, with the duration cut to
+   match so both pages travel at about the same speed. */
+.cap--ai .cap-track {
+  --cap-count: 8;
+  --cap-speed: 45s;
+}
 
 /* ---------- a card ---------- */
 
