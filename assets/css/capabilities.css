@@ -22,6 +22,16 @@
    220px hole under the testimonial. */
 .hero-container { margin-bottom: 0; }
 
+/* Above the hero text there was 130px of clear air under the fixed 70px
+   nav. Tightening it lifts the whole hero, and the strip with it. The
+   stylesheet steps this value down at each breakpoint and the phone sizes
+   are already tight against the nav, so those are mirrored here unchanged
+   rather than flattened by an unqualified rule. */
+.hero-container { margin-top: 120px; }
+@media screen and (max-width: 991px) { .hero-container { margin-top: 110px; } }
+@media screen and (max-width: 767px) { .hero-container { margin-top: 70px; } }
+@media screen and (max-width: 479px) { .hero-container { margin-top: 100px; } }
+
 .cap {
   /* A block child of the hero, after the column that holds the testimonial.
      Not inside that column: it centres its flex children and takes margins
