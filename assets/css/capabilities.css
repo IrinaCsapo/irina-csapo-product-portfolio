@@ -19,11 +19,35 @@
   min-height: 120vh;
 }
 
+/* No minimum on the AI hero: with the label and the scroll button gone and
+   the strip in their place, 120vh left nearly 300px of empty gradient under
+   the cards. The band below the row is now the strip's own bottom margin. */
 @media screen and (min-width: 768px) {
-  .section---hero---webflow {
-    height: auto;
-    min-height: 120vh;
-  }
+  .section---hero---webflow { height: auto; }
+}
+
+/* The band under the AI row. One value drives both the strip's bottom margin
+   and how much of the blue circle shows, so they cannot drift apart. */
+.section---hero---webflow { --cap-band: 160px; }
+
+/* The blue circle is a decoration at z-index 2, and it sits after the strip
+   in the source, so it was painting across the leftmost card. It moves to
+   the foot of the hero, below the row. It is 400px across, and this offset
+   leaves exactly the band showing above the hero's clipped bottom edge. */
+.section---hero---webflow .blue-circle {
+  /* Anchored by its top edge, not its bottom: the circle is 400px wide on a
+     desktop and 150px on a phone, so arithmetic on its height would have put
+     it off the bottom of the hero at one size or the other. This lands its
+     top on the row's bottom edge whatever size it is, and the hero clips
+     the rest. */
+  top: calc(100% - var(--cap-band));
+  bottom: auto;
+}
+
+@media screen and (min-width: 768px) {
+  /* Further in than the original -255px, so more of the arc shows now that
+     it is the only thing in the band. */
+  .section---hero---webflow .blue-circle { left: -90px; }
 }
 
 /* Below 1440 this carries a bottom margin of 220px, growing to 300px on a
@@ -57,10 +81,11 @@
   /* The hero is content-driven now, so without this the row would end flush
      against its bottom edge. */
   margin-bottom: 56px;
-  /* Above the heroes' decorative circles and rays, which are positioned and
-     would otherwise paint over a static sibling. */
+  /* Above the heroes' decorative circles, which are positioned at z-index 2
+     and come after this in the source, so they would otherwise paint over
+     the cards. */
   position: relative;
-  z-index: 2;
+  z-index: 3;
   /* The hero clips, so 100vw can never add a horizontal scrollbar here. */
   overflow: hidden;
 }
@@ -137,6 +162,10 @@
   --cap-speed: 45s;
 }
 
+/* Room at the foot of the AI hero for the blue circle to sit in. Two classes
+   so this holds against the phone block's .cap margin further down. */
+.cap.cap--ai { margin-bottom: var(--cap-band); }
+
 /* ---------- a card ---------- */
 
 .cap-card {
@@ -192,6 +221,8 @@
 
 @media screen and (max-width: 767px) {
   .cap { margin-top: 22px; margin-bottom: 40px; }
+  /* Shorter cards, so a shorter band and less of the circle. */
+  .section---hero---webflow { --cap-band: 110px; }
   .cap-intro { font-size: 15.5px; margin-bottom: 14px; padding: 0 18px; }
   .cap-track { --cap-gap: 14px; --cap-card: 258px; padding: 4px 18px; }
   .cap-card { padding: 20px 20px 22px; border-radius: 14px; }
