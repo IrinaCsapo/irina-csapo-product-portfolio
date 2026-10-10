@@ -1,43 +1,53 @@
-/* Capabilities strip: a row of cards on the Product Design landing page
-   (index.html) that travels right to left under the hero.
+/* Capabilities strip: a row of cards that travels right to left, sitting
+   inside the hero of the Product Design landing page (index.html) under the
+   testimonial. This file is only linked from that page, so the one rule
+   below that touches a shared Webflow class affects nothing else.
 
-   Two rules shape everything here:
+   The twelve cards are written twice. The second set is aria-hidden, so a
+   screen reader is read twelve, and it is hidden outright when motion is
+   reduced, which leaves a still row of twelve. */
 
-   1. The animation only runs when JS is present (the `.js` class set in the
-      head). WCAG 2.2.2 asks for a way to stop any motion that runs longer
-      than five seconds, and the pause button needs JS, so without it the
-      strip is a plain scrollable row instead.
-   2. The twelve cards are written twice. The second set is aria-hidden, and
-      hidden outright when motion is reduced, so a screen reader and a still
-      page both see twelve. */
+/* The hero is a fixed 120vh with overflow hidden. The strip is new content
+   inside it, so on a short window the row would have been cut off at the
+   bottom edge rather than pushing the hero taller. */
+.section---hero---product {
+  height: auto;
+  min-height: 120vh;
+}
+
+/* Below 1440 this carries a 220px bottom margin, which existed to push the
+   "Case Studies" label and the scroll button down to the foot of the hero.
+   Both are gone, and an adjoining sibling margin collapses to the larger of
+   the two, so it would have swallowed the strip's own spacing and opened a
+   220px hole under the testimonial. */
+.hero-container { margin-bottom: 0; }
 
 .cap {
-  width: 100%;
-  padding: 72px 0 80px;
-  background-image: linear-gradient(180deg, #f7f6ff 0%, #fff 100%);
+  /* A block child of the hero, after the column that holds the testimonial.
+     Not inside that column: it centres its flex children and takes margins
+     into account doing so, which halved this breakout. Here the containing
+     block is the hero's content box, so the margin lands the row at the
+     window's edge. */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: 28px;
+  /* The hero is content-driven now, so without this the row would end
+     flush against its bottom edge. */
+  margin-bottom: 56px;
+  /* Above the hero's decorative circles and rays, which are positioned and
+     would otherwise paint over a static sibling. */
+  position: relative;
+  z-index: 2;
+  /* The hero clips, so 100vw can never add a horizontal scrollbar here. */
   overflow: hidden;
 }
 
 .cap-intro {
-  max-width: 860px;
-  margin: 0 auto 38px;
+  margin: 0 0 18px;
   padding: 0 24px;
   text-align: center;
   font-family: var(--font-family);
-}
-
-.cap-intro h2 {
-  margin: 0 0 10px;
-  font-family: var(--font-family);
-  font-size: 40px;
-  line-height: 1.15;
-  font-weight: 700;
-  color: var(--midnight-blue);
-}
-
-.cap-intro p {
-  margin: 0;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1.45;
   font-weight: 400;
   /* Explicit: Webflow's global `p` rule paints with var(--dark), which is
@@ -65,8 +75,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  /* The row runs the full width of the page and fades out at both ends
-     rather than being cut off square. */
+  /* The row fades out at both ends rather than being cut off square. */
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent);
           mask-image: linear-gradient(90deg, transparent, #000 72px, #000 calc(100% - 72px), transparent);
 }
@@ -83,6 +92,7 @@
   margin: 0;
   padding: 4px 24px;
   list-style: none;
+  animation: cap-scroll var(--cap-speed, 68s) linear infinite;
 }
 
 @keyframes cap-scroll {
@@ -93,14 +103,9 @@
   to   { transform: translateX(calc(-12 * (var(--cap-card) + var(--cap-gap)))); }
 }
 
-.js .cap-track {
-  animation: cap-scroll var(--cap-speed, 68s) linear infinite;
-}
-
 /* Stop for anyone reading, pointing at, or tabbing into the row. */
-.js .cap-view:hover .cap-track,
-.js .cap-view:focus-within .cap-track,
-.js .cap.is-paused .cap-track { animation-play-state: paused; }
+.cap-view:hover .cap-track,
+.cap-view:focus-within .cap-track { animation-play-state: paused; }
 
 /* ---------- a card ---------- */
 
@@ -145,69 +150,19 @@
   color: var(--grey-1);
 }
 
-/* ---------- pause ---------- */
-
-.cap-controls {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  padding: 0 24px;
-}
-
-.cap-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  /* 44px tall, so it is a comfortable target on a phone. */
-  min-height: 44px;
-  padding: 0 20px;
-  border: 1px solid var(--grey-4);
-  border-radius: 999px;
-  background: #fff;
-  font-family: var(--font-family);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--grey-1);
-  cursor: pointer;
-  transition: border-color .2s ease, color .2s ease;
-}
-
-.cap-toggle:hover { border-color: var(--royal-blue-accs); color: var(--midnight-blue); }
-.cap-toggle:focus-visible { outline: 2px solid var(--royal-blue-accs); outline-offset: 3px; }
-.cap-toggle[hidden] { display: none; }
-
-.cap-toggle svg {
-  width: 15px;
-  height: 15px;
-  fill: currentColor;
-  stroke: none;
-}
-
-.cap-toggle .cap-icon-play { display: none; }
-.cap.is-paused .cap-toggle .cap-icon-play { display: block; }
-.cap.is-paused .cap-toggle .cap-icon-pause { display: none; }
-
 /* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .js .cap-track { animation: none; }
-  /* Nothing moves, so the copy should not be doubled and there is nothing
-     left for the button to stop. */
+  .cap-track { animation: none; }
+  /* Nothing moves, so the copy should not be doubled. */
   .cap-card[aria-hidden="true"] { display: none; }
-  .cap-controls { display: none; }
   .cap-view { scrollbar-width: thin; }
   .cap-view::-webkit-scrollbar { display: block; height: 8px; }
 }
 
-/* Same for a page with no JS: a still row, no dead button. */
-html:not(.js) .cap-card[aria-hidden="true"] { display: none; }
-html:not(.js) .cap-controls { display: none; }
-
 @media screen and (max-width: 767px) {
-  .cap { padding: 52px 0 58px; }
-  .cap-intro { margin-bottom: 28px; }
-  .cap-intro h2 { font-size: 28px; }
-  .cap-intro p { font-size: 17px; }
+  .cap { margin-top: 22px; margin-bottom: 40px; }
+  .cap-intro { font-size: 15.5px; margin-bottom: 14px; padding: 0 18px; }
   .cap-track { --cap-gap: 14px; --cap-card: 258px; padding: 4px 18px; }
   .cap-card { padding: 20px 20px 22px; border-radius: 14px; }
   .cap-card svg { margin-bottom: 16px; }
