@@ -26,6 +26,24 @@
   .section---hero---webflow { height: auto; }
 }
 
+/* The AI hero's colour is a gradient layer pinned to inset:0, so the hero's
+   overflow:hidden cut it off square along the bottom. The homepage has no
+   such layer at all: its colour is three blurred circles that run out before
+   the edge, which is why that hero dissolves into the page. This does the
+   same job here, fading the last stretch into the body's own white.
+
+   z-index 2 sits above the decorative circles, which are also at 2 but are
+   painted earlier, and below the card row at 3, so the cards stay crisp. */
+.section---hero---webflow::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: calc(var(--cap-band) + 60px);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff);
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* The band under the AI row. One value drives both the strip's bottom margin
    and how much of the blue circle shows, so they cannot drift apart. */
 .section---hero---webflow { --cap-band: 160px; }
