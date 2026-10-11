@@ -67,6 +67,21 @@
 @media screen and (max-width: 767px) { .hero-container { margin-top: 70px; } }
 @media screen and (max-width: 479px) { .hero-container { margin-top: 100px; } }
 
+/* The AI hero's headline, matched to the Product Design one. The stylesheet
+   sets it smaller at all three steps (65/50/43 against 70/50/40), which read
+   as two different pages. These are the homepage's exact values.
+
+   .heading-hero-webflow-v2 is also used by ai-applications and
+   webflow-projects, but this file is only linked from the home and AI
+   Projects pages, so neither of those moves. */
+.heading-hero-webflow-v2 { font-size: 70px; line-height: 80px; }
+@media screen and (max-width: 767px) {
+  .heading-hero-webflow-v2 { font-size: 50px; line-height: 55px; }
+}
+@media screen and (max-width: 479px) {
+  .heading-hero-webflow-v2 { font-size: 40px; line-height: 43px; }
+}
+
 /* ---------- the strip ---------- */
 
 .cap {
