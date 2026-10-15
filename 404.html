@@ -10,7 +10,7 @@
   
   
 
-<script defer src="https://irina-umami.vercel.app/script.js" data-website-id="30698fde-08a5-4b2d-aa88-848e842806e2"></script>
+<script defer src="https://irina-umami.vercel.app/script.js" data-website-id="30698fde-08a5-4b2d-aa88-848e842806e2" data-auto-track="false"></script>
 
 <script defer src="https://irina-umami.vercel.app/recorder.js" data-website-id="30698fde-08a5-4b2d-aa88-848e842806e2"></script></head><body><div data-collapse="medium" data-animation="default" data-duration="400" data-w-id="81f28988-8008-598e-47ed-44332c90c6ff" data-easing="ease" data-easing2="ease" role="banner" class="navigation-2024 w-nav"><div class="navigation-container"><div class="navigation-menu"><a href="/" class="irina-csapo-logo w-nav-brand"><img src="/assets/images/66145a68325fc9bb34a7e36c_IC_logo_3-blue.svg" loading="lazy" alt="" class="logo-image"/></a><nav role="navigation" class="nav-menu-3 w-nav-menu"><!-- Product Design dropdown is parked: the menu below is intact but hidden.
      To bring it back, remove "nav-dropdown-off" from this div and re-add
@@ -19,4 +19,24 @@
 <script>
 // default time is 90 days
 flowBaseCookie('#cookieBlock', '#accept', '#clr', 30);
-</script><script defer src="/assets/js/cookie-note.js"></script></body></html>
+</script><script defer src="/assets/js/cookie-note.js"></script><script>
+/* Dead links are reported as a single /404 page rather than as the URL that
+   was tried, so retired project paths stay out of the Pages report. Without
+   data-auto-track="false" above, Umami logs window.location.pathname, and a
+   visit to a retired page would appear in Pages as that page, exactly as it
+   did before the pages were retired.
+
+   The attempted path still comes through: in the query string, and as a
+   dead-link event, which is where it is easiest to read with its own
+   property. Deferred scripts run before DOMContentLoaded, so umami is
+   defined by the time this fires. */
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.umami) return;
+  var tried = location.pathname + location.search;
+  umami.track(function (props) {
+    return Object.assign({}, props, { url: '/404?tried=' + encodeURIComponent(tried) });
+  });
+  umami.track('dead-link', { path: tried });
+});
+</script>
+</body></html>
