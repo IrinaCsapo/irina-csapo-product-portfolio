@@ -95,12 +95,32 @@
   color: var(--ink);
 }
 
+/* The hero piece is the walkthrough video. One minute forty-three of motion,
+   so it never plays on its own: no autoplay, no loop, and controls so the
+   reader starts it, because WCAG 2.2.2 wants a way to stop anything moving
+   for longer than five seconds. preload="none" in the markup keeps the 19MB
+   off the wire until someone presses play.
+
+   The aspect ratio reserves the box before the poster arrives, so the page
+   below it does not jump. */
+.cs-figure { margin: 0; }
+
 .cs-shot {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 20px;
   background: var(--ground);
+}
+
+.cs-figure figcaption {
+  max-width: var(--measure);
+  margin: 18px auto 0;
+  font-size: 15.5px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--body);
 }
 
 /* ---------- sections ---------- */
@@ -262,38 +282,6 @@
   line-height: 1.55;
 }
 
-/* ---------- the walkthrough ---------- */
-
-/* One minute forty-three of motion, so it never plays on its own: no
-   autoplay, no loop, and controls so the reader starts it. preload="none"
-   in the markup keeps the 19MB off the wire until someone asks for it. */
-.cs-video {
-  padding: 72px 0;
-  border-top: 1px solid var(--rule);
-  background-image: linear-gradient(180deg, #fff 0%, var(--ground) 100%);
-}
-
-.cs-video figure { margin: 0; }
-
-.cs-video video {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* Reserve the box before the poster loads, so nothing jumps. */
-  aspect-ratio: 16 / 9;
-  border-radius: 20px;
-  background: var(--ground);
-}
-
-.cs-video figcaption {
-  max-width: var(--measure);
-  margin: 18px auto 0;
-  font-size: 15.5px;
-  line-height: 1.5;
-  text-align: center;
-  color: var(--body);
-}
-
 /* ---------- visit the app ---------- */
 
 .cs-cta {
@@ -362,6 +350,5 @@
   .cs-body p { font-size: 17px; }
   .cs-quote { margin: 26px 0; padding-left: 18px; }
   .cs-grid { gap: 16px; }
-  .cs-video { padding: 52px 0; }
   .cs-cta { padding: 52px 0 60px; }
 }
