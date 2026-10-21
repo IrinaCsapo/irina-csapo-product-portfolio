@@ -171,13 +171,18 @@
   .pc-more { padding: 11px 24px; font-size: 15px; border-width: 1px; }
 }
 
-/* Card media: 16:9 for the AI cards, so the hero videos are shown uncropped
-   and every row keeps the same height. The box is reserved before the video
-   or poster loads, so nothing jumps. */
+/* Card media: a touch taller than 16:9, so the two cards whose artwork is 3:2
+   lose 10.6% of their height to the crop rather than 15.7%. The four that are
+   16:9 give up 2.8% from each side in exchange. Every row keeps the same
+   height, and the box is reserved before the image loads so nothing jumps. */
 .pc-media {
   display: block;
   width: 100%;
-  aspect-ratio: 1174 / 660;
+  /* Needed because these images carry width and height attributes, which map
+     to presentational hints. With both dimensions definite the aspect-ratio
+     above is ignored, and the box took the literal height instead. */
+  height: auto;
+  aspect-ratio: 1174 / 700;
   object-fit: cover;
   border-radius: 20px;
   background-color: #eceaf5;
