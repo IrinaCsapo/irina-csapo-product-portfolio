@@ -243,6 +243,51 @@ img{display:block;max-width:100%;height:auto}
   margin-top:10px;font-size:13px;line-height:1.5;color:var(--muted);
 }
 .details figure{margin:0}
+
+/* ---------- behind the scenes ----------
+   Built like Selected Details above: a six column grid with natural image
+   heights, so nothing is cropped and the shapes stay as they were shot. The
+   video is the one portrait tile that leads, and the only landscape frame
+   spans four columns beside it.
+
+   The clip runs 22 seconds and has sound, so it never plays on its own: no
+   autoplay, no loop, controls, and preload="none" keeps its 13MB off the
+   wire until someone asks for it. */
+.bts{max-width:var(--col);margin:clamp(70px,7vw,120px) auto 0}
+.bts h2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(1.8rem,3.2vw,46px);line-height:1.2;letter-spacing:.02em;
+  margin:0 0 14px;
+}
+.bts-lede{
+  max-width:56ch;margin:0 0 clamp(26px,3vw,46px);
+  font-size:17px;line-height:1.6;color:var(--muted);
+}
+.bts-lede a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--pink)}
+.bts-lede a:hover{color:var(--pink-ink)}
+.bts ul{
+  list-style:none;padding:0;margin:0;
+  display:grid;gap:clamp(18px,2.4vw,34px);
+}
+.bts li{margin:0;position:relative}
+.bts img,.bts video{display:block;width:100%;height:auto;background:#f2f2f6;border-radius:2px}
+.bts figure{margin:0}
+.bts figcaption{margin-top:10px;font-size:13px;line-height:1.5;color:var(--muted)}
+
+@media (min-width:820px){
+  .bts ul{grid-template-columns:repeat(6,1fr);align-items:start}
+  .bts li:nth-child(1){grid-column:1 / span 2}
+  .bts li:nth-child(2){grid-column:3 / span 4}
+  .bts li:nth-child(3){grid-column:1 / span 2;top:clamp(20px,2.5vw,44px)}
+  .bts li:nth-child(4){grid-column:3 / span 2}
+  .bts li:nth-child(5){grid-column:5 / span 2;top:clamp(20px,2.5vw,44px)}
+  .bts li:nth-child(6){grid-column:3 / span 2}
+}
+
+@media (max-width:819px){
+  .bts ul{grid-template-columns:repeat(2,1fr)}
+  .bts li:nth-child(2){grid-column:1 / span 2}
+}
 @media (min-width:820px){
   .details ul{grid-template-columns:repeat(6,1fr);align-items:start}
   .details li:nth-child(1){grid-column:1 / span 3}
