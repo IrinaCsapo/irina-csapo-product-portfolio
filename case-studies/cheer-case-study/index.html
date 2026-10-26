@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%;height:auto}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Cheer | Case Study by Irina Csapo</title>
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:calc(142px + env(safe-area-inset-top,0px))}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%;height:auto}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Cheer | Case Study by Irina Csapo</title>
 <meta name="description" content="Cheer is a support network, not a social network: a private squad who cheer on small efforts. The research, the three decisions that shaped it, what real friends broke, and where it goes next.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Irina Csapo">
@@ -19,6 +19,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../../assets/css/site-nav.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap">
 <style>
 /* Layout: one reading column (~68ch) for story text, wider bands for product media; phones float as cut-out objects on soft brand paper. */
@@ -40,7 +41,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.6;
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.6;padding-top:70px;
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--paper)}
 a{color:inherit}
@@ -59,10 +60,10 @@ section{padding-block:clamp(56px,9vw,104px);border-top:1px solid var(--line)}
 .lead{font-size:1.2rem;color:var(--muted);max-width:62ch}
 
 /* nav */
-.nav{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);
+.nav{position:sticky;top:calc(70px + env(safe-area-inset-top, 0px));z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);
   margin-inline:calc(-1 * max(16px, env(safe-area-inset-left, 0px)));padding:12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px));border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;gap:20px}
-.brand{text-decoration:none;display:flex;align-items:center}.brand img{height:26px;width:auto;display:block}
+.brand{font-family:var(--f-display);font-size:1.6rem;line-height:1;letter-spacing:-.02em;text-decoration:none;color:var(--ink);white-space:nowrap}.brand span{color:var(--orange)}
 .brand i{width:22px;height:22px;border-radius:50%;background:var(--orange);display:inline-block;box-shadow:inset -3px -3px 0 rgba(0,0,0,.08)}
 .nav ul{display:flex;gap:18px;list-style:none;margin:0 0 0 auto;padding:0;font-size:.92rem}
 .nav ul a{text-decoration:none;color:var(--muted)}
@@ -87,9 +88,9 @@ section{padding-block:clamp(56px,9vw,104px);border-top:1px solid var(--line)}
 .hero-phones .phone{position:absolute;width:min(54%,280px)}
 .hero-phones .p1{left:2%;top:40px;transform:rotate(-5deg)}
 .hero-phones .p2{right:2%;top:0;transform:rotate(4deg)}
-.sticker{position:absolute;background:var(--card);border-radius:999px;padding:8px 16px;font-size:.85rem;font-weight:700;box-shadow:var(--shadow);white-space:nowrap}
-.s1{left:38%;bottom:24px;background:var(--mint);color:var(--ink)}
-.s2{right:0;top:58%;background:var(--pink)}
+
+
+
 @media (max-width:860px){.hero{grid-template-columns:1fr}.hero-phones{min-height:470px;max-width:520px;width:100%;margin:0 auto}}
 
 /* problem */
@@ -191,9 +192,27 @@ footer{border-top:1px solid var(--line);padding-block:32px 48px;font-size:.9rem;
 footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
 </style>
 
+<div role="banner" class="navigation-2024">
+  <div class="navigation-container">
+    <div class="navigation-menu">
+      <a href="../../" class="irina-csapo-logo" aria-label="Irina Csapo, home"><img src="../../assets/images/66145a68325fc9bb34a7e36c_IC_logo_3-blue.svg" width="292" height="52" alt="" class="logo-image"></a>
+      <nav id="site-nav-menu" class="nav-menu-3" aria-label="Main">
+        <a href="../../" class="text-block-23">Product Design</a>
+        <a href="../../ai-projects/" class="navigation-link-primary">AI Projects</a>
+        <a href="../../about/" class="navigation-link-primary">About</a>
+        <a href="../../assets/docs/6a8f880410adf144d77e3d93_v4---Senior-Product-Designer---Irina-Csapo---CV---August-2026.pdf" target="_blank" rel="noopener" class="navigation-link-primary">CV</a>
+        <a href="../../contact/" class="navigation-link-primary">Contact</a>
+      </nav>
+    </div>
+    <button type="button" class="menu-button-4" aria-expanded="false" aria-controls="site-nav-menu" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</div>
+
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="Cheer, back to top"><img src="assets/cheer-logo.svg" width="1530" height="421" alt="Cheer"></a>
+    <a class="brand" href="#top">Cheer<span aria-hidden="true">.</span></a>
     <ul>
       <li><a href="#problem">Problem</a></li>
       <li><a href="#product">Product</a></li>
@@ -226,8 +245,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
     <div class="hero-phones" aria-label="Cheer app screens">
       <img class="phone p1" src="assets/sendacard.webp" alt="Sending a card in Cheer: choosing a mood, writing a short message, and the card that gets sent" width="560" height="1155">
       <img class="phone p2" src="assets/home.webp" alt="Home screen listing your journeys, each moment showing the cheers and notes it collected" width="560" height="1157">
-      <span class="sticker s1">Win · Ran 3k</span>
-      <span class="sticker s2">Mum sent you a card</span>
     </div>
   </div>
 
@@ -516,4 +533,5 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
 })();
 </script>
 
+<script defer src="../../assets/js/site-nav.js"></script>
 </body></html>
