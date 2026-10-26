@@ -225,7 +225,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
     </div>
     <div class="hero-phones" aria-label="Cheer app screens">
       <img class="phone p1" src="assets/sendacard.webp" alt="Sending a card in Cheer: choosing a mood, writing a short message, and the card that gets sent" width="560" height="1155">
-      <img class="phone p2" src="assets/home.webp" alt="Home screen showing your squad and logged moments" width="560" height="1194">
+      <img class="phone p2" src="assets/home.webp" alt="Home screen listing your journeys, each moment showing the cheers and notes it collected" width="560" height="1157">
       <span class="sticker s1">Win · Ran 3k</span>
       <span class="sticker s2">Mum sent you a card</span>
     </div>
@@ -327,7 +327,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
         <button class="tab" role="tab" id="tab-help" aria-selected="false" aria-controls="tour" data-k="help">Support</button>
       </div>
       <div class="tour" id="tour" role="tabpanel" aria-labelledby="tab-log">
-        <div class="shots"><img class="phone" id="shotA" src="assets/log.webp" alt="" width="560" height="1194"><img class="phone" id="shotB" src="assets/home.webp" alt="" width="560" height="1194"></div>
+        <div class="shots"><img class="phone" id="shotA" src="assets/log.webp" alt="" width="560" height="1155"><img class="phone" id="shotB" src="assets/home.webp" alt="" width="560" height="1157"></div>
         <div>
           <p class="eyebrow" id="tourEyebrow">Log</p>
           <h3 id="tourTitle">Big, small, or somewhere in between</h3>
@@ -352,7 +352,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
       </div>
       <div class="decisions">
         <article class="decision">
-          <img class="phone" src="assets/log.webp" alt="Log a moment sheet with Win, Step and Hard day, and a Just for me toggle" width="560" height="1194" loading="lazy">
+          <img class="phone" src="assets/log.webp" alt="Log a moment sheet with Win, Step and Hard day, and a Just for me toggle" width="560" height="1155" loading="lazy">
           <div>
             <h3>Logging, not announcing</h3>
             <dl>
@@ -363,7 +363,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
           </div>
         </article>
         <article class="decision">
-          <img class="phone" src="assets/note.webp" alt="Send a note sheet with suggested messages" width="560" height="1194" loading="lazy">
+          <img class="phone" src="assets/note.webp" alt="Send a note sheet with suggested messages" width="560" height="1155" loading="lazy">
           <div>
             <h3>Make supporting easy, and pressure-free</h3>
             <dl>
@@ -374,7 +374,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
           </div>
         </article>
         <article class="decision">
-          <img class="phone" src="assets/help.webp" alt="Help with the practical side: free UK services" width="560" height="1194" loading="lazy">
+          <img class="phone" src="assets/help.webp" alt="Support in the UK: NHS 111, Samaritans, Shout and Mind, with an emergency note at the top" width="560" height="1157" loading="lazy">
           <div>
             <h3>Safe by design</h3>
             <dl>
@@ -468,7 +468,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
           <a class="btn" href="https://irinacsapo.co.uk" target="_blank" rel="noopener">See my portfolio</a>
         </div>
       </div>
-      <div class="phones"><img class="phone" src="assets/opencard.webp" alt="A card for you: Well deserved. Keep going, you're nearly there." width="560" height="1194" loading="lazy"><img class="phone" src="assets/letter.webp" alt="Weekly letter recapping the week" width="560" height="1194" loading="lazy"></div>
+      <div class="phones"><img class="phone" src="assets/opencard.webp" alt="A card for you: Well deserved. Keep going, you're nearly there." width="560" height="1155" loading="lazy"><img class="phone" src="assets/letter.webp" alt="Weekly letter recapping the week" width="560" height="1155" loading="lazy"></div>
     </div>
   </section>
 </main>
@@ -492,7 +492,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-bet
     cheer:{e:'Cheer',t:'One tap, or a few kind words',b:'Supporters see the moments you share and respond in seconds, with no reply expected.',l:['One-tap cheer','Notes with suggestions to get started','An AI kindness check before sending'],a:['cheeron','People you cheer on'],c:['note','Send a note sheet']},
     cards:{e:'Cards and gifts',t:'Little cards that open like a gift',b:'Pick a feeling from a cast of fluffy characters and add a message. Cards arrive sealed, so every one is a small surprise.',l:['12 feelings to choose from','Cards are tied to a specific moment','Gifts are simulated, to test real interest'],a:['card','Send a card sheet'],c:['opencard','An opened card']},
     look:{e:'Look back',t:'See how your squad showed up',b:'A weekly look back turns scattered effort into a story, and shows who was there for you.',l:['Days you showed up, small wins, hard days','A weekly letter recapping your week','A story mode to replay your journey'],a:['lookstats','Your week stats'],c:['letter','Weekly letter']},
-    help:{e:'Support',t:'Real help when it\'s heavy',b:'Cheer is for encouragement, not emergencies. Free UK services sit right where you need them.',l:['Mental health support','Fitness groups','Job hunting help'],a:['help','Free UK services'],c:['cheered','A cheered moment']}
+    help:{e:'Support',t:'Real help when it\'s heavy',b:'Cheer is for encouragement, not emergencies. Free UK services sit right where you need them.',l:['Mental health support','Fitness groups','Job hunting help'],a:['help','Free UK mental health services in the UK'],c:['cheered','Your cheers: everything your squad sent you']}
   };
   var tabs=document.querySelectorAll('.tab');
   function show(k){
